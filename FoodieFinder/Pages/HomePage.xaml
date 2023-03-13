@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
+             x:Class="FoodieFinder.Pages.HomePage"
+             Title="HomePage">
+
+    <!--<ContentPage.BindingContext>
+        <vm:HomePageViewModel/>
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+            
+            
+        </Grid>
+        
+    </VerticalStackLayout>-->
+
+    <Grid>
+        <ScrollView>
+            <GraphicsView x:Name="graphicsView" />
+        </ScrollView>
+    </Grid>
+    
+</ContentPage>
