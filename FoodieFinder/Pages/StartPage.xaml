@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodieFinder.Pages.StartPage"
+             Title="StartPage"
+             Background="#FFDEA9">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="FontFamily" Value="Poppins-Medium"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="TextColor" Value="#575757"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="CornerRadius" Value="22"/>
+            <Setter Property="WidthRequest" Value="250"/>
+            <Setter Property="HeightRequest" Value="53"/>
+            <Setter Property="Margin" Value="0,10"/>
+            <Setter Property="FontFamily" Value="Poppins-SemiBold"/>
+        </Style>
+        <Style x:Key="LinkLabel" TargetType="Label">
+            <Setter Property="FontFamily" Value="Poppins-Medium"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="TextDecorations" Value="Underline"/>
+            <Setter Property="Margin" Value="0,3"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout VerticalOptions="Center" Padding="30" Margin="0,80">
+
+        <Image Source="logo.png"/>
+        
+        <Label Text="Virtual cookbook" 
+               Margin="0,60,0,0"/>
+        
+        <Label Text="enter the ingredients and we will"/>
+        
+        <Label Text="give you the recipe!"/>
+        
+        <Button Text="Sign up"
+                Background="#FF9832"/>
+        
+        <Button Text="Login"
+                Background="#FFFFFF"
+                TextColor="#FF9832"/>
+        
+        <Label Text="Forgot password?"
+                Style="{StaticResource LinkLabel}"/>
+        
+        <Label Text="Continue as guest"
+                Style="{StaticResource LinkLabel}"/>
+
+    </VerticalStackLayout>
+</ContentPage>

@@ -22,4 +22,9 @@
         ContentTemplate="{DataTemplate pages:NewPage1}"
         Route="SamplePage" />
 
+    <ShellContent
+        Title="StartPage"
+        ContentTemplate="{DataTemplate pages:StartPage}"
+        Route="StartPage" />
+
 </Shell>
