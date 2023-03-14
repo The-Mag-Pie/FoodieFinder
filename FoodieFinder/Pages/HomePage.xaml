@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
+             x:Class="FoodieFinder.Pages.HomePage"
+             BackgroundColor="#3F4E4F"
+             Title="HomePage">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="White"/>
+        </Style>
+
+        <Style x:Key="CategoriesBorderStyle" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 15,15,15,15" />
+        </Style>
+
+        <Style x:Key="CategoriesLabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="Margin" Value="0, 15" />
+        </Style>
+
+        <Style x:Key="RecipesBorderStyle" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 15,15,15,15" />
+            <Setter Property="StrokeThickness" Value="0" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <vm:HomePageViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="26, 0">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="54" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="54" />
+                </Grid.RowDefinitions>
+
+                <Label Text="{Binding Welcome}"
+                       VerticalOptions="Center"
+                       TextColor="#959595"
+                       FontAttributes="Bold"/>
+
+                <Image Source="{Binding UserImage}"
+                       Grid.Column="1"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+            </Grid>
+
+            <HorizontalStackLayout Spacing="8"
+                                   Margin="0, 30, 0, 0">
+                <Label Text="Categories:"
+                       FontAttributes="Bold" />
+                <!-- TODO: Filter button -->
+                <Label Text="FILTER_BUTTON_HERE" />
+            </HorizontalStackLayout>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Border BackgroundColor="#F7EDE3"
+                        Style="{StaticResource CategoriesBorderStyle}">
+                    <Label Text="Dishes"
+                           Style="{StaticResource CategoriesLabelStyle}" />
+                </Border>
+
+                <Border BackgroundColor="#F2F8EA"
+                        Style="{StaticResource CategoriesBorderStyle}"
+                        Grid.Column="1">
+                    <Label Text="Vege"
+                           Style="{StaticResource CategoriesLabelStyle}" />
+                </Border>
+
+                <Border BackgroundColor="#FFF1F1"
+                        Style="{StaticResource CategoriesBorderStyle}"
+                        Grid.Column="2">
+                    <Label Text="Desserts"
+                           Style="{StaticResource CategoriesLabelStyle}" />
+                </Border>
+            </Grid>
+            
+            <Label Text="Your recipes:"
+                   Margin="0, 40, 0, 15"
+                   FontAttributes="Bold" />
+
+            <CollectionView ItemsSource="{Binding YourRecipes}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal"
+                                       ItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout>
+                            <Border Style="{StaticResource RecipesBorderStyle}">
+                                <Image Source="{Binding Image}"
+                                       WidthRequest="113"
+                                       HeightRequest="80"
+                                       Aspect="AspectFill" />
+                            </Border>
+                            <Label Text="{Binding RecipeName}"
+                                   HorizontalOptions="Center"
+                                   FontAttributes="Bold"
+                                   TextColor="#ABABAB" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="Bucket list:"
+                   Margin="0, 40, 0, 15"
+                   FontAttributes="Bold" />
+
+            <Border StrokeShape="RoundRectangle 15,15,15,15"
+                    StrokeThickness="0"
+                    BackgroundColor="#333333"
+                    HorizontalOptions="Fill"
+                    Padding="20">
+                <CollectionView ItemsSource="{Binding BucketList}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="5"
+                                           Orientation="Vertical"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <HorizontalStackLayout Spacing="5">
+                                <CheckBox IsChecked="{Binding IsTickedOff}"
+                                          Scale="1.35"/>
+                                <Label Text="{Binding ProductName}"
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding IsTickedOff}"
+                                                     Value="True">
+                                            <Setter Property="TextColor" Value="Gray" />
+                                            <Setter Property="TextDecorations" Value="Strikethrough" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding IsTickedOff}"
+                                                     Value="False">
+                                            <Setter Property="TextColor" Value="White" />
+                                            <Setter Property="TextDecorations" Value="None" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

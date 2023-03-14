@@ -13,6 +13,11 @@
         Route="MainPage" />
 
     <ShellContent
+        Title="HomePage"
+        ContentTemplate="{DataTemplate pages:HomePage}"
+        Route="HomePage" />
+
+    <ShellContent
         Title="Sample"
         ContentTemplate="{DataTemplate pages:NewPage1}"
         Route="SamplePage" />

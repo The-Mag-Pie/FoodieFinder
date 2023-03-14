@@ -49,11 +49,26 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\Temporary\guacamole.jpg" />
+	  <None Remove="Resources\Images\Temporary\pesto_pasta.jpg" />
+	  <None Remove="Resources\Images\Temporary\thai_soup.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Images\Temporary\guacamole.jpg" />
+	  <MauiImage Include="Resources\Images\Temporary\pesto_pasta.jpg" />
+	  <MauiImage Include="Resources\Images\Temporary\thai_soup.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Pages\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\NewPage1.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
