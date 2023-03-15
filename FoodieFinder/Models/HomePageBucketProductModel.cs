@@ -8,6 +8,6 @@ namespace FoodieFinder.Models
         private string _productName;
 
         [ObservableProperty]
-        private bool _isTickedOff;
+        private bool _isChecked;
     }
 }

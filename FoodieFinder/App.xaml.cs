@@ -1,4 +1,6 @@
-﻿namespace FoodieFinder;
+﻿using FoodieFinder.Pages;
+
+namespace FoodieFinder;
 
 public partial class App : Application
 {
@@ -6,6 +8,8 @@ public partial class App : Application
 	{
 		InitializeComponent();
 
-		MainPage = new AppShell();
+        Current.UserAppTheme = AppTheme.Light;
+
+        MainPage = new StartPage();
 	}
 }

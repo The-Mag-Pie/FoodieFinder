@@ -5,26 +5,43 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:FoodieFinder"
     xmlns:pages="clr-namespace:FoodieFinder.Pages"
-    Shell.FlyoutBehavior="Flyout">
+    Shell.NavBarIsVisible="False">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <Shell.Resources>
+        <Style TargetType="TabBar">
+            <Setter Property="Shell.TabBarBackgroundColor" Value="#DCD7C9"/>
+        </Style>
+    </Shell.Resources>
 
-    <ShellContent
+    <TabBar>
+        <Tab Title="Home"
+             Icon="home.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:HomePage}"
+                          Route="HomePage"/>
+        </Tab>
+
+        <Tab Title="TODO"
+             Icon="materials.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:HomePage}"
+                          Route="HomePage1"/>
+        </Tab>
+
+        <Tab Title="Search"
+             Icon="search.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:HomePage}"
+                          Route="HomePage2"/>
+        </Tab>
+
+        <Tab Title="TODO2"
+             Icon="bookbookmark.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:HomePage}"
+                          Route="HomePage3"/>
+        </Tab>
+    </TabBar>
+
+    <!--<ShellContent
         Title="HomePage"
         ContentTemplate="{DataTemplate pages:HomePage}"
-        Route="HomePage" />
-
-    <ShellContent
-        Title="Sample"
-        ContentTemplate="{DataTemplate pages:NewPage1}"
-        Route="SamplePage" />
-
-    <ShellContent
-        Title="StartPage"
-        ContentTemplate="{DataTemplate pages:StartPage}"
-        Route="StartPage" />
+        Route="HomePage" />-->
 
 </Shell>

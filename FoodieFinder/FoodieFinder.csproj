@@ -49,15 +49,33 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Images\Temporary\guacamole.jpg" />
-	  <None Remove="Resources\Images\Temporary\pesto_pasta.jpg" />
-	  <None Remove="Resources\Images\Temporary\thai_soup.jpg" />
+	  <None Remove="Resources\Images\HomePage\desserts.svg" />
+	  <None Remove="Resources\Images\HomePage\dishes.svg" />
+	  <None Remove="Resources\Images\HomePage\filters.svg" />
+	  <None Remove="Resources\Images\HomePage\Temporary\guacamole.jpg" />
+	  <None Remove="Resources\Images\HomePage\Temporary\McLovitch.svg" />
+	  <None Remove="Resources\Images\HomePage\Temporary\pesto_pasta.jpg" />
+	  <None Remove="Resources\Images\HomePage\Temporary\thai_soup.jpg" />
+	  <None Remove="Resources\Images\HomePage\vege.svg" />
+	  <None Remove="Resources\Images\TabBar\bookbookmark.svg" />
+	  <None Remove="Resources\Images\TabBar\home.svg" />
+	  <None Remove="Resources\Images\TabBar\materials.svg" />
+	  <None Remove="Resources\Images\TabBar\search.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiImage Include="Resources\Images\Temporary\guacamole.jpg" />
-	  <MauiImage Include="Resources\Images\Temporary\pesto_pasta.jpg" />
-	  <MauiImage Include="Resources\Images\Temporary\thai_soup.jpg" />
+	  <MauiImage Include="Resources\Images\HomePage\desserts.svg" />
+	  <MauiImage Include="Resources\Images\HomePage\dishes.svg" />
+	  <MauiImage Include="Resources\Images\HomePage\filters.svg" />
+	  <MauiImage Include="Resources\Images\HomePage\Temporary\guacamole.jpg" />
+	  <MauiImage Include="Resources\Images\HomePage\Temporary\mclovitch.svg" />
+	  <MauiImage Include="Resources\Images\HomePage\Temporary\pesto_pasta.jpg" />
+	  <MauiImage Include="Resources\Images\HomePage\Temporary\thai_soup.jpg" />
+	  <MauiImage Include="Resources\Images\HomePage\vege.svg" />
+	  <MauiImage Include="Resources\Images\TabBar\bookbookmark.svg" />
+	  <MauiImage Include="Resources\Images\TabBar\home.svg" />
+	  <MauiImage Include="Resources\Images\TabBar\materials.svg" />
+	  <MauiImage Include="Resources\Images\TabBar\search.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -67,9 +85,6 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Pages\HomePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Pages\NewPage1.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\StartPage.xaml">

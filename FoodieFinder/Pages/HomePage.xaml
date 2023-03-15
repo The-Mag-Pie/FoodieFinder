@@ -9,23 +9,33 @@
     <ContentPage.Resources>
         <Style TargetType="Label">
             <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontFamily" Value="Poppins-Medium"/>
         </Style>
 
         <Style x:Key="CategoriesBorderStyle" TargetType="Border">
             <Setter Property="StrokeShape" Value="RoundRectangle 15,15,15,15" />
         </Style>
 
+        <Style x:Key="CategoriesHSLStyle" TargetType="HorizontalStackLayout">
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="Spacing" Value="3"/>
+        </Style>
+
         <Style x:Key="CategoriesLabelStyle" TargetType="Label">
             <Setter Property="TextColor" Value="Black" />
             <Setter Property="FontAttributes" Value="Bold" />
-            <Setter Property="VerticalOptions" Value="Center" />
-            <Setter Property="HorizontalOptions" Value="Center" />
             <Setter Property="Margin" Value="0, 15" />
+            <Setter Property="FontSize" Value="12" />
         </Style>
 
         <Style x:Key="RecipesBorderStyle" TargetType="Border">
             <Setter Property="StrokeShape" Value="RoundRectangle 15,15,15,15" />
             <Setter Property="StrokeThickness" Value="0" />
+        </Style>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="Color" Value="#29ABE2"/>
         </Style>
     </ContentPage.Resources>
 
@@ -36,7 +46,7 @@
     <ScrollView>
         <VerticalStackLayout Padding="26, 0">
 
-            <Grid>
+            <Grid Margin="0, 15, 0, 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition Width="54" />
@@ -57,11 +67,18 @@
             </Grid>
 
             <HorizontalStackLayout Spacing="8"
-                                   Margin="0, 30, 0, 0">
+                                   Margin="0, 30, 0, 15">
                 <Label Text="Categories:"
-                       FontAttributes="Bold" />
-                <!-- TODO: Filter button -->
-                <Label Text="FILTER_BUTTON_HERE" />
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"/>
+                <Border StrokeShape="RoundRectangle 10,10,10,10"
+                        StrokeThickness="0"
+                        BackgroundColor="#FF9832">
+                    <Image Source="filters.png"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Margin="6, 6, 6, 6"/>
+                </Border>
             </HorizontalStackLayout>
 
             <Grid>
@@ -73,22 +90,31 @@
 
                 <Border BackgroundColor="#F7EDE3"
                         Style="{StaticResource CategoriesBorderStyle}">
-                    <Label Text="Dishes"
-                           Style="{StaticResource CategoriesLabelStyle}" />
+                    <HorizontalStackLayout Style="{StaticResource CategoriesHSLStyle}">
+                        <Image Source="dishes.png"/>
+                        <Label Text="Dishes"
+                               Style="{StaticResource CategoriesLabelStyle}" />
+                    </HorizontalStackLayout>
                 </Border>
 
                 <Border BackgroundColor="#F2F8EA"
                         Style="{StaticResource CategoriesBorderStyle}"
                         Grid.Column="1">
-                    <Label Text="Vege"
-                           Style="{StaticResource CategoriesLabelStyle}" />
+                    <HorizontalStackLayout Style="{StaticResource CategoriesHSLStyle}">
+                        <Image Source="vege.png"/>
+                        <Label Text="Vege"
+                               Style="{StaticResource CategoriesLabelStyle}" />
+                    </HorizontalStackLayout>
                 </Border>
 
                 <Border BackgroundColor="#FFF1F1"
                         Style="{StaticResource CategoriesBorderStyle}"
                         Grid.Column="2">
-                    <Label Text="Desserts"
-                           Style="{StaticResource CategoriesLabelStyle}" />
+                    <HorizontalStackLayout Style="{StaticResource CategoriesHSLStyle}">
+                        <Image Source="desserts.png"/>
+                        <Label Text="Desserts"
+                               Style="{StaticResource CategoriesLabelStyle}" />
+                    </HorizontalStackLayout>
                 </Border>
             </Grid>
             
@@ -113,7 +139,8 @@
                             <Label Text="{Binding RecipeName}"
                                    HorizontalOptions="Center"
                                    FontAttributes="Bold"
-                                   TextColor="#ABABAB" />
+                                   TextColor="#ABABAB"
+                                   FontSize="10"/>
                         </VerticalStackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -136,25 +163,30 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <HorizontalStackLayout Spacing="5">
-                                <CheckBox IsChecked="{Binding IsTickedOff}"
+                                <CheckBox IsChecked="{Binding IsChecked}"
                                           Scale="1.35"/>
                                 <Label Text="{Binding ProductName}"
-                                       FontAttributes="Bold"
-                                       VerticalOptions="Center">
+                                       VerticalOptions="Center"
+                                       FontSize="15"
+                                       FontFamily="Poppins-Regular">
                                     <Label.Triggers>
                                         <DataTrigger TargetType="Label"
-                                                     Binding="{Binding IsTickedOff}"
+                                                     Binding="{Binding IsChecked}"
                                                      Value="True">
                                             <Setter Property="TextColor" Value="Gray" />
                                             <Setter Property="TextDecorations" Value="Strikethrough" />
                                         </DataTrigger>
                                         <DataTrigger TargetType="Label"
-                                                     Binding="{Binding IsTickedOff}"
+                                                     Binding="{Binding IsChecked}"
                                                      Value="False">
                                             <Setter Property="TextColor" Value="White" />
                                             <Setter Property="TextDecorations" Value="None" />
                                         </DataTrigger>
                                     </Label.Triggers>
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomePageViewModel}}, Path=BucketProductTappedCommand}" />
+                                    </Label.GestureRecognizers>
                                 </Label>
                             </HorizontalStackLayout>
                         </DataTemplate>

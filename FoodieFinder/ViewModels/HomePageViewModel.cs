@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using FoodieFinder.Models;
 using System.Collections.ObjectModel;
 
@@ -10,10 +11,10 @@ namespace FoodieFinder.ViewModels
         public ObservableCollection<HomePageBucketProductModel> BucketList { get; } = new();
 
         [ObservableProperty]
-        private string _welcome = "Welcome, <USERNAME_HERE>";
+        private string _welcome = "Welcome, user";
 
         [ObservableProperty]
-        private ImageSource _userImage = ImageSource.FromFile("dotnet_bot.png");
+        private ImageSource _userImage = ImageSource.FromFile("mclovitch.png");
 
         public HomePageViewModel()
         {
@@ -38,26 +39,32 @@ namespace FoodieFinder.ViewModels
             BucketList.Add(new HomePageBucketProductModel
             {
                 ProductName = "Milk",
-                IsTickedOff = true
+                IsChecked = true
             });
 
             BucketList.Add(new HomePageBucketProductModel
             {
                 ProductName = "Lemon",
-                IsTickedOff = false
+                IsChecked = false
             });
 
             BucketList.Add(new HomePageBucketProductModel
             {
                 ProductName = "Eggs 4pcs.",
-                IsTickedOff = false
+                IsChecked = false
             });
 
             BucketList.Add(new HomePageBucketProductModel
             {
                 ProductName = "Onion",
-                IsTickedOff = false
+                IsChecked = false
             });
+        }
+
+        [RelayCommand]
+        private void BucketProductTapped(HomePageBucketProductModel model)
+        {
+            model.IsChecked = !model.IsChecked;
         }
     }
 }
