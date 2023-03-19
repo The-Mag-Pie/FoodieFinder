@@ -24,7 +24,8 @@ namespace FoodieFinder.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("MyDatabase"));
+            var connectionString = _configuration.GetConnectionString("MariaDbConnectionString");
+            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
         }
     }
 }
