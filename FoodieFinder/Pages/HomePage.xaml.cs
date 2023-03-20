@@ -13,5 +13,13 @@ public partial class HomePage : ContentPage
 
 		vm = new(appDbContext);
 		BindingContext = vm;
+
+		Disappearing += (s, e) => vm.OnDisappearing();
 	}
+
+    protected override bool OnBackButtonPressed()
+    {
+		vm.OnDisappearing();
+        return base.OnBackButtonPressed();
+    }
 }

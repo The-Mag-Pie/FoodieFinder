@@ -2,7 +2,7 @@
 
 namespace FoodieFinder.Models
 {
-    partial class HomePageBucketProductModel : ObservableObject
+    public partial class BucketListItem : ObservableObject
     {
         [ObservableProperty]
         private string _productName;

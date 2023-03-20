@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FoodieFinder.Database;
+using FoodieFinder.LocalJsonDatabase;
 using FoodieFinder.Models;
 using System.Collections.ObjectModel;
 
@@ -9,7 +10,7 @@ namespace FoodieFinder.ViewModels
     partial class HomePageViewModel : BaseViewModel
     {
         public ObservableCollection<HomePageRecipeModel> YourRecipes { get; } = new();
-        public ObservableCollection<HomePageBucketProductModel> BucketList { get; } = new();
+        public ObservableCollection<BucketListItem> BucketList { get; } = new();
 
         [ObservableProperty]
         private string _welcome = "Welcome, user";
@@ -47,35 +48,49 @@ namespace FoodieFinder.ViewModels
                 });
             }
 
-            BucketList.Add(new HomePageBucketProductModel
+            foreach (var bucketItem in BucketListDb.GetItems())
             {
-                ProductName = "Milk",
-                IsChecked = true
-            });
+                BucketList.Add(bucketItem);
+            }
+        }
 
-            BucketList.Add(new HomePageBucketProductModel
-            {
-                ProductName = "Lemon",
-                IsChecked = false
-            });
-
-            BucketList.Add(new HomePageBucketProductModel
-            {
-                ProductName = "Eggs 4pcs.",
-                IsChecked = false
-            });
-
-            BucketList.Add(new HomePageBucketProductModel
-            {
-                ProductName = "Onion",
-                IsChecked = false
-            });
+        public void OnDisappearing()
+        {
+            Task.Run(() => BucketListDb.SaveItems(BucketList.ToList()));
         }
 
         [RelayCommand]
-        private void BucketProductTapped(HomePageBucketProductModel model)
+        private void BucketProductTapped(BucketListItem model)
         {
             model.IsChecked = !model.IsChecked;
+        }
+
+        [RelayCommand]
+        private void AddBucketListItems()
+        {
+            BucketList.Add(new()
+            {
+                IsChecked = true,
+                ProductName = "Milk"
+            });
+
+            BucketList.Add(new()
+            {
+                IsChecked = false,
+                ProductName = "Lemon"
+            });
+
+            BucketList.Add(new()
+            {
+                IsChecked = false,
+                ProductName = "Eggs 4pcs."
+            });
+
+            BucketList.Add(new()
+            {
+                IsChecked = false,
+                ProductName = "Onion"
+            });
         }
     }
 }

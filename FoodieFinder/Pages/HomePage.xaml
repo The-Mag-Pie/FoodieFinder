@@ -161,7 +161,7 @@
                                            Orientation="Vertical"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="m:HomePageBucketProductModel">
+                        <DataTemplate x:DataType="m:BucketListItem">
                             <HorizontalStackLayout Spacing="5">
                                 <CheckBox IsChecked="{Binding IsChecked}"
                                           Scale="1.35"
@@ -194,6 +194,9 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </Border>
+
+            <Button Text="add bucket list items"
+                    Command="{Binding AddBucketListItemsCommand}" />
 
         </VerticalStackLayout>
     </ScrollView>
