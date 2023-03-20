@@ -1,4 +1,5 @@
 ﻿using FoodieFinder.Database;
+using FoodieFinder.Pages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -36,6 +37,9 @@ public static class MauiProgram
 		// Add DbContext service
 		var connectionString = config.GetConnectionString("MariaDbConnectionString");
 		builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+		// Add pages to services (dependency injection)
+		builder.Services.AddSingleton<HomePage>();
 
 		return builder.Build();
 	}

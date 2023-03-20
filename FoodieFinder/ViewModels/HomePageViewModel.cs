@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using FoodieFinder.Database;
 using FoodieFinder.Models;
 using System.Collections.ObjectModel;
 
@@ -16,25 +17,35 @@ namespace FoodieFinder.ViewModels
         [ObservableProperty]
         private ImageSource _userImage = ImageSource.FromFile("mclovitch.png");
 
-        public HomePageViewModel()
+        private AppDbContext _dbContext;
+
+        public HomePageViewModel(AppDbContext appDbContext)
         {
-            YourRecipes.Add(new HomePageRecipeModel
-            {
-                RecipeName = "Pesto Pasta",
-                Image = ImageSource.FromFile("pesto_pasta.png")
-            });
+            _dbContext = appDbContext;
 
-            YourRecipes.Add(new HomePageRecipeModel
-            {
-                RecipeName = "Thai soup",
-                Image = ImageSource.FromFile("thai_soup.png")
-            });
+            //for (int i = 1; i <= 5; i++)
+            //{
+            //    _dbContext.Recipe.Add(new()
+            //    {
+            //        Name = $"recipe {i}",
+            //        Description = $"recipe {i} description",
+            //        Preparation = $"recipe {i} preparation",
+            //        UserId = 0
+            //    });
+            //}
 
-            YourRecipes.Add(new HomePageRecipeModel
+            //_dbContext.SaveChanges();
+
+            foreach (var recipe in _dbContext.Recipe)
             {
-                RecipeName = "Guacamole",
-                Image = ImageSource.FromFile("guacamole.png")
-            });
+                YourRecipes.Add(new()
+                {
+                    RecipeName = recipe.Name,
+                    //Image = ImageSource.FromFile("pesto_pasta.png")
+                    Image = ImageSource.FromFile("guacamole.png")
+                    //Image = ImageSource.FromFile("thai_soup.png")
+                });
+            }
 
             BucketList.Add(new HomePageBucketProductModel
             {
