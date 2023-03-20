@@ -1,27 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Java.Util;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 
 namespace FoodieFinder.Database
 {
-    public class Ingredient
+    public class User
     {
-        [Column("IngredientId")]
+        [Column("User_UserId")]
         public int Id { get; set; }
-        public string Name { get; set; }
-        public int Quantity { get; set; }
-        public string Unit { get; set; }
-        [Column("Recipe_RecipeId")]
-        public int RecipeId { get; set; }
 
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 
-    public class IngredientContext : DbContext
+    public class UserContext : DbContext
     {
         private readonly IConfiguration _configuration;
-        public DbSet<Ingredient> Ingredient { get; set; }
-        public IngredientContext()
+        public DbSet<User> User { get; set; }
+        public UserContext()
         {
             var a = Assembly.GetExecutingAssembly();
             using var stream = a.GetManifestResourceStream("FoodieFinder.appsettings.json");

@@ -1,8 +1,4 @@
-﻿using FoodieFinder.Database;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using System.Reflection;
+﻿using Microsoft.Extensions.Logging;
 
 namespace FoodieFinder;
 
@@ -18,22 +14,6 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
-
-
-        var a = Assembly.GetExecutingAssembly();
-        using var stream = a.GetManifestResourceStream("FoodieFinder.appsettings.json");
-
-        IConfigurationRoot configuration = new ConfigurationBuilder()
-            .AddJsonStream(stream)
-            .Build();
-
-
-        builder.Configuration.AddConfiguration(configuration);
-
-        using (var context = new IngredientContext(configuration))
-        {
-            context.Database.Migrate();
-        }
 
 #if DEBUG
         builder.Logging.AddDebug();

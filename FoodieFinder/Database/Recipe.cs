@@ -5,23 +5,28 @@ using System.Reflection;
 
 namespace FoodieFinder.Database
 {
-    public class Ingredient
+    public class Recipe
     {
-        [Column("IngredientId")]
+        [Column("RecipeId")]
         public int Id { get; set; }
+
+        [Column("RecipeName")]
         public string Name { get; set; }
-        public int Quantity { get; set; }
-        public string Unit { get; set; }
-        [Column("Recipe_RecipeId")]
-        public int RecipeId { get; set; }
+
+        [Column("RecipeDescription")]
+        public string Description { get; set; }
+        public string Preparation { get; set; }
+
+        [Column("User_UserId")]
+        public int UserId { get; set; }
 
     }
 
-    public class IngredientContext : DbContext
+    public class RecipeContext : DbContext
     {
         private readonly IConfiguration _configuration;
-        public DbSet<Ingredient> Ingredient { get; set; }
-        public IngredientContext()
+        public DbSet<Recipe> Recipe { get; set; }
+        public RecipeContext()
         {
             var a = Assembly.GetExecutingAssembly();
             using var stream = a.GetManifestResourceStream("FoodieFinder.appsettings.json");
