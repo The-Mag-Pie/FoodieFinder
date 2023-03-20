@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using FoodieFinder.Database;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using System.Reflection;
 
 namespace FoodieFinder;
 
@@ -18,6 +22,20 @@ public static class MauiProgram
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
+
+		// Add appsettings.json configuration
+		var a = Assembly.GetExecutingAssembly();
+		using var stream = a.GetManifestResourceStream("FoodieFinder.appsettings.json");
+
+		var config = new ConfigurationBuilder()
+			.AddJsonStream(stream)
+			.Build();
+
+		builder.Configuration.AddConfiguration(config);
+
+		// Add DbContext service
+		var connectionString = config.GetConnectionString("MariaDbConnectionString");
+		builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 		return builder.Build();
 	}

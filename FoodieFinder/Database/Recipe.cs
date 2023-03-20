@@ -22,25 +22,25 @@ namespace FoodieFinder.Database
 
     }
 
-    public class RecipeContext : DbContext
-    {
-        private readonly IConfiguration _configuration;
-        public DbSet<Recipe> Recipe { get; set; }
-        public RecipeContext()
-        {
-            var a = Assembly.GetExecutingAssembly();
-            using var stream = a.GetManifestResourceStream("FoodieFinder.appsettings.json");
+    //public class RecipeContext : DbContext
+    //{
+    //    private readonly IConfiguration _configuration;
+    //    public DbSet<Recipe> Recipe { get; set; }
+    //    public RecipeContext()
+    //    {
+    //        var a = Assembly.GetExecutingAssembly();
+    //        using var stream = a.GetManifestResourceStream("FoodieFinder.appsettings.json");
 
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                .AddJsonStream(stream)
-                .Build();
-            _configuration = configuration;
-        }
+    //        IConfigurationRoot configuration = new ConfigurationBuilder()
+    //            .AddJsonStream(stream)
+    //            .Build();
+    //        _configuration = configuration;
+    //    }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var connectionString = _configuration.GetConnectionString("MariaDbConnectionString");
-            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
-        }
-    }
+    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //    {
+    //        var connectionString = _configuration.GetConnectionString("MariaDbConnectionString");
+    //        optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+    //    }
+    //}
 }
