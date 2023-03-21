@@ -13,7 +13,7 @@ namespace FoodieFinder.UserAccount
     class Register
     {
         //public List <User> users = new List<User> ();
-        private User user { get; set; }
+        private User user { get; set; } = new User();
 
         private AppDbContext _dbContext;
 
