@@ -40,7 +40,8 @@
         <Label Text="give you the recipe!"/>
         
         <Button Text="Sign up"
-                Background="#FF9832"/>
+                Background="#FF9832"
+                Clicked="Button_Clicked_1"/>
         
         <Button Text="Login"
                 Background="#FFFFFF"

@@ -40,7 +40,8 @@ public static class MauiProgram
 
 		// Add pages to services (dependency injection)
 		builder.Services.AddSingleton<HomePage>();
+        builder.Services.AddSingleton<StartPage>();
 
-		return builder.Build();
+        return builder.Build();
 	}
 }
