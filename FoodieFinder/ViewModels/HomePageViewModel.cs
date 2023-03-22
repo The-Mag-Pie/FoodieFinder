@@ -19,8 +19,8 @@ namespace FoodieFinder.ViewModels
 
         public string UserFirstLetter => WelcomeUser.First().ToString();
 
-        [ObservableProperty]
-        private ImageSource _userImage = ImageSource.FromFile("mclovitch.png");
+        //[ObservableProperty]
+        //private ImageSource _userImage = ImageSource.FromFile("mclovitch.png");
 
         private readonly AppDbContext _dbContext;
         private readonly UserData _userData;
@@ -31,7 +31,15 @@ namespace FoodieFinder.ViewModels
             _userData = userData;
 
             var username = _userData.UserName;
-            WelcomeUser = username[..username.LastIndexOf('@')];
+            var atIdx = username.LastIndexOf('@');
+            if (atIdx > -1)
+            {
+                WelcomeUser = username[..atIdx];
+            }
+            else
+            {
+                WelcomeUser = username;
+            }
 
             //for (int i = 1; i <= 5; i++)
             //{

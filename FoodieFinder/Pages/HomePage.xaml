@@ -16,6 +16,7 @@
 
         <Style x:Key="UserPhotoBorderStyle" TargetType="Border">
             <Setter Property="StrokeShape" Value="RoundRectangle 30,30,30,30" />
+            <Setter Property="StrokeThickness" Value="0" />
             <Setter Property="Padding" Value="7, 7, 7, 7" />
             <Setter Property="BackgroundColor" Value="#FF9832" />
             <Setter Property="VerticalOptions" Value="Center" />

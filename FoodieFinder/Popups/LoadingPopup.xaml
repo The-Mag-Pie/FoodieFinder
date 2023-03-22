@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="FoodieFinder.Popups.LoadingPopup"
+               CanBeDismissedByTappingOutsideOfPopup="False"
+               Size="150, 150"
+               Color="Transparent">
+
+    <Border StrokeThickness="0"
+            StrokeShape="RoundRectangle 15,15,15,15">
+        <VerticalStackLayout Spacing="10"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center">
+            <ActivityIndicator Scale="1.5"
+                               IsRunning="True"
+                               Margin="10"/>
+            <Label Text="Loading..." />
+        </VerticalStackLayout>
+    </Border>
+
+</toolkit:Popup>
