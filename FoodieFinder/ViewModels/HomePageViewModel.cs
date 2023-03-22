@@ -14,7 +14,10 @@ namespace FoodieFinder.ViewModels
         public ObservableCollection<BucketListItem> BucketList { get; } = new();
 
         [ObservableProperty]
-        private string _welcome = "Welcome, ";
+        [NotifyPropertyChangedFor(nameof(UserFirstLetter))]
+        private string _welcomeUser;
+
+        public string UserFirstLetter => WelcomeUser.First().ToString();
 
         [ObservableProperty]
         private ImageSource _userImage = ImageSource.FromFile("mclovitch.png");
@@ -27,7 +30,8 @@ namespace FoodieFinder.ViewModels
             _dbContext = appDbContext;
             _userData = userData;
 
-            Welcome += _userData.UserName;
+            var username = _userData.UserName;
+            WelcomeUser = username[..username.LastIndexOf('@')];
 
             //for (int i = 1; i <= 5; i++)
             //{
