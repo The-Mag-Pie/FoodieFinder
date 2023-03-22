@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using FoodieFinder.Database;
 using FoodieFinder.LocalJsonDatabase;
 using FoodieFinder.Models;
+using FoodieFinder.UserAccount;
 using System.Collections.ObjectModel;
 
 namespace FoodieFinder.ViewModels
@@ -13,16 +14,20 @@ namespace FoodieFinder.ViewModels
         public ObservableCollection<BucketListItem> BucketList { get; } = new();
 
         [ObservableProperty]
-        private string _welcome = "Welcome, user";
+        private string _welcome = "Welcome, ";
 
         [ObservableProperty]
         private ImageSource _userImage = ImageSource.FromFile("mclovitch.png");
 
-        private AppDbContext _dbContext;
+        private readonly AppDbContext _dbContext;
+        private readonly UserData _userData;
 
-        public HomePageViewModel(AppDbContext appDbContext)
+        public HomePageViewModel(AppDbContext appDbContext, UserData userData)
         {
             _dbContext = appDbContext;
+            _userData = userData;
+
+            Welcome += _userData.UserName;
 
             //for (int i = 1; i <= 5; i++)
             //{

@@ -10,14 +10,14 @@ using System.Security.Cryptography;
 
 namespace FoodieFinder.UserAccount
 {
-    class login
+    class Login
     {
         private User user { get; set; } = new User();
         private List<User> userlist {get; set;} = new List<User>();
 
         private AppDbContext _dbContext;
 
-        public login(AppDbContext dbContext)
+        public Login(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -30,7 +30,7 @@ namespace FoodieFinder.UserAccount
                 user.Password = password;
                 userlist = _dbContext.User.ToList();
                 int i = 0;
-                while (userlist[i].Email == email)
+                while (userlist[i].Email != email)
                 {
                     i++;
                 }

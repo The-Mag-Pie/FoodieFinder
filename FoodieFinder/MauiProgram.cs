@@ -1,5 +1,6 @@
 ﻿using FoodieFinder.Database;
 using FoodieFinder.Pages;
+using FoodieFinder.UserAccount;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -41,6 +42,9 @@ public static class MauiProgram
 		// Add pages to services (dependency injection)
 		builder.Services.AddSingleton<HomePage>();
         builder.Services.AddSingleton<StartPage>();
+
+		// Add other services
+		builder.Services.AddSingleton<UserData>();
 
         return builder.Build();
 	}
