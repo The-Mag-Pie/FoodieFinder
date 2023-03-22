@@ -54,7 +54,7 @@ namespace FoodieFinder.ViewModels
 
             //_dbContext.SaveChanges();
 
-            foreach (var recipe in _dbContext.Recipe)
+            foreach (var recipe in _dbContext.Recipe.Where((r) => r.UserId == _userData.UserId))
             {
                 YourRecipes.Add(new()
                 {
