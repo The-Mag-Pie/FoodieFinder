@@ -19,6 +19,9 @@ namespace FoodieFinder.ViewModels
 
         public string UserFirstLetter => WelcomeUser.First().ToString();
 
+        [ObservableProperty]
+        private bool _isYourRecipesVisible = false;
+
         //[ObservableProperty]
         //private ImageSource _userImage = ImageSource.FromFile("mclovitch.png");
 
@@ -40,6 +43,8 @@ namespace FoodieFinder.ViewModels
             {
                 WelcomeUser = username;
             }
+
+            IsYourRecipesVisible = !_userData.IsGuest;
 
             //for (int i = 1; i <= 5; i++)
             //{

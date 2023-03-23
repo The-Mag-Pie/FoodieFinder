@@ -84,7 +84,7 @@
                        HorizontalOptions="Center" />-->
             </Grid>
 
-            <HorizontalStackLayout Spacing="8"
+            <!--<HorizontalStackLayout Spacing="8"
                                    Margin="0, 30, 0, 15">
                 <Label Text="Categories:"
                        FontAttributes="Bold"
@@ -134,24 +134,43 @@
                                Style="{StaticResource CategoriesLabelStyle}" />
                     </HorizontalStackLayout>
                 </Border>
-            </Grid>
+            </Grid>-->
             
             <Label Text="Your recipes:"
                    Margin="0, 40, 0, 15"
-                   FontAttributes="Bold" />
+                   FontAttributes="Bold"
+                   IsVisible="{Binding IsYourRecipesVisible}"/>
 
+            <!--<ScrollView MaximumHeightRequest="250">
+                
+            </ScrollView>-->
             <CollectionView ItemsSource="{Binding YourRecipes}"
-                            EmptyView="You have no recipes yet.">
-                <CollectionView.ItemsLayout>
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            EmptyView="You have no recipes yet."
+                            IsVisible="{Binding IsYourRecipesVisible}">
+                <!--<CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Horizontal"
                                        ItemSpacing="10" />
+                </CollectionView.ItemsLayout>-->
+                <!--<CollectionView.EmptyView>
+                    <ContentView>
+                        <Label Text="You have no recipes yet."
+                               HorizontalOptions="Center"
+                               HeightRequest="100"/>
+                    </ContentView>
+                </CollectionView.EmptyView>-->
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                                     Span="3"
+                                     HorizontalItemSpacing="10"
+                                     VerticalItemSpacing="10"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:HomePageRecipeModel">
                         <VerticalStackLayout>
                             <Border Style="{StaticResource RecipesBorderStyle}">
                                 <Image Source="{Binding Image}"
-                                       WidthRequest="113"
                                        HeightRequest="80"
                                        Aspect="AspectFill" />
                             </Border>
