@@ -26,8 +26,8 @@ namespace FoodieFinder.ViewModels
         [RelayCommand]
         private void ToggleConfirmedPasswordVisibility()
         {
-            IsConfirmedPassword = !IsConfirmedPassword;
-            ConfirmedEyeIcon = IsConfirmedPassword ? "eye_on_icon.svg" : "eye_off_icon.svg";
+            isConfirmedPassword = !isConfirmedPassword;
+            confirmedEyeIcon = isConfirmedPassword ? "eye_on_icon.svg" : "eye_off_icon.svg";
 
         }
 
@@ -36,7 +36,28 @@ namespace FoodieFinder.ViewModels
         {
             //TODO Rejestracja
             var reg = new Register(_dbContext);
-            reg.AddToDatabase(Email, Password);
+            if(confirmedPassword != null && Email != null && Password != null) {
+                if (reg.CheckIfInDatabase(Email)) {
+                    //email istnieje już w bazie
+                    Application.Current.MainPage.DisplayAlert("Error", "Email already in use", "Ok");
+                }
+                else
+                {
+                    if(confirmedPassword == Password)
+                    {
+                        reg.AddToDatabase(Email, Password);
+                        // TU PRZEJŚCIE DO LOGIN OK OK?
+                    }
+                    else
+                    {
+                        Application.Current.MainPage.DisplayAlert("Error", "Passwords must match", "Ok");
+                    } 
+                }
+            }
+            else
+            {
+                Application.Current.MainPage.DisplayAlert("Error", "All boxes must be filled", "Ok");
+            }
     }
 
     }

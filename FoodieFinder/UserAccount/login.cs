@@ -29,11 +29,11 @@ namespace FoodieFinder.UserAccount
         {
             if (IsEmail(email) && IsPasswordProvided(password))
             {
-                user.Email = email;
+                user.Email = email.ToLower();
                 user.Password = password;
                 userlist = _dbContext.User.ToList();
                 int i = 0;
-                while (userlist[i].Email != email)
+                while (userlist[i].Email != email.ToLower())
                 {
                     i++;
                 }
@@ -84,7 +84,7 @@ namespace FoodieFinder.UserAccount
             string FileContent = File.ReadAllText(FullPath);
             if (string.IsNullOrWhiteSpace(FileContent))
             {
-                FileContent = username;
+                FileContent = username.ToLower();
                 File.WriteAllText(FullPath, FileContent);
                 return true;
             }

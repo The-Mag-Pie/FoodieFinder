@@ -26,7 +26,8 @@ namespace FoodieFinder.UserAccount
         {
             if (IsEmail(email) && IsPasswordProvided(password))
             {
-                user.Email = email;
+
+                user.Email = email.ToLower();
                 user.Password = EncryptPassword(password);
                 _dbContext.User.Add(user);
                 _dbContext.SaveChanges();
@@ -38,12 +39,12 @@ namespace FoodieFinder.UserAccount
         {
             if (IsEmail(email))
             {
-                user.Email = email;
+                user.Email = email.ToLower();
                 userlist = _dbContext.User.ToList();
                 int i = 0;
-                while (userlist[i].Email != email)
+                while (userlist[i].Email != email.ToLower())
                 {
-                    if(i == userlist.Count)
+                    if(i == userlist.Count-1)
                     {
                         return false;
                     }

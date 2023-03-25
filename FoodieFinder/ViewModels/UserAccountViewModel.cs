@@ -9,10 +9,10 @@ namespace FoodieFinder.ViewModels
     partial class UserAccountViewModel : BaseViewModel
     {
         [ObservableProperty]
-        private string email;
+        protected string email;
 
         [ObservableProperty]
-        private string password;
+        protected string password;
 
         [ObservableProperty]
         private bool isPassword = true;
@@ -33,7 +33,7 @@ namespace FoodieFinder.ViewModels
         private void TogglePasswordVisibility()
         {
             IsPassword = !IsPassword; 
-            EyeIcon = IsPassword ? "eye_on_icon.svg" : "eye_off_icon.svg";
+            eyeIcon = IsPassword ? "eye_on_icon.svg" : "eye_off_icon.svg";
         }
 
         [RelayCommand]
