@@ -75,13 +75,11 @@ namespace FoodieFinder.UserAccount
                 // Szyfrujemy podane hasło do postaci SHA-256
                 var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
                 var hashedInputPassword = BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
-
-                // Porównujemy z zaszyfrowanym hasłem
                 return hashedInputPassword == hashedPassword;
             }
         }
         private static readonly string FullPath = Path.Combine(FileSystem.Current.AppDataDirectory, "UserData.json");
-        public bool CreateSession(string username)
+        public static bool CreateSession(string username)
         {
             string FileContent = File.ReadAllText(FullPath);
             if (string.IsNullOrWhiteSpace(FileContent))
@@ -92,7 +90,7 @@ namespace FoodieFinder.UserAccount
             }
             return false;
         }
-        public bool CheckIfSession()
+        public static bool CheckIfSession()
         {
             string FileContent = File.ReadAllText(FullPath);
             if (string.IsNullOrWhiteSpace(FileContent))
@@ -101,11 +99,11 @@ namespace FoodieFinder.UserAccount
             }
             return false;
         }
-        public string GetUserNameSession() 
+        public static string GetUserNameSession() 
         { 
             return File.ReadAllText(FullPath);
         }
-        public bool DestroySession()
+        public static bool DestroySession()
         {
             string FileContent = File.ReadAllText(FullPath);
             if (string.IsNullOrWhiteSpace(FileContent))
