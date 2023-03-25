@@ -12,6 +12,17 @@ public partial class App : Application
 
         Current.UserAppTheme = AppTheme.Light;
 
-        MainPage = new StartNavigationPage(dbContext, userData);
+        var log = new Login(dbContext);
+		if (log.CheckIfSession())
+		{
+			userData.IsGuest = false;
+			userData.UserId = log.GetUserIdSession();
+			userData.UserName = log.GetUserNameSession();
+            MainPage = new AppShell();
+        }
+		else
+		{
+			MainPage = new StartNavigationPage(dbContext, userData);
+		}
 	}
 }

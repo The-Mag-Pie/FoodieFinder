@@ -35,7 +35,7 @@ namespace FoodieFinder.UserAccount
                 user.Password = password;
                 userlist = _dbContext.User.ToList();
                 int i = 0;
-                while (userlist[i].Email != email.ToLower())
+                while (userlist[i].Email != email.ToLower() || i >=userlist.Count())
                 {
                     i++;
                 }
@@ -92,6 +92,8 @@ namespace FoodieFinder.UserAccount
             if (UserName == "none")
             {
                 obj.Name = username.ToLower();
+                obj.Id = GetIdFromEmail(obj.Name);
+                
                 FileContent = JsonSerializer.Serialize(obj);
                 File.WriteAllText(FullPath, FileContent);
                 return true;
@@ -116,6 +118,13 @@ namespace FoodieFinder.UserAccount
             string UserName = obj.Name;
             return UserName;
         }
+        public int GetUserIdSession()
+        {
+            string FileContent = File.ReadAllText(FullPath);
+            var obj = JsonSerializer.Deserialize<SessionUser>(FileContent);
+            int userid = obj.Id;
+            return userid;
+        }
         public bool DestroySession()
         {
             string FileContent = File.ReadAllText(FullPath);
@@ -124,6 +133,7 @@ namespace FoodieFinder.UserAccount
             if (UserName != "none")
             {
                 obj.Name = "none";
+                obj.Id = -1;
                 FileContent = JsonSerializer.Serialize(obj);
                 File.WriteAllText(FullPath, FileContent);
                 return true;
@@ -134,10 +144,27 @@ namespace FoodieFinder.UserAccount
         {
             var obj = new SessionUser
             {
+                Id = -1,
                 Name = "none"
             };
             string jsonString = JsonSerializer.Serialize(obj);
             File.WriteAllText(path, jsonString);
+        }
+        private int GetIdFromEmail(string email)
+        {
+            int userid = -1;
+            userlist = _dbContext.User.ToList();
+            int i = 0;
+            while (userlist[i].Email != email.ToLower() || i >= userlist.Count())
+            {
+                if (userlist[i].Email == email)
+                {
+                    userid = userlist[i].Id;
+                    break;
+                }
+                i++;
+            }
+            return userid;
         }
     }
 }

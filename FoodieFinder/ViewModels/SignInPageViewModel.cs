@@ -31,7 +31,7 @@ namespace FoodieFinder.ViewModels
 
                         Application.Current.MainPage = new AppShell();
 
-                        Application.Current.MainPage.DisplayAlert("Error", log.GetUserNameSession(), "Ok");
+                        //Application.Current.MainPage.DisplayAlert("Error", log.GetUserNameSession(), "Ok");
                     }
                     else
                     {
