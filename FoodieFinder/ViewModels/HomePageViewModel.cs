@@ -95,7 +95,7 @@ namespace FoodieFinder.ViewModels
                 case "logout":
                     var log = new Login(_dbContext);
                     log.DestroySession();
-                    Application.Current.MainPage = new StartPage(_dbContext, _userData);
+                    Application.Current.MainPage = new StartNavigationPage(_dbContext, _userData);
                     break;
 
                 default: break;

@@ -152,10 +152,10 @@
                             VerticalOptions="Center"
                             EmptyView="You have no recipes yet."
                             IsVisible="{Binding IsYourRecipesVisible}">
-                <!--<CollectionView.ItemsLayout>
+                <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Horizontal"
                                        ItemSpacing="10" />
-                </CollectionView.ItemsLayout>-->
+                </CollectionView.ItemsLayout>
                 <!--<CollectionView.EmptyView>
                     <ContentView>
                         <Label Text="You have no recipes yet."
@@ -163,12 +163,12 @@
                                HeightRequest="100"/>
                     </ContentView>
                 </CollectionView.EmptyView>-->
-                <CollectionView.ItemsLayout>
+                <!--<CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical"
                                      Span="3"
                                      HorizontalItemSpacing="5"
                                      VerticalItemSpacing="10"/>
-                </CollectionView.ItemsLayout>
+                </CollectionView.ItemsLayout>-->
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:HomePageRecipeModel">
                         <VerticalStackLayout Padding="5">
