@@ -1,3 +1,5 @@
+using FoodieFinder.Database;
+using FoodieFinder.UserAccount;
 using FoodieFinder.ViewModels;
 
 namespace FoodieFinder.Pages;
@@ -5,10 +7,10 @@ namespace FoodieFinder.Pages;
 public partial class ForgotPasswordPage : ContentPage
 {
     private readonly ForgotPasswordPageViewModel vm;
-    public ForgotPasswordPage()
+    public ForgotPasswordPage(AppDbContext appDbContext, UserData userData)
     {
         InitializeComponent();
-        vm = new();
+        vm = new(appDbContext, userData);
         BindingContext = vm;
     }
 }

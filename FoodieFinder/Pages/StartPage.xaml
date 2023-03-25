@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FoodieFinder.Pages.StartPage"
              Title="StartPage"
+             xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
+             x:DataType="vm:UserAccountViewModel"
              Background="#FFDEA9"
              NavigationPage.HasNavigationBar="False">
 
@@ -48,9 +50,14 @@
                 Background="#FFFFFF"
                 TextColor="#FF9832"
                 Clicked="GoToSignInPage"/>
-        
+
         <Label Text="Forgot password?"
-                Style="{StaticResource LinkLabel}"/>
+               Style="{StaticResource LinkLabel}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="GoToForgotPasswordPage"/>
+            </Label.GestureRecognizers>
+
+        </Label>
 
         <Label Text="Continue as guest"
                 Style="{StaticResource LinkLabel}">

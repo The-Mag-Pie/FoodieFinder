@@ -43,5 +43,11 @@ namespace FoodieFinder.ViewModels
             Application.Current.MainPage.Navigation.PopAsync();
         }
 
+        [RelayCommand]
+        private void GoToForgotPasswordPage()
+        {
+            Application.Current.MainPage.Navigation.PushAsync(new ForgotPasswordPage(_dbContext, _userData));
+        }
+
     }
 }
