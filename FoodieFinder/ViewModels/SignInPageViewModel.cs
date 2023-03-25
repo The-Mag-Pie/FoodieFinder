@@ -24,7 +24,13 @@ namespace FoodieFinder.ViewModels
 
                     if (log.CreateSession(Email))
                     {
-                        // SORKU TU PRZEJŚCIE DO GŁÓWNEJ STRONY TAK ZWANY HOME PAGE ok?
+                        var userData = _dbContext.User.Where(u => u.Email == Email).First();
+                        _userData.IsGuest = false;
+                        _userData.UserId = userData.Id;
+                        _userData.UserName = Email;
+
+                        Application.Current.MainPage = new AppShell();
+
                         Application.Current.MainPage.DisplayAlert("Error", log.GetUserNameSession(), "Ok");
                     }
                     else

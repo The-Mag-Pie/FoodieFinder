@@ -20,7 +20,7 @@ namespace FoodieFinder.ViewModels
         [NotifyPropertyChangedFor(nameof(UserFirstLetter))]
         private string _welcomeUser;
 
-        public string UserFirstLetter => WelcomeUser.First().ToString();
+        public string UserFirstLetter => WelcomeUser.First().ToString().ToUpper();
 
         [ObservableProperty]
         private bool _isYourRecipesVisible = false;
