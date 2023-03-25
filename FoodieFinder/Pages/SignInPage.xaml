@@ -44,8 +44,8 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="5*"/>
                     </Grid.ColumnDefinitions>
-                    <Image Source="test_user.svg" Grid.Column="0" HorizontalOptions="Start"/>
-                    <Entry Placeholder="Username or Email" Text="{Binding Username}" Grid.Column="1" HorizontalOptions="FillAndExpand"></Entry>
+                    <Image Source="user_icon.svg" Grid.Column="0" HorizontalOptions="Start"/>
+                    <Entry Placeholder="Email" Text="{Binding Email}" Grid.Column="1" HorizontalOptions="FillAndExpand"></Entry>
                 </Grid>
             </Frame>
             <Frame>
@@ -69,7 +69,7 @@
             </Label>
 
             <Label Text="Sign in"/>
-            <ImageButton Source="arrow_icon.svg" CornerRadius="30" BackgroundColor="#FCB664" WidthRequest="60" HeightRequest="60" Command="{Binding SignInCommand}"/>
+            <ImageButton Source="arrow_icon.svg" CornerRadius="35" BackgroundColor="#FCB664" WidthRequest="100" HeightRequest="100" Padding="15" Command="{Binding SignInCommand}"/>
         </VerticalStackLayout>
         <Label Text="Back"
                Style="{StaticResource LinkLabel}"

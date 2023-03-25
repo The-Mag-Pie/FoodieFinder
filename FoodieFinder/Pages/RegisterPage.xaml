@@ -31,19 +31,9 @@
 
 
     <Grid>
-        <VerticalStackLayout  Padding="30" Margin="0,5">
+        <VerticalStackLayout  Padding="30">
             <Label Text="Create an" HorizontalOptions="Start"/>
             <Label Text="account" HorizontalOptions="Start"/>
-            <Frame>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="5*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Source="test_user.svg" Grid.Column="0" HorizontalOptions="Start"/>
-                    <Entry Placeholder="Username" Text="{Binding Username}" Grid.Column="1" HorizontalOptions="FillAndExpand"></Entry>
-                </Grid>
-            </Frame>
             <Frame>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -62,7 +52,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Image Source="password_icon.svg" Grid.Column="0" HorizontalOptions="Start"/>
-                    <Entry Placeholder="Username or Email" Text="{Binding Password}" Grid.Column="1" HorizontalOptions="FillAndExpand" IsPassword="{Binding IsPassword}"></Entry>
+                    <Entry Placeholder="Password" Text="{Binding Password}" Grid.Column="1" HorizontalOptions="FillAndExpand" IsPassword="{Binding IsPassword}"></Entry>
                     <ImageButton Source="{Binding EyeIcon}" Grid.Column="2" HorizontalOptions="End" Command="{Binding TogglePasswordVisibilityCommand}"/>
                 </Grid>
             </Frame>
@@ -74,12 +64,12 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Image Source="password_icon.svg" Grid.Column="0" HorizontalOptions="Start"/>
-                    <Entry Placeholder="Username or Email" Text="{Binding ConfirmedPassword}" Grid.Column="1" HorizontalOptions="FillAndExpand" IsPassword="{Binding IsConfirmedPassword}"></Entry>
+                    <Entry Placeholder="Confirm password" Text="{Binding ConfirmedPassword}" Grid.Column="1" HorizontalOptions="FillAndExpand" IsPassword="{Binding IsConfirmedPassword}"></Entry>
                     <ImageButton Source="{Binding ConfirmedEyeIcon}" Grid.Column="2" HorizontalOptions="End" Command="{Binding ToggleConfirmedPasswordVisibilityCommand}"/>
                 </Grid>
             </Frame>
             <Label Text="Register"/>
-            <ImageButton Source="arrow_icon.svg" CornerRadius="30" BackgroundColor="#FCB664" WidthRequest="60" HeightRequest="60" Command="{Binding RegisterCommand}"/>
+            <ImageButton Source="arrow_icon.svg" CornerRadius="35" BackgroundColor="#FCB664" WidthRequest="100" HeightRequest="100" Padding="15" Command="{Binding RegisterCommand}"/>
         </VerticalStackLayout>
         <Label Text="Back"
                FontSize="12"
