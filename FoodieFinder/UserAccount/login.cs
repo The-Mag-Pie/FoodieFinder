@@ -20,6 +20,8 @@ namespace FoodieFinder.UserAccount
 
         private AppDbContext _dbContext;
 
+        private static readonly string FullPath = Path.Combine(FileSystem.Current.AppDataDirectory, "UserData.json");
+
         public Login(AppDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -78,41 +80,64 @@ namespace FoodieFinder.UserAccount
                 return hashedInputPassword == hashedPassword;
             }
         }
-        private static readonly string FullPath = Path.Combine(FileSystem.Current.AppDataDirectory, "UserData.json");
-        public static bool CreateSession(string username)
+        public bool CreateSession(string username)
         {
-            string FileContent = File.ReadAllText(FullPath);
-            if (string.IsNullOrWhiteSpace(FileContent))
+            if (!File.Exists(FullPath))
             {
-                FileContent = username.ToLower();
+                CreateFileSession(FullPath);
+            }
+            string FileContent = File.ReadAllText(FullPath);
+            var obj = JsonSerializer.Deserialize<SessionUser>(FileContent);
+            string UserName = obj.Name;
+            if (UserName == "none")
+            {
+                obj.Name = username.ToLower();
+                FileContent = JsonSerializer.Serialize(obj);
                 File.WriteAllText(FullPath, FileContent);
                 return true;
             }
             return false;
         }
-        public static bool CheckIfSession()
+        public bool CheckIfSession()
         {
             string FileContent = File.ReadAllText(FullPath);
-            if (string.IsNullOrWhiteSpace(FileContent))
+            var obj = JsonSerializer.Deserialize<SessionUser>(FileContent);
+            string UserName = obj.Name;
+            if (UserName != "none")
             {
                 return true;
             }
             return false;
         }
-        public static string GetUserNameSession() 
-        { 
-            return File.ReadAllText(FullPath);
-        }
-        public static bool DestroySession()
+        public string GetUserNameSession() 
         {
             string FileContent = File.ReadAllText(FullPath);
-            if (string.IsNullOrWhiteSpace(FileContent))
+            var obj = JsonSerializer.Deserialize<SessionUser>(FileContent);
+            string UserName = obj.Name;
+            return UserName;
+        }
+        public bool DestroySession()
+        {
+            string FileContent = File.ReadAllText(FullPath);
+            var obj = JsonSerializer.Deserialize<SessionUser>(FileContent);
+            string UserName = obj.Name;
+            if (UserName != "none")
             {
-                FileContent = "";
+                obj.Name = "none";
+                FileContent = JsonSerializer.Serialize(obj);
                 File.WriteAllText(FullPath, FileContent);
                 return true;
             }
             return false;
+        }
+        private void CreateFileSession(string path)
+        {
+            var obj = new SessionUser
+            {
+                Name = "none"
+            };
+            string jsonString = JsonSerializer.Serialize(obj);
+            File.WriteAllText(path, jsonString);
         }
     }
 }
