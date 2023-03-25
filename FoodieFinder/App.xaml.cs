@@ -12,6 +12,6 @@ public partial class App : Application
 
         Current.UserAppTheme = AppTheme.Light;
 
-        MainPage = new StartPage(dbContext, userData);
+        MainPage = new StartNavigationPage(dbContext, userData);
 	}
 }

@@ -64,12 +64,12 @@ public partial class StartPage : ContentPage
     // Register
     private void GoToRegisterPage(object sender, EventArgs e)
     {
-        Application.Current.MainPage = new RegisterPage(_dbContext, _userData);
+        Navigation.PushAsync(new RegisterPage(_dbContext, _userData));
     }
 
     private void GoToSignInPage(object sender, EventArgs e)
     {
-        Application.Current.MainPage = new SignInPage(_dbContext, _userData);
+        Navigation.PushAsync(new SignInPage(_dbContext, _userData));
     }
 
     private void ShowLoadingPopup() => this.ShowPopup(_loadingPopup);
