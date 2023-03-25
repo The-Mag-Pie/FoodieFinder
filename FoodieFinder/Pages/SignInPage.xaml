@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodieFinder.Pages.SignInPage"
+             xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
+             x:DataType="vm:SignInPageViewModel"
+             Background="#FFDEA9">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="FontFamily" Value="Poppins-SemiBold"/>
+            <Setter Property="FontSize" Value="37"/>
+            <Setter Property="TextColor" Value="white"/>
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="HorizontalOptions" Value="Start"/>
+            <Setter Property="FontFamily" Value="Poppins-SemiBold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="TextColor" Value="white"/>
+        </Style>
+        <Style TargetType="Frame">
+            <Setter Property="CornerRadius" Value="35"/>
+            <Setter Property="Margin" Value="10, 20"/>
+            <Setter Property="BackgroundColor" Value="#FCB664"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+        </Style>
+        <Style x:Key="LinkLabel" TargetType="Label">
+            <Setter Property="FontFamily" Value="Poppins-Regular"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="TextColor" Value="#575757"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+        </Style>
+    </ContentPage.Resources>
+
+
+    <Grid>
+        <VerticalStackLayout  Padding="30" Margin="0,5">
+            <Label Text="Welcome" HorizontalOptions="Start"/>
+            <Label Text="Back!" HorizontalOptions="Start"/>
+            <Frame>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="test_user.svg" Grid.Column="0" HorizontalOptions="Start"/>
+                    <Entry Placeholder="Username or Email" Text="{Binding Username}" Grid.Column="1" HorizontalOptions="FillAndExpand"></Entry>
+                </Grid>
+            </Frame>
+            <Frame>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="password_icon.svg" Grid.Column="0" HorizontalOptions="Start"/>
+                    <Entry Placeholder="Password" Text="{Binding Password}" Grid.Column="1" HorizontalOptions="FillAndExpand" IsPassword="{Binding IsPassword}"></Entry>
+                    <ImageButton Source="{Binding EyeIcon}" Grid.Column="2" HorizontalOptions="End" Command="{Binding TogglePasswordVisibilityCommand}"/>
+                </Grid>
+            </Frame>
+            <Label Text="Forgot Password?"
+               Style="{StaticResource LinkLabel}"
+               Margin="0,10,0,30">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+            <Label Text="Sign in"/>
+            <ImageButton Source="arrow_icon.svg" CornerRadius="30" BackgroundColor="#FCB664" WidthRequest="60" HeightRequest="60" Command="{Binding SignInCommand}"/>
+        </VerticalStackLayout>
+        <Label Text="Back"
+               Style="{StaticResource LinkLabel}"
+               VerticalOptions="End"
+               Margin="20">
+            <Label.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding GoBackCommand}"/>
+            </Label.GestureRecognizers>
+        </Label>
+    </Grid>
+</ContentPage>

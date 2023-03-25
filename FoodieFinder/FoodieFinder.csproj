@@ -92,6 +92,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\SignInPage.xaml.cs">
+	    <DependentUpon>SignInPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\ForgotPasswordPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <Compile Update="Popups\UserOptionsPopup.xaml.cs">
 	    <DependentUpon>UserOptionsPopup.xaml</DependentUpon>
 	  </Compile>
@@ -99,6 +108,12 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Pages\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\RegisterPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\SignInPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\StartPage.xaml">

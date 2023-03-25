@@ -11,7 +11,7 @@ public partial class StartPage : ContentPage
     private UserData _userData;
     private LoadingPopup _loadingPopup;
 
-	public StartPage(AppDbContext dbContext, UserData userData)
+    public StartPage(AppDbContext dbContext, UserData userData)
 	{
 		InitializeComponent();
 
@@ -62,9 +62,14 @@ public partial class StartPage : ContentPage
     }
 
     // Register
-    private void Button_Clicked_1(object sender, EventArgs e)
+    private void GoToRegisterPage(object sender, EventArgs e)
     {
-        new Register(_dbContext).AddToDatabase("Wojciech@wp.pl", "juzek2137");
+        Application.Current.MainPage = new RegisterPage(_dbContext, _userData);
+    }
+
+    private void GoToSignInPage(object sender, EventArgs e)
+    {
+        Application.Current.MainPage = new SignInPage(_dbContext, _userData);
     }
 
     private void ShowLoadingPopup() => this.ShowPopup(_loadingPopup);
