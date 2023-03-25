@@ -152,15 +152,8 @@ namespace FoodieFinder.UserAccount
             int userid = -1;
             userlist = _dbContext.User.ToList();
             int i = 0;
-            while (userlist[i].Email != email.ToLower() || i >= userlist.Count())
-            {
-                if (userlist[i].Email == email)
-                {
-                    userid = userlist[i].Id;
-                    break;
-                }
-                i++;
-            }
+            var userData = _dbContext.User.Where(u => u.Email == email).First();
+            userid = userData.Id;
             return userid;
         }
     }
