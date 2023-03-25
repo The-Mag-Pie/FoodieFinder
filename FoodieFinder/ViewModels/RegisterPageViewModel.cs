@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FoodieFinder.Database;
+using FoodieFinder.UserAccount;
 
 namespace FoodieFinder.ViewModels
 {
@@ -18,7 +19,7 @@ namespace FoodieFinder.ViewModels
         [ObservableProperty]
         private string confirmedEyeIcon = "eye_on_icon.svg";
 
-        public RegisterPageViewModel(AppDbContext appDbContext) : base(appDbContext)
+        public RegisterPageViewModel(AppDbContext appDbContext, UserData userData) : base(appDbContext, userData)
         {
 
         }

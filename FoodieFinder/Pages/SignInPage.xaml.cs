@@ -1,15 +1,16 @@
 using FoodieFinder.ViewModels;
 using FoodieFinder.Database;
+using FoodieFinder.UserAccount;
 
 namespace FoodieFinder.Pages;
 
 public partial class SignInPage : ContentPage
 {
     private readonly SignInPageViewModel vm;
-	public SignInPage(AppDbContext appDbContext)
+	public SignInPage(AppDbContext appDbContext, UserData userData)
     {
         InitializeComponent();
-        vm = new(appDbContext);
+        vm = new(appDbContext, userData);
         BindingContext = vm;
     }
 
