@@ -14,11 +14,6 @@ public partial class SignInPage : ContentPage
         BindingContext = vm;
     }
 
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
-    {
-        Application.Current.MainPage = new NavigationPage(new ForgotPasswordPage());
-    }
-
     protected override void OnAppearing()
     {
         base.OnAppearing();

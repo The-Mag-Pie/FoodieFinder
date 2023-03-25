@@ -77,7 +77,8 @@
                FontFamily="Poppins-Regular"
                VerticalOptions="End"
                TextColor="#575757"
-               Margin="10">
+               Margin="10"
+               TextDecorations="Underline">
             <Label.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding GoBackCommand}"/>
             </Label.GestureRecognizers>

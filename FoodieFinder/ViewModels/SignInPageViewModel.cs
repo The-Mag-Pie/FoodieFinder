@@ -1,6 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using FoodieFinder.Database;
+using FoodieFinder.Pages;
 using FoodieFinder.UserAccount;
 
 namespace FoodieFinder.ViewModels

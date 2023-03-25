@@ -72,6 +72,11 @@ public partial class StartPage : ContentPage
         Navigation.PushAsync(new SignInPage(_dbContext, _userData));
     }
 
+    private void GoToForgotPasswordPage(object sender, TappedEventArgs e)
+    {
+        Navigation.PushAsync(new ForgotPasswordPage(_dbContext, _userData));
+    }
+
     private void ShowLoadingPopup() => this.ShowPopup(_loadingPopup);
 
     private void CloseLoadingPopup() => _loadingPopup.Close();
