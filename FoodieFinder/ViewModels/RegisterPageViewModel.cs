@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using FoodieFinder.Database;
 using FoodieFinder.UserAccount;
+using System;
 
 
 namespace FoodieFinder.ViewModels
@@ -10,9 +11,6 @@ namespace FoodieFinder.ViewModels
     {
         [ObservableProperty]
         private string confirmedPassword;
-
-        [ObservableProperty]
-        private string email;
 
         [ObservableProperty]
         private bool isConfirmedPassword = true;

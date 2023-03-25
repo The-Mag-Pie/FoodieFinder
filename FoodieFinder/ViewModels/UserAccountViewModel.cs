@@ -9,7 +9,7 @@ namespace FoodieFinder.ViewModels
     partial class UserAccountViewModel : BaseViewModel
     {
         [ObservableProperty]
-        private string username;
+        private string email;
 
         [ObservableProperty]
         private string password;
@@ -20,8 +20,8 @@ namespace FoodieFinder.ViewModels
         [ObservableProperty]
         string eyeIcon = "eye_on_icon.svg";
 
-        private AppDbContext _dbContext;
-        private UserData _userData;
+        protected AppDbContext _dbContext;
+        protected UserData _userData;
 
         public UserAccountViewModel(AppDbContext appDbContext, UserData userData)
         {
