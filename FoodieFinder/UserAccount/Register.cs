@@ -12,8 +12,8 @@ namespace FoodieFinder.UserAccount
 {
     class Register
     {
-        //public List <User> users = new List<User> ();
         private User user { get; set; } = new User();
+        private List<User> userlist { get; set; } = new List<User>();
 
         private AppDbContext _dbContext;
 
@@ -31,6 +31,28 @@ namespace FoodieFinder.UserAccount
                 _dbContext.User.Add(user);
                 _dbContext.SaveChanges();
                 return true;
+            }
+            return false;
+        }
+        public bool CheckIfInDatabase(string email)
+        {
+            if (IsEmail(email))
+            {
+                user.Email = email;
+                userlist = _dbContext.User.ToList();
+                int i = 0;
+                while (userlist[i].Email != email)
+                {
+                    if(i == userlist.Count)
+                    {
+                        return false;
+                    }
+                    i++;
+                }
+                
+                    _dbContext.SaveChanges();
+                    return true;
+
             }
             return false;
         }

@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using FoodieFinder.Database;
 using FoodieFinder.UserAccount;
 
+
 namespace FoodieFinder.ViewModels
 {
     partial class RegisterPageViewModel : UserAccountViewModel
@@ -36,7 +37,9 @@ namespace FoodieFinder.ViewModels
         private void Register()
         {
             //TODO Rejestracja
-        }
+            var reg = new Register(_dbContext);
+            reg.AddToDatabase(Email, Password);
+    }
 
     }
 }
