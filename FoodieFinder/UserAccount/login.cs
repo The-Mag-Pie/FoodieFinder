@@ -7,13 +7,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using FoodieFinder.Database;
 using Android.OS;
 using System.Security.Cryptography;
+using FoodieFinder.Models;
+using System.Text.Json;
+using System.Net.Http.Json;
 
 namespace FoodieFinder.UserAccount
 {
     class Login
     {
         private User user { get; set; } = new User();
-        private List<User> userlist {get; set;} = new List<User>();
+        private List<User> userlist { get; set; } = new List<User>();
 
         private AppDbContext _dbContext;
 
@@ -77,6 +80,41 @@ namespace FoodieFinder.UserAccount
                 return hashedInputPassword == hashedPassword;
             }
         }
-
+        private static readonly string FullPath = Path.Combine(FileSystem.Current.AppDataDirectory, "UserData.json");
+        public bool CreateSession(string username)
+        {
+            string FileContent = File.ReadAllText(FullPath);
+            if (string.IsNullOrWhiteSpace(FileContent))
+            {
+                FileContent = username;
+                File.WriteAllText(FullPath, FileContent);
+                return true;
+            }
+            return false;
+        }
+        public bool CheckIfSession()
+        {
+            string FileContent = File.ReadAllText(FullPath);
+            if (string.IsNullOrWhiteSpace(FileContent))
+            {
+                return true;
+            }
+            return false;
+        }
+        public string GetUserNameSession() 
+        { 
+            return File.ReadAllText(FullPath);
+        }
+        public bool DestroySession()
+        {
+            string FileContent = File.ReadAllText(FullPath);
+            if (string.IsNullOrWhiteSpace(FileContent))
+            {
+                FileContent = "";
+                File.WriteAllText(FullPath, FileContent);
+                return true;
+            }
+            return false;
+        }
     }
 }
