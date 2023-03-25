@@ -8,8 +8,6 @@ namespace FoodieFinder.Pages;
 public partial class StartPage : ContentPage
 {
     private AppDbContext _dbContext;
-    private UserData _userData;
-    private LoadingPopup _loadingPopup;
 
 	public StartPage(AppDbContext dbContext, UserData userData)
 	{
@@ -64,7 +62,7 @@ public partial class StartPage : ContentPage
     // Register
     private void Button_Clicked_1(object sender, EventArgs e)
     {
-        new Register(_dbContext).AddToDatabase("Wojciech@wp.pl", "juzek2137");
+        Application.Current.MainPage = new RegisterPage(_dbContext);
     }
 
     private void ShowLoadingPopup() => this.ShowPopup(_loadingPopup);
