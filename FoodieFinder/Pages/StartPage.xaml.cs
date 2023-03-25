@@ -8,8 +8,10 @@ namespace FoodieFinder.Pages;
 public partial class StartPage : ContentPage
 {
     private AppDbContext _dbContext;
+    private UserData _userData;
+    private LoadingPopup _loadingPopup;
 
-	public StartPage(AppDbContext dbContext, UserData userData)
+    public StartPage(AppDbContext dbContext, UserData userData)
 	{
 		InitializeComponent();
 
