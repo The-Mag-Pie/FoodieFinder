@@ -35,11 +35,8 @@ namespace FoodieFinder.UserAccount
                 user.Password = password;
                 userlist = _dbContext.User.ToList();
                 int i = 0;
-                while (userlist[i].Email != email.ToLower() || i >=userlist.Count())
-                {
-                    i++;
-                }
-                if (ComparePassword(user.Password, userlist[i].Password))
+                var userData = _dbContext.User.Where(u => u.Email == email).First();
+                if (ComparePassword(user.Password, userData.Password))
                 {
                     _dbContext.SaveChanges();
                     return true;
