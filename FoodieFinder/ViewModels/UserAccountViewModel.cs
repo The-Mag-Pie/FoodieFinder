@@ -33,14 +33,14 @@ namespace FoodieFinder.ViewModels
         private void TogglePasswordVisibility()
         {
             IsPassword = !IsPassword; 
-            eyeIcon = IsPassword ? "eye_on_icon.svg" : "eye_off_icon.svg";
+            EyeIcon = IsPassword ? "eye_on_icon.svg" : "eye_off_icon.svg";
         }
 
         [RelayCommand]
         private void GoBack()
         {
             //TODO
-            Application.Current.MainPage = new StartPage(_dbContext, _userData);
+            Application.Current.MainPage.Navigation.PopAsync();
         }
 
     }

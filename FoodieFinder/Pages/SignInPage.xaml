@@ -4,7 +4,8 @@
              x:Class="FoodieFinder.Pages.SignInPage"
              xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
              x:DataType="vm:SignInPageViewModel"
-             Background="#FFDEA9">
+             Background="#FFDEA9"
+             NavigationPage.HasNavigationBar="False">
 
     <ContentPage.Resources>
         <Style TargetType="Label">
