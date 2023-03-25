@@ -42,8 +42,8 @@ public static class MauiProgram
 		builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 		// Add pages to services (dependency injection)
-		builder.Services.AddSingleton<HomePage>();
-        builder.Services.AddSingleton<StartPage>();
+		builder.Services.AddTransient<HomePage>();
+        builder.Services.AddTransient<StartPage>();
 
 		// Add other services
 		builder.Services.AddSingleton<UserData>();

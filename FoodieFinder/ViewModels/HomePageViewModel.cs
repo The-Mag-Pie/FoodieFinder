@@ -1,10 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Maui.Views;
 using FoodieFinder.Database;
 using FoodieFinder.LocalJsonDatabase;
 using FoodieFinder.Models;
+using FoodieFinder.Popups;
 using FoodieFinder.UserAccount;
 using System.Collections.ObjectModel;
+using FoodieFinder.Pages;
 
 namespace FoodieFinder.ViewModels
 {
@@ -79,6 +82,22 @@ namespace FoodieFinder.ViewModels
         public void OnDisappearing()
         {
             Task.Run(() => BucketListDb.SaveItems(BucketList.ToList()));
+        }
+
+        [RelayCommand]
+        private async Task UserOptionsTapped()
+        {
+            var popup = new UserOptionsPopup();
+            var result = (string)await Application.Current.MainPage.ShowPopupAsync(popup);
+            
+            switch (result)
+            {
+                case "logout":
+                    Application.Current.MainPage = new StartPage(_dbContext, _userData);
+                    break;
+
+                default: break;
+            }
         }
 
         [RelayCommand]

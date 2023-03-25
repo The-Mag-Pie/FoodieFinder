@@ -71,6 +71,9 @@
 
                 <Border Style="{StaticResource UserPhotoBorderStyle}"
                         Grid.Column="1">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding UserOptionsTappedCommand}"/>
+                    </Border.GestureRecognizers>
                     <Label Text="{Binding UserFirstLetter}"
                            FontSize="23"
                            FontAttributes="Bold"
@@ -163,15 +166,19 @@
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical"
                                      Span="3"
-                                     HorizontalItemSpacing="10"
+                                     HorizontalItemSpacing="5"
                                      VerticalItemSpacing="10"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:HomePageRecipeModel">
-                        <VerticalStackLayout>
+                        <VerticalStackLayout Padding="5">
                             <Border Style="{StaticResource RecipesBorderStyle}">
+                                <Border.Shadow>
+                                    <Shadow Radius="15"
+                                            Opacity="0.8"/>
+                                </Border.Shadow>
                                 <Image Source="{Binding Image}"
-                                       HeightRequest="80"
+                                       HeightRequest="70"
                                        Aspect="AspectFill" />
                             </Border>
                             <Label Text="{Binding RecipeName}"
@@ -193,6 +200,10 @@
                     BackgroundColor="#333333"
                     HorizontalOptions="Fill"
                     Padding="20">
+                <Border.Shadow>
+                    <Shadow Radius="40"
+                            Opacity="0.8"/>
+                </Border.Shadow>
                 <CollectionView ItemsSource="{Binding BucketList}"
                                 EmptyView="You have no items in the list yet.">
                     <CollectionView.ItemsLayout>
