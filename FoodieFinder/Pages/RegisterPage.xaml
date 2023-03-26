@@ -54,7 +54,7 @@
                     </Grid.ColumnDefinitions>
                     <Image Source="password_icon.svg" Grid.Column="0" HorizontalOptions="Start"/>
                     <Entry Placeholder="Password" Text="{Binding Password}" Grid.Column="1" HorizontalOptions="FillAndExpand" IsPassword="{Binding IsPassword}"></Entry>
-                    <ImageButton Source="{Binding EyeIcon}" Grid.Column="2" HorizontalOptions="End" Command="{Binding TogglePasswordVisibilityCommand}"/>
+                    <ImageButton Source="{Binding EyeIcon}" Grid.Column="2" HorizontalOptions="End" Scale="0.7" Command="{Binding TogglePasswordVisibilityCommand}"/>
                 </Grid>
             </Frame>
             <Frame>
@@ -66,7 +66,7 @@
                     </Grid.ColumnDefinitions>
                     <Image Source="password_icon.svg" Grid.Column="0" HorizontalOptions="Start"/>
                     <Entry Placeholder="Confirm password" Text="{Binding ConfirmedPassword}" Grid.Column="1" HorizontalOptions="FillAndExpand" IsPassword="{Binding IsConfirmedPassword}"></Entry>
-                    <ImageButton Source="{Binding ConfirmedEyeIcon}" Grid.Column="2" HorizontalOptions="End" Command="{Binding ToggleConfirmedPasswordVisibilityCommand}"/>
+                    <ImageButton Source="{Binding ConfirmedEyeIcon}" Grid.Column="2" HorizontalOptions="End" Scale="0.7" Command="{Binding ToggleConfirmedPasswordVisibilityCommand}"/>
                 </Grid>
             </Frame>
             <Label Text="Register"/>
