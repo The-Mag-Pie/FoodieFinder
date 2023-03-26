@@ -25,6 +25,9 @@ namespace FoodieFinder.ViewModels
         [ObservableProperty]
         private bool _isYourRecipesVisible = false;
 
+        [ObservableProperty]
+        private string _addIngredientName = string.Empty;
+
         //[ObservableProperty]
         //private ImageSource _userImage = ImageSource.FromFile("mclovitch.png");
 
@@ -79,7 +82,8 @@ namespace FoodieFinder.ViewModels
             }
         }
 
-        public void OnDisappearing()
+        [RelayCommand]
+        public void SaveBucketList()
         {
             Task.Run(() => BucketListDb.SaveItems(BucketList.ToList()));
         }
@@ -106,34 +110,34 @@ namespace FoodieFinder.ViewModels
         private void BucketProductTapped(BucketListItem model)
         {
             model.IsChecked = !model.IsChecked;
+            SaveBucketList();
         }
 
         [RelayCommand]
-        private void AddBucketListItems()
+        private void AddBucketListItem()
         {
-            BucketList.Add(new()
+            if (AddIngredientName.Length == 0)
             {
-                IsChecked = true,
-                ProductName = "Milk"
-            });
+                Application.Current.MainPage.DisplayAlert("Error", "Ingredient name is empty!", "OK");
+                return;
+            }
 
             BucketList.Add(new()
             {
                 IsChecked = false,
-                ProductName = "Lemon"
+                ProductName = AddIngredientName
             });
 
-            BucketList.Add(new()
-            {
-                IsChecked = false,
-                ProductName = "Eggs 4pcs."
-            });
+            SaveBucketList();
 
-            BucketList.Add(new()
-            {
-                IsChecked = false,
-                ProductName = "Onion"
-            });
+            AddIngredientName = string.Empty;
+        }
+
+        [RelayCommand]
+        private void RemoveBucketListItem(BucketListItem item)
+        {
+            BucketList.Remove(item);
+            SaveBucketList();
         }
     }
 }
