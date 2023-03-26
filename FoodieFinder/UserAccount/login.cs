@@ -31,19 +31,33 @@ namespace FoodieFinder.UserAccount
         {
             if (IsEmail(email) && IsPasswordProvided(password))
             {
-                user.Email = email.ToLower();
-                user.Password = password;
-                userlist = _dbContext.User.ToList();
-                int i = 0;
-                while (userlist[i].Email != email.ToLower() || i >=userlist.Count())
+                //user.Email = email.ToLower();
+                //user.Password = password;
+                //userlist = _dbContext.User.ToList();
+                //int i = 0;
+                //var userData = _dbContext.User.Where(u => u.Email == email).First();
+                //if (ComparePassword(user.Password, userData.Password))
+                //{
+                //    _dbContext.SaveChanges();
+                //    return true;
+                //}
+
+                email = email.ToLower();
+                try
                 {
-                    i++;
+                    // Single() throws an exception when there is no exactly one element in collection
+                    var userData = _dbContext.User.Where(u => u.Email == email).Single();
+
+                    if (ComparePassword(password, userData.Password))
+                    {
+                        _dbContext.SaveChanges();
+                        return true;
+                    }
                 }
-                if (ComparePassword(user.Password, userlist[i].Password))
+                catch
                 {
-                    _dbContext.SaveChanges();
-                    return true;
-                }
+                    return false;
+                }            
             }
             return false;
         }
@@ -102,14 +116,21 @@ namespace FoodieFinder.UserAccount
         }
         public bool CheckIfSession()
         {
-            string FileContent = File.ReadAllText(FullPath);
-            var obj = JsonSerializer.Deserialize<SessionUser>(FileContent);
-            string UserName = obj.Name;
-            if (UserName != "none")
+            try
             {
-                return true;
+                string FileContent = File.ReadAllText(FullPath);
+                var obj = JsonSerializer.Deserialize<SessionUser>(FileContent);
+                string UserName = obj.Name;
+                if (UserName != "none")
+                {
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch
+            {
+                return false;
+            }
         }
         public string GetUserNameSession() 
         {
@@ -153,17 +174,8 @@ namespace FoodieFinder.UserAccount
         private int GetIdFromEmail(string email)
         {
             int userid = -1;
-            userlist = _dbContext.User.ToList();
-            int i = 0;
-            while (userlist[i].Email != email.ToLower() || i >= userlist.Count())
-            {
-                if (userlist[i].Email == email)
-                {
-                    userid = userlist[i].Id;
-                    break;
-                }
-                i++;
-            }
+            var userData = _dbContext.User.Where(u => u.Email == email).Single();
+            userid = userData.Id;
             return userid;
         }
     }

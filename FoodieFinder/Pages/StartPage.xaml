@@ -31,7 +31,7 @@
         </Style>
     </ContentPage.Resources>
 
-    <VerticalStackLayout VerticalOptions="Center" Padding="30" Margin="0,80">
+    <VerticalStackLayout VerticalOptions="Center" Padding="30">
 
         <Image Source="logo.png"/>
         
@@ -52,7 +52,8 @@
                 Clicked="GoToSignInPage"/>
 
         <Label Text="Forgot password?"
-               Style="{StaticResource LinkLabel}">
+               Style="{StaticResource LinkLabel}"
+               Margin="0,30,0,0">
             <Label.GestureRecognizers>
                 <TapGestureRecognizer Tapped="GoToForgotPasswordPage"/>
             </Label.GestureRecognizers>
