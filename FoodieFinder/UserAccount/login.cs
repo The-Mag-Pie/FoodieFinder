@@ -148,18 +148,25 @@ namespace FoodieFinder.UserAccount
         }
         public bool DestroySession()
         {
-            string FileContent = File.ReadAllText(FullPath);
-            var obj = JsonSerializer.Deserialize<SessionUser>(FileContent);
-            string UserName = obj.Name;
-            if (UserName != "none")
+            try
             {
-                obj.Name = "none";
-                obj.Id = -1;
-                FileContent = JsonSerializer.Serialize(obj);
-                File.WriteAllText(FullPath, FileContent);
-                return true;
+                string FileContent = File.ReadAllText(FullPath);
+                var obj = JsonSerializer.Deserialize<SessionUser>(FileContent);
+                string UserName = obj.Name;
+                if (UserName != "none")
+                {
+                    obj.Name = "none";
+                    obj.Id = -1;
+                    FileContent = JsonSerializer.Serialize(obj);
+                    File.WriteAllText(FullPath, FileContent);
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch
+            {
+                return false;
+            }
         }
         private void CreateFileSession(string path)
         {

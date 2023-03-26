@@ -63,7 +63,7 @@
         <Label Text="Continue as guest"
                 Style="{StaticResource LinkLabel}">
             <Label.GestureRecognizers>
-                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                <TapGestureRecognizer Tapped="ContinueAsGuest"/>
             </Label.GestureRecognizers>
         </Label>
 

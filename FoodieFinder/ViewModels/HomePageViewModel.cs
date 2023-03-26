@@ -135,5 +135,11 @@ namespace FoodieFinder.ViewModels
                 ProductName = "Onion"
             });
         }
+
+        [RelayCommand]
+        private void RemoveBucketListItem(BucketListItem item)
+        {
+            BucketList.Remove(item);
+        }
     }
 }
