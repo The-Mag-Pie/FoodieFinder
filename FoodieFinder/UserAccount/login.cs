@@ -116,14 +116,21 @@ namespace FoodieFinder.UserAccount
         }
         public bool CheckIfSession()
         {
-            string FileContent = File.ReadAllText(FullPath);
-            var obj = JsonSerializer.Deserialize<SessionUser>(FileContent);
-            string UserName = obj.Name;
-            if (UserName != "none")
+            try
             {
-                return true;
+                string FileContent = File.ReadAllText(FullPath);
+                var obj = JsonSerializer.Deserialize<SessionUser>(FileContent);
+                string UserName = obj.Name;
+                if (UserName != "none")
+                {
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch
+            {
+                return false;
+            }
         }
         public string GetUserNameSession() 
         {
