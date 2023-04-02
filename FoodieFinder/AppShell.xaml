@@ -22,7 +22,7 @@
 
         <Tab Title="TODO"
              Icon="materials.png">
-            <ShellContent ContentTemplate="{DataTemplate pages:HomePage}"
+            <ShellContent ContentTemplate="{DataTemplate pages:StoragePage}"
                           Route="HomePage1"/>
         </Tab>
 
