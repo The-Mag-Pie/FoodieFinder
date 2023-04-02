@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodieFinder.Pages.StoragePage"
+             xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
+             x:DataType="vm:StoragePageViewModel"
+             BackgroundColor="#3F4E4F"
+             Title="StoragePage">
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontFamily" Value="Poppins-Medium"/>
+        </Style>
+
+        <Style x:Key="UserPhotoBorderStyle" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 30,30,30,30" />
+            <Setter Property="StrokeThickness" Value="0" />
+            <Setter Property="Padding" Value="7, 7, 7, 7" />
+            <Setter Property="BackgroundColor" Value="#FF9832" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="WidthRequest" Value="50" />
+            <Setter Property="HeightRequest" Value="50" />
+        </Style>
+
+
+        <Style x:Key="StorageAddButtonBorder" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 25,25,25,25" />
+            <Setter Property="StrokeThickness" Value="0"/>
+            <Setter Property="BackgroundColor" Value="#FF9832"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HeightRequest" Value="40"/>
+            <Setter Property="WidthRequest" Value="40"/>
+        </Style>
+
+        <Style x:Key="StorageBorder" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 15,15,15,15"/>
+            <Setter Property="StrokeThickness" Value="0"/>
+            <Setter Property="BackgroundColor" Value="#333333"/>
+        </Style>
+
+        <Style x:Key="DeleteStorageItemBorder" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 15,15,15,15"/>
+            <Setter Property="StrokeThickness" Value="0"/>
+            <Setter Property="BackgroundColor" Value="#A4A2A0"/>
+            <Setter Property="HorizontalOptions" Value="End"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HeightRequest" Value="25"/>
+            <Setter Property="WidthRequest" Value="25"/>
+        </Style>
+
+    </ContentPage.Resources>
+    <ScrollView>
+        <VerticalStackLayout Padding="26, 0, 26, 20">
+
+            <Grid Margin="0, 15, 0, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="54" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="54" />
+                </Grid.RowDefinitions>
+
+                <Label Text="{Binding WelcomeUser, StringFormat='Welcome, {0}'}"
+                       VerticalOptions="Center"
+                       TextColor="#959595"
+                       FontAttributes="Bold"/>
+
+                <Border Style="{StaticResource UserPhotoBorderStyle}"
+                        Grid.Column="1">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding UserOptionsTappedCommand}"/>
+                    </Border.GestureRecognizers>
+                    <Label Text="{Binding UserFirstLetter}"
+                           FontSize="23"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center" />
+                </Border>
+            </Grid>
+            <Grid Margin="0,40,0,0">
+                <Label Text="My pantry:"
+                       FontSize="15"
+                       FontAttributes="Bold"/>
+            </Grid>
+            <Grid Margin="50,50,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="55"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Style="{StaticResource StorageAddButtonBorder}"
+                        Grid.Column="0">
+                        <Polyline Points="8,20 20,20 20,8 20,20 32,20 20,20 20,32"
+                              Stroke="#33363F"
+                              StrokeThickness="3"/>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AddStorageItemCommand}"/>
+                        </Border.GestureRecognizers>
+                    </Border>
+                </Grid>
+            <Grid Margin="0,20,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Style="{StaticResource StorageBorder}" Grid.ColumnSpan="3">
+                    <Border.Shadow>
+                        <Shadow Radius="30"
+                            Opacity="0.8"/>
+                    </Border.Shadow>
+                    <HorizontalStackLayout>
+                    <Label Text="Name" 
+                           Margin="50,10,0,0" 
+                           Grid.Column="0"
+                           Grid.Row="0"
+                           FontAttributes="Bold"
+                           FontSize="15"
+                           />
+                        <Label Text="Count" 
+                           Margin="100,10,0,0" 
+                           Grid.Column="1"
+                               Grid.Row="0"
+                           FontAttributes="Bold"
+                           FontSize="15"
+                           />
+                        <Image Source="FoodieFinder\Resources\Images\logo.png"
+                               Margin="40,10,0,0" 
+                               Grid.Column="2"
+                               Grid.Row="0"/>
+                        <CollectionView ItemsSource="{Binding StorageItem}"
+                                EmptyView="You have no items in the storage yet."
+                                        Grid.Column="1">
+
+                        </CollectionView>
+                    </HorizontalStackLayout>
+
+                    
+
+                </Border>
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+
+</ContentPage>
