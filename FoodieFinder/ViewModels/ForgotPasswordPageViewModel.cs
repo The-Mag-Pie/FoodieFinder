@@ -7,7 +7,7 @@ namespace FoodieFinder.ViewModels
 {
     partial class ForgotPasswordPageViewModel : UserAccountViewModel
     {
-        public ForgotPasswordPageViewModel(AppDbContext appDbContext, UserData userData) : base(appDbContext, userData)
+        public ForgotPasswordPageViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
         {
 
         }

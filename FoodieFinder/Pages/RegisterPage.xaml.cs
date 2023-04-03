@@ -6,11 +6,10 @@ namespace FoodieFinder.Pages;
 
 public partial class RegisterPage : ContentPage
 {
-    private readonly RegisterPageViewModel vm;
-    public RegisterPage(AppDbContext appDbContext, UserData userData)
+    public RegisterPage(IServiceProvider serviceProvider)
     {
         InitializeComponent();
-        vm = new(appDbContext, userData);
-        BindingContext = vm;
+
+        BindingContext = new RegisterPageViewModel(serviceProvider);
     }
 }

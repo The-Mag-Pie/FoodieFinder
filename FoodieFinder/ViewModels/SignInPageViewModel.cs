@@ -7,16 +7,16 @@ namespace FoodieFinder.ViewModels
 {
     partial class SignInPageViewModel : UserAccountViewModel
     {
-        public SignInPageViewModel(AppDbContext appDbContext, UserData userData) : base(appDbContext, userData)
-        {
-
-        }
+        public SignInPageViewModel(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
         [RelayCommand]
         private void SignIn()
         {
+            var dbContext = _serviceProvider.GetRequiredService<AppDbContext>();
+            var userData = _serviceProvider.GetRequiredService<UserData>();
+
             //TODO: Logowanie
-            var log = new Login(_dbContext);
+            var log = new Login(_serviceProvider);
             if(Email != null && Password != null) {
                 if(log.CheckIfInDatabase(Email, Password))
                 {
@@ -24,10 +24,10 @@ namespace FoodieFinder.ViewModels
 
                     if (log.CreateSession(Email))
                     {
-                        var userData = _dbContext.User.Where(u => u.Email == Email).First();
-                        _userData.IsGuest = false;
-                        _userData.UserId = userData.Id;
-                        _userData.UserName = Email;
+                        var dbUserData = dbContext.User.Where(u => u.Email == Email).First();
+                        userData.IsGuest = false;
+                        userData.UserId = dbUserData.Id;
+                        userData.UserName = Email;
 
                         Application.Current.MainPage = new AppShell();
 

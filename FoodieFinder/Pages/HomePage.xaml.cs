@@ -1,6 +1,7 @@
 using FoodieFinder.Database;
 using FoodieFinder.UserAccount;
 using FoodieFinder.ViewModels;
+using Microsoft.Extensions.Configuration;
 
 namespace FoodieFinder.Pages;
 
@@ -8,11 +9,11 @@ public partial class HomePage : ContentPage
 {
 	private readonly HomePageViewModel vm;
 
-	public HomePage(AppDbContext appDbContext, UserData userData)
+	public HomePage(IServiceProvider serviceProvider)
 	{
 		InitializeComponent();
 
-		vm = new(appDbContext, userData);
+		vm = new(serviceProvider);
 		BindingContext = vm;
 
 		Disappearing += (s, e) => vm.SaveBucketList();

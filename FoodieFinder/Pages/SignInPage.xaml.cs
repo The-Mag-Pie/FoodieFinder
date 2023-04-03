@@ -2,17 +2,23 @@ using FoodieFinder.ViewModels;
 using FoodieFinder.Database;
 using FoodieFinder.UserAccount;
 using Auth0.OidcClient;
+using Microsoft.Extensions.Configuration;
+using FoodieFinder.Models;
 
 namespace FoodieFinder.Pages;
 
 public partial class SignInPage : ContentPage
 {
-    private readonly SignInPageViewModel vm;
-	public SignInPage(AppDbContext appDbContext, UserData userData)
+    private readonly SignInPageViewModel _vm;
+    private readonly IServiceProvider _serviceProvider;
+
+	public SignInPage(IServiceProvider serviceProvider)
     {
         InitializeComponent();
-        vm = new(appDbContext, userData);
-        BindingContext = vm;
+        _vm = new(serviceProvider);
+        BindingContext = _vm;
+
+        _serviceProvider = serviceProvider;
     }
 
     protected override void OnAppearing()
@@ -23,10 +29,16 @@ public partial class SignInPage : ContentPage
 
     private async void SignInGoogleClickedAsync(object sender, EventArgs e)
     {
+        var auth0config = _serviceProvider.GetRequiredService<IConfiguration>()
+            .GetSection("Auth0Config")
+            .Get<Auth0Config>();
+
+        if (auth0config == null) return;
+
         Auth0Client client = new Auth0Client(new Auth0ClientOptions
         {
-            Domain = "",
-            ClientId = ""
+            Domain = auth0config.Domain,
+            ClientId = auth0config.ClientId
         });
 
         var loginResult = await client.LoginAsync();

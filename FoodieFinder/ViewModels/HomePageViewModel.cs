@@ -8,6 +8,7 @@ using FoodieFinder.Popups;
 using FoodieFinder.UserAccount;
 using System.Collections.ObjectModel;
 using FoodieFinder.Pages;
+using Microsoft.Extensions.Configuration;
 
 namespace FoodieFinder.ViewModels
 {
@@ -31,15 +32,16 @@ namespace FoodieFinder.ViewModels
         //[ObservableProperty]
         //private ImageSource _userImage = ImageSource.FromFile("mclovitch.png");
 
-        private readonly AppDbContext _dbContext;
-        private readonly UserData _userData;
+        private readonly IServiceProvider _serviceProvider;
 
-        public HomePageViewModel(AppDbContext appDbContext, UserData userData)
+        public HomePageViewModel(IServiceProvider serviceProvider)
         {
-            _dbContext = appDbContext;
-            _userData = userData;
+            _serviceProvider = serviceProvider;
 
-            var username = _userData.UserName;
+            var dbContext = _serviceProvider.GetRequiredService<AppDbContext>();
+            var userData = _serviceProvider.GetRequiredService<UserData>();
+
+            var username = userData.UserName;
             var atIdx = username.LastIndexOf('@');
             if (atIdx > -1)
             {
@@ -50,7 +52,7 @@ namespace FoodieFinder.ViewModels
                 WelcomeUser = username;
             }
 
-            IsYourRecipesVisible = !_userData.IsGuest;
+            IsYourRecipesVisible = !userData.IsGuest;
 
             //for (int i = 1; i <= 5; i++)
             //{
@@ -65,7 +67,7 @@ namespace FoodieFinder.ViewModels
 
             //_dbContext.SaveChanges();
 
-            foreach (var recipe in _dbContext.Recipe.Where((r) => r.UserId == _userData.UserId))
+            foreach (var recipe in dbContext.Recipe.Where((r) => r.UserId == userData.UserId))
             {
                 YourRecipes.Add(new()
                 {
@@ -97,9 +99,9 @@ namespace FoodieFinder.ViewModels
             switch (result)
             {
                 case "logout":
-                    var log = new Login(_dbContext);
+                    var log = new Login(_serviceProvider);
                     log.DestroySession();
-                    Application.Current.MainPage = new StartNavigationPage(_dbContext, _userData);
+                    Application.Current.MainPage = new StartNavigationPage(_serviceProvider);
                     break;
 
                 default: break;

@@ -6,13 +6,16 @@ namespace FoodieFinder;
 
 public partial class App : Application
 {
-	public App(AppDbContext dbContext, UserData userData)
+	public App(IServiceProvider serviceProvider)
 	{
 		InitializeComponent();
 
         Current.UserAppTheme = AppTheme.Light;
 
-        var log = new Login(dbContext);
+		var dbContext = serviceProvider.GetRequiredService<AppDbContext>();
+		var userData = serviceProvider.GetRequiredService<UserData>();
+
+        var log = new Login(serviceProvider);
 		if (log.CheckIfSession())
 		{
 			userData.IsGuest = false;
@@ -22,7 +25,7 @@ public partial class App : Application
         }
 		else
 		{
-			MainPage = new StartNavigationPage(dbContext, userData);
+			MainPage = new StartNavigationPage(serviceProvider);
 		}
 	}
 }

@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using FoodieFinder.Database;
 using FoodieFinder.Pages;
 using FoodieFinder.UserAccount;
+using Microsoft.Extensions.Configuration;
 using System;
 
 
@@ -19,12 +20,9 @@ namespace FoodieFinder.ViewModels
         [ObservableProperty]
         private string confirmedEyeIcon = "eye_on_icon.svg";
 
-        private AppDbContext _dbContext;
-        private UserData _userData;
-        public RegisterPageViewModel(AppDbContext appDbContext, UserData userData) : base(appDbContext, userData)
+        public RegisterPageViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            _dbContext = appDbContext;
-            _userData = userData;
+
         }
 
         [RelayCommand]
@@ -38,8 +36,10 @@ namespace FoodieFinder.ViewModels
         [RelayCommand]
         private async Task Register()
         {
+            var dbContext = _serviceProvider.GetRequiredService<AppDbContext>();
+
             //TODO Rejestracja
-            var reg = new Register(_dbContext);
+            var reg = new Register(_serviceProvider);
             if(ConfirmedPassword != null && Email != null && Password != null) {
                 if (reg.CheckIfInDatabase(Email)) {
                     //email istnieje już w bazie
@@ -54,7 +54,7 @@ namespace FoodieFinder.ViewModels
                         await Application.Current.MainPage.DisplayAlert("Registration", "User registered successfully", "OK");
 
                         var currentPage = Application.Current.MainPage.Navigation.NavigationStack.Last();
-                        Application.Current.MainPage.Navigation.InsertPageBefore(new SignInPage(_dbContext, _userData), currentPage);
+                        Application.Current.MainPage.Navigation.InsertPageBefore(new SignInPage(_serviceProvider), currentPage);
                         await Application.Current.MainPage.Navigation.PopAsync();
                     }
                     else

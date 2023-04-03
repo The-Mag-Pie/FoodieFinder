@@ -11,6 +11,7 @@ using FoodieFinder.Pages;
 using FoodieFinder.ViewModels;
 using Android.Service.Autofill;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace FoodieFinder.ViewModels
 {
@@ -25,14 +26,15 @@ namespace FoodieFinder.ViewModels
         [ObservableProperty]
         private string _addIngredientName = string.Empty;
 
-        private readonly AppDbContext _dbContext;
-        private readonly UserAccount.UserData _userData;
+        private readonly IServiceProvider _serviceProvider;
 
-        public StoragePageViewModel(AppDbContext appDbContext, UserAccount.UserData userData)
+        public StoragePageViewModel(IServiceProvider serviceProvider)
         {
-            _dbContext = appDbContext;
-            _userData = userData;
-            var username = _userData.UserName;
+            _serviceProvider = serviceProvider;
+
+            var userData = _serviceProvider.GetRequiredService<UserAccount.UserData>();
+
+            var username = userData.UserName;
             var atIdx = username.LastIndexOf('@');
             if (atIdx > -1)
             {
@@ -52,9 +54,9 @@ namespace FoodieFinder.ViewModels
             switch (result)
             {
                 case "logout":
-                    var log = new Login(_dbContext);
+                    var log = new Login(_serviceProvider);
                     log.DestroySession();
-                    Application.Current.MainPage = new StartNavigationPage(_dbContext, _userData);
+                    Application.Current.MainPage = new StartNavigationPage(_serviceProvider);
                     break;
 
                 default: break;
