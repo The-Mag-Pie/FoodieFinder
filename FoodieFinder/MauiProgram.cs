@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Maui;
+using FoodieFinder.Auth0;
 using FoodieFinder.Database;
+using FoodieFinder.Models;
 using FoodieFinder.Pages;
 using FoodieFinder.UserAccount;
 using Microsoft.EntityFrameworkCore;
@@ -40,6 +42,16 @@ public static class MauiProgram
 		// Add DbContext service
 		var connectionString = config.GetConnectionString("MariaDbConnectionString");
 		builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+		// Add Auth0 client
+		var auth0config = config.GetRequiredSection("Auth0Config").Get<Auth0Config>();
+		builder.Services.AddSingleton(new Auth0Client(new()
+		{
+			Domain = auth0config.Domain,
+			ClientId = auth0config.ClientId,
+			Scope = "openid profile",
+			RedirectUri = "myapp://callback"
+		}));
 
 		// Add pages to services (dependency injection)
 		builder.Services.AddTransient<HomePage>();
