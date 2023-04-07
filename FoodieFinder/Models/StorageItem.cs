@@ -8,6 +8,9 @@ namespace FoodieFinder.Models
         private string _productName;
 
         [ObservableProperty]
-        private int _productCount;
+        private int _quantity;
+        
+        [ObservableProperty]
+        private int _expirationDate;
     }
 }

@@ -17,6 +17,7 @@ namespace FoodieFinder.ViewModels
 	public partial class StoragePageViewModel : BaseViewModel
 	{
         public ObservableCollection<StorageItem> StorageItem { get; } = new();
+        
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(UserFirstLetter))]
         private string _welcomeUser;
@@ -43,7 +44,7 @@ namespace FoodieFinder.ViewModels
                 WelcomeUser = username;
             }
         }
-            [RelayCommand]
+        [RelayCommand]
         private async Task UserOptionsTapped()
         {
             var popup = new UserOptionsPopup();
@@ -62,6 +63,16 @@ namespace FoodieFinder.ViewModels
         }
         [RelayCommand]
         private void AddStorageItem()
+        {
+            
+        }
+        [RelayCommand]
+        private void DeleteStorageItem()
+        {
+            
+        }
+        [RelayCommand]
+        private void StorageProductTapped()
         {
             
         }
