@@ -43,6 +43,7 @@ public static class MauiProgram
 
 		// Add pages to services (dependency injection)
 		builder.Services.AddTransient<HomePage>();
+		builder.Services.AddTransient<StoragePage>();
         builder.Services.AddTransient<StartPage>();
 
 		// Add other services
