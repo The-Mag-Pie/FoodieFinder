@@ -17,7 +17,7 @@ namespace FoodieFinder.ViewModels
 	public partial class StoragePageViewModel : BaseViewModel
 	{
         public ObservableCollection<StorageItem> StorageItem { get; } = new();
-        
+
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(UserFirstLetter))]
         private string _welcomeUser;
@@ -28,7 +28,7 @@ namespace FoodieFinder.ViewModels
 
         private readonly AppDbContext _dbContext;
         private readonly UserAccount.UserData _userData;
-
+        
         public StoragePageViewModel(AppDbContext appDbContext, UserAccount.UserData userData)
         {
             _dbContext = appDbContext;
@@ -43,6 +43,11 @@ namespace FoodieFinder.ViewModels
             {
                 WelcomeUser = username;
             }
+            var log = new Login(_dbContext);
+            foreach (var item in _dbContext.StoreRoom.Where(u => u.User_UserId == log.GetUserIdSession())) {
+                StorageItem.Add(item);
+            }
+
         }
         [RelayCommand]
         private async Task UserOptionsTapped()
@@ -75,6 +80,10 @@ namespace FoodieFinder.ViewModels
         private void StorageProductTapped()
         {
             
+        }
+        private void LoadUserItems()
+        {
+
         }
     } 
 }

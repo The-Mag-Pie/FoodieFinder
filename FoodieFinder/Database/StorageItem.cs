@@ -1,24 +1,21 @@
-﻿using Java.Util;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Reflection;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace FoodieFinder.Database
 {
-    public class StoreRoom
+    public partial class StorageItem : ObservableObject
     {
-        [Column("ProductId")]
-        public int Id { get; set; }
-
-        [Column("ProductName")]
-        public string Name { get; set; }
-        public DateOnly ExpirationDate { get; set; }
-
-        [Column("User_UserId")]
-        public int UserId { get; set; }
-        public int Quantity { get; set; }
-        public string Unit { get; set; }
+        [ObservableProperty]
+        private int _productId;
+        [ObservableProperty]
+        private string _productName;
+        [ObservableProperty]
+        private DateOnly _expirationDate;
+        [ObservableProperty]
+        private int _user_UserId;
+        [ObservableProperty]
+        private int _quantity;
+        [ObservableProperty]
+        private string _unit;
     }
 
     //public class StoreRoomContext : DbContext
