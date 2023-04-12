@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
+using FoodieFinder.Popups;
 
 namespace FoodieFinder.ViewModels
 {
@@ -30,12 +32,18 @@ namespace FoodieFinder.ViewModels
         /// </summary>
         /// <param name="function">Function to be invoked</param>
         /// <returns></returns>
-        protected async Task TryInvokeAsyncWithIndicator(Func<Task> function)
+        protected async Task InvokeAsyncWithLoader(Func<Task> function)
         {
             if (IsBusy) return;
 
+            var popup = new LoadingPopup();
+
             IsBusy = true;
+            Application.Current.MainPage.ShowPopup(popup);
+
             await function.Invoke();
+
+            popup.Close();
             IsBusy = false;
         }
     }

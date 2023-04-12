@@ -35,7 +35,7 @@ namespace FoodieFinder.ViewModels
         }
 
         [RelayCommand]
-        private void GoBack()
+        protected void GoBack()
         {
             //TODO
             Application.Current.MainPage.Navigation.PopAsync();

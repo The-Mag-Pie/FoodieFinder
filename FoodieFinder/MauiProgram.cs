@@ -60,6 +60,7 @@ public static class MauiProgram
 
 		// Add other services
 		builder.Services.AddSingleton<UserData>();
+        builder.Services.AddSingleton<HttpClient>();
 
         return builder.Build();
 	}
