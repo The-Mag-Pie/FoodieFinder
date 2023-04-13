@@ -28,7 +28,14 @@ namespace FoodieFinder.UserAccount
             {
 
                 user.Email = email.ToLower();
-                user.Password = EncryptPassword(password);
+                if (password == "auth0")
+                {
+                    user.Password = password;
+                }
+                else
+                {
+                    user.Password = EncryptPassword(password);
+                }
                 _dbContext.User.Add(user);
                 _dbContext.SaveChanges();
                 return true;

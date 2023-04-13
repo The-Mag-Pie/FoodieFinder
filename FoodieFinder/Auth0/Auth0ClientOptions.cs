@@ -10,7 +10,7 @@
 
         public Auth0ClientOptions()
         {
-            Scope = "openid";
+            Scope = "openid email";
             RedirectUri = "myapp://callback";
             Browser = new WebBrowserAuth();
         }

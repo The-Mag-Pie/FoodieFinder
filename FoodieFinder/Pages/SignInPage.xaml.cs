@@ -5,6 +5,11 @@ using FoodieFinder.UserAccount;
 using Microsoft.Extensions.Configuration;
 using FoodieFinder.Models;
 using FoodieFinder.Auth0;
+using System.Security.Claims;
+using Android.Service.Autofill;
+using Microsoft.EntityFrameworkCore;
+using UserData = FoodieFinder.UserAccount.UserData;
+using Android.Util;
 
 namespace FoodieFinder.Pages;
 
@@ -31,6 +36,8 @@ public partial class SignInPage : ContentPage
     private async void SignInGoogleClickedAsync(object sender, EventArgs e)
     {
         var auth0client = _serviceProvider.GetRequiredService<Auth0Client>();
+        var userData = _serviceProvider.GetRequiredService<UserData>();
+        var dbContext = _serviceProvider.GetRequiredService<AppDbContext>();
         var loginResult = await auth0client.LoginAsync();
 
         if (loginResult.IsError)
@@ -40,6 +47,38 @@ public partial class SignInPage : ContentPage
         }
 
         await DisplayAlert("Login success", loginResult.User.Identity.Name, "OK");
+        string email = loginResult.User.Claims.ToList().FirstOrDefault(c => c.Type == "email")?.Value;
+        string password = "auth0";
+
+        var logoutResult = await auth0client.LogoutAsync();
+        if (logoutResult.IsError)
+        {
+            await DisplayAlert("Error", logoutResult.ErrorDescription, "OK");
+            return;
+        }
+
+        Register reg = new Register(_serviceProvider);
+        Login log = new Login(_serviceProvider);
+
+        if (!reg.CheckIfInDatabase(email))
+        {
+            reg.AddToDatabase(email, password);
+        }
+        if (log.CreateSession(email))
+        {
+            var dbUserData = dbContext.User.Where(u => u.Email == email).First();
+            userData.IsGuest = false;
+            userData.UserId = dbUserData.Id;
+            userData.UserName = email;
+
+            Application.Current.MainPage = new AppShell();
+
+        }
+        else
+        {
+            await DisplayAlert("Error", "Session not created", "Ok");
+            return;
+        }
 
         //var auth0config = _serviceProvider.GetRequiredService<IConfiguration>()
         //    .GetSection("Auth0Config")

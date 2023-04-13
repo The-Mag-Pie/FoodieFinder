@@ -49,7 +49,7 @@ public static class MauiProgram
 		{
 			Domain = auth0config.Domain,
 			ClientId = auth0config.ClientId,
-			Scope = "openid profile",
+			Scope = "openid profile email",
 			RedirectUri = "myapp://callback"
 		}));
 
