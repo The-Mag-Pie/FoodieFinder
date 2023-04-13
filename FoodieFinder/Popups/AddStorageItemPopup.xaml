@@ -55,7 +55,10 @@
                         <Shadow Radius="5"
                             Opacity="0.8"/>
                     </Border.Shadow>
-                    <Entry Placeholder="Quantity" 
+                    <Entry Placeholder="Quantity"
+                       x:Name="quantityEntry"
+                       TextChanged="QuantityEntry_TextChanged"
+                       Keyboard="Numeric"
                        Text="{Binding Quantity}"
                        TextColor="#6A6363"
                        HorizontalOptions="Center"></Entry>
@@ -70,8 +73,8 @@
                     </Border.Shadow>
                     <Picker x:Name="picker"
                         TextColor="#6A6363"
-                        Title="Select a Unit"
-                        BindingContext="{Binding Unit}"
+                        Title="Select Unit"
+                        SelectedItem="{Binding Unit}"
                         HorizontalOptions="Center">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">

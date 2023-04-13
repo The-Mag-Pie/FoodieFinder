@@ -18,7 +18,7 @@ namespace FoodieFinder.ViewModels
 {
 	public partial class StoragePageViewModel : BaseViewModel
 	{
-        public ObservableCollection<StorageItem> StorageItem { get; } = new();
+        public ObservableCollection<StorageItem> StorageItems { get; } = new();
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(UserFirstLetter))]
@@ -30,15 +30,15 @@ namespace FoodieFinder.ViewModels
 
         private readonly IServiceProvider _serviceProvider;
         private readonly AppDbContext _dbContext;
+        private readonly UserAccount.UserData _userData;
 
         public StoragePageViewModel(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
-
-            var userData = _serviceProvider.GetRequiredService<UserAccount.UserData>();
+            _userData = _serviceProvider.GetRequiredService<UserAccount.UserData>();
             _dbContext = _serviceProvider.GetRequiredService<AppDbContext>();
 
-            var username = userData.UserName;
+            var username = _userData.UserName;
             var atIdx = username.LastIndexOf('@');
             if (atIdx > -1)
             {
@@ -49,11 +49,19 @@ namespace FoodieFinder.ViewModels
                 WelcomeUser = username;
             }
 
-            foreach (var item in _dbContext.StoreRoom.Where(u => u.User_UserId == userData.UserId)) {
-                StorageItem.Add(item);
-            }
-
+            LoadStorageItems();
         }
+
+        private void LoadStorageItems()
+        {
+            StorageItems.Clear();
+
+            foreach (var item in _dbContext.StoreRoom.Where(u => u.User_UserId == _userData.UserId))
+            {
+                StorageItems.Add(item);
+            }
+        }
+
         [RelayCommand]
         private async Task UserOptionsTapped()
         {
@@ -84,15 +92,18 @@ namespace FoodieFinder.ViewModels
                 && result.Unit != null || result.Unit == "") {
                 _dbContext.StoreRoom.Add(result);
                 _dbContext.SaveChanges();
+
+                LoadStorageItems();
             }
             
         }
         [RelayCommand]
         private void DeleteStorageItem(StorageItem StorageIt)
         {
-
             _dbContext.StoreRoom.Remove(StorageIt);
             _dbContext.SaveChanges();
+
+            LoadStorageItems();
         }
         [RelayCommand]
         private async Task StorageProductTapped(StorageItem StorageIt)

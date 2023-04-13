@@ -151,7 +151,7 @@
                                    Grid.Row="1"
                                    Grid.ColumnSpan="4"
                                    Background="#313D40"/>
-                        <CollectionView ItemsSource="{Binding StorageItem}"
+                        <CollectionView ItemsSource="{Binding StorageItems}"
                                     EmptyView="You have no items in the storage yet."
                                     Grid.Column="0"
                                         Grid.ColumnSpan="4"
