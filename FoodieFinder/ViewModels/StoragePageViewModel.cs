@@ -29,12 +29,14 @@ namespace FoodieFinder.ViewModels
         private string _addIngredientName = string.Empty;
 
         private readonly IServiceProvider _serviceProvider;
+        private readonly AppDbContext _dbContext;
 
         public StoragePageViewModel(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
 
             var userData = _serviceProvider.GetRequiredService<UserAccount.UserData>();
+            _dbContext = _serviceProvider.GetRequiredService<AppDbContext>();
 
             var username = userData.UserName;
             var atIdx = username.LastIndexOf('@');
