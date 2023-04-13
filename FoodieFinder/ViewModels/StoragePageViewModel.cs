@@ -68,9 +68,13 @@ namespace FoodieFinder.ViewModels
             }
         }
         [RelayCommand]
-        private void AddStorageItem()
+        private async Task AddStorageItem()
         {
-            
+            var popup = new AddStorageItemPopup();
+            var result = (StorageItem)await Application.Current.MainPage.ShowPopupAsync(popup);
+
+            _dbContext.StoreRoom.Add(result);
+            _dbContext.SaveChanges();
         }
         [RelayCommand]
         private void DeleteStorageItem(StorageItem StorageIt)

@@ -9,18 +9,14 @@ namespace FoodieFinder.Popups;
 
 public partial class StorageItemPopup : Popup
 {
-	[ObservableProperty]
-    private string _productName = string.Empty;
-	[ObservableProperty]
-    private int _count = 0;
-	[ObservableProperty]
-    private string _expirationDate = string.Empty;
+	private readonly StorageItem model;
+
     public StorageItemPopup(StorageItem StorageIt)
 	{
 		InitializeComponent();
-		ProductName = StorageIt.ProductName.ToUpper();
-		Count = StorageIt.Count;
-		ExpirationDate = StorageIt.ExpirationDate.ToString();
+		model = StorageIt;
+
+		BindingContext = model;
 
 		ResultWhenUserTapsOutsideOfPopup = "cancel";
 

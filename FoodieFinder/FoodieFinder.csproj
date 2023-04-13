@@ -95,6 +95,9 @@
 	  <Compile Update="Pages\SignInPage.xaml.cs">
 	    <DependentUpon>SignInPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Popups\AddStorageItemPopup.xaml.cs">
+	    <DependentUpon>AddStorageItemPopup.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Popups\StorageItemPopup.xaml.cs">
 	    <DependentUpon>StorageItemPopup.xaml</DependentUpon>
 	  </Compile>
@@ -126,6 +129,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\LoadingPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Popups\AddStorageItemPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\StorageItemPopup.xaml">

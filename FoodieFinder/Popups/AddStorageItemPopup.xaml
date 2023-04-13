@@ -3,7 +3,7 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:model="clr-namespace:FoodieFinder.Database"
-               x:Class="FoodieFinder.Popups.StorageItemPopup"
+               x:Class="FoodieFinder.Popups.AddStorageItemPopup"
                x:DataType="model:StorageItem"
                Color="Transparent">
 
@@ -15,20 +15,23 @@
                              Padding="10"
                              HorizontalOptions="Center"
                              VerticalOptions="Center">
-            <Label Text="{Binding ProductName}" 
+            <Label Text="Product Name" 
                    FontAttributes="Bold"
-                   FontSize="23"
+                   FontSize="12"
                    HorizontalOptions="Center"></Label>
-            <Label Text="{Binding Quantity, StringFormat='Count: , {0}'}" 
+            <Entry Placeholder="Product Name" Text="{Binding ProductName}"></Entry>
+            <Label Text="Expiration Date" 
                    FontAttributes="None"
                    FontSize="12"
                    HorizontalOptions="Center"></Label>
-            <Label Text="{Binding ExpirationDate, StringFormat='Expiration date: , {0}'}" 
+            <Entry Placeholder="Expiration Date" Text="{Binding ExpirationDate}"></Entry>
+            <Label Text="Quantity" 
                    FontSize="12"
                    FontAttributes="None"
                    HorizontalOptions="Center"></Label>
-            <Button Text="Ok"
-                    Clicked="Ok_Clicked" 
+            <Entry Placeholder="Quantity" Text="{Binding Quantity}"></Entry>
+            <Button Text="ADD ITEM"
+                    Clicked="AddItem_Clicked" 
                     WidthRequest="200"/>
         </VerticalStackLayout>
     </Border>
