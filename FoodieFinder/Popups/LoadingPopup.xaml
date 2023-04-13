@@ -12,10 +12,12 @@
         <VerticalStackLayout Spacing="10"
                              HorizontalOptions="Center"
                              VerticalOptions="Center">
-            <ActivityIndicator Scale="1.5"
+            <ActivityIndicator Scale="1.2"
                                IsRunning="True"
                                Margin="10"/>
-            <Label Text="Loading..." />
+            <Label Text="Loading..."
+                   TextColor="Black"
+                   FontSize="Default"/>
         </VerticalStackLayout>
     </Border>
 

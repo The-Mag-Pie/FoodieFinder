@@ -50,6 +50,7 @@
 
 	<ItemGroup>
 	  <None Remove="appsettings.json" />
+	  <None Remove="appsettings_example.json" />
 	  <None Remove="Resources\Images\HomePage\desserts.svg" />
 	  <None Remove="Resources\Images\HomePage\dishes.svg" />
 	  <None Remove="Resources\Images\HomePage\filters.svg" />
@@ -65,6 +66,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Include="appsettings_example.json" />
 	  <EmbeddedResource Include="appsettings.json" />
 	</ItemGroup>
 
@@ -86,6 +88,8 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+		<PackageReference Include="IdentityModel.OidcClient" Version="5.2.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
@@ -94,6 +98,12 @@
 	<ItemGroup>
 	  <Compile Update="Pages\SignInPage.xaml.cs">
 	    <DependentUpon>SignInPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Popups\AddStorageItemPopup.xaml.cs">
+	    <DependentUpon>AddStorageItemPopup.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Popups\StorageItemPopup.xaml.cs">
+	    <DependentUpon>StorageItemPopup.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -123,6 +133,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\LoadingPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Popups\AddStorageItemPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Popups\StorageItemPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\UserOptionsPopup.xaml">

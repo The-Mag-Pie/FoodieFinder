@@ -17,9 +17,9 @@ namespace FoodieFinder.UserAccount
 
         private AppDbContext _dbContext;
 
-        public Register(AppDbContext dbContext)
+        public Register(IServiceProvider serviceProvider)
         {
-            _dbContext = dbContext;
+            _dbContext = serviceProvider.GetRequiredService<AppDbContext>();
         }
 
         public bool AddToDatabase(string email, string password)

@@ -20,13 +20,11 @@ namespace FoodieFinder.ViewModels
         [ObservableProperty]
         string eyeIcon = "eye_on_icon.svg";
 
-        protected AppDbContext _dbContext;
-        protected UserData _userData;
+        protected readonly IServiceProvider _serviceProvider;
 
-        public UserAccountViewModel(AppDbContext appDbContext, UserData userData)
+        public UserAccountViewModel(IServiceProvider serviceProvider)
         {
-            _dbContext = appDbContext;
-            _userData = userData;
+            _serviceProvider = serviceProvider;
         }
 
         [RelayCommand]
@@ -37,7 +35,7 @@ namespace FoodieFinder.ViewModels
         }
 
         [RelayCommand]
-        private void GoBack()
+        protected void GoBack()
         {
             //TODO
             Application.Current.MainPage.Navigation.PopAsync();
@@ -46,7 +44,7 @@ namespace FoodieFinder.ViewModels
         [RelayCommand]
         private void GoToForgotPasswordPage()
         {
-            Application.Current.MainPage.Navigation.PushAsync(new ForgotPasswordPage(_dbContext, _userData));
+            Application.Current.MainPage.Navigation.PushAsync(new ForgotPasswordPage(_serviceProvider));
         }
 
     }

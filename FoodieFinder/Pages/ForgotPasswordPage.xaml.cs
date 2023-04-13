@@ -1,16 +1,17 @@
+using Android.Service.Autofill;
 using FoodieFinder.Database;
 using FoodieFinder.UserAccount;
 using FoodieFinder.ViewModels;
+using System;
 
 namespace FoodieFinder.Pages;
 
 public partial class ForgotPasswordPage : ContentPage
 {
-    private readonly ForgotPasswordPageViewModel vm;
-    public ForgotPasswordPage(AppDbContext appDbContext, UserData userData)
+    public ForgotPasswordPage(IServiceProvider serviceProvider)
     {
         InitializeComponent();
-        vm = new(appDbContext, userData);
-        BindingContext = vm;
+
+        BindingContext = new ForgotPasswordPageViewModel(serviceProvider);
     }
 }

@@ -22,9 +22,9 @@ namespace FoodieFinder.UserAccount
 
         private static readonly string FullPath = Path.Combine(FileSystem.Current.AppDataDirectory, "UserData.json");
 
-        public Login(AppDbContext dbContext)
+        public Login(IServiceProvider serviceProvider)
         {
-            _dbContext = dbContext;
+            _dbContext = serviceProvider.GetRequiredService<AppDbContext>();
         }
 
         public bool CheckIfInDatabase(string email, string password)

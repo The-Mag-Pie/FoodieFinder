@@ -11,13 +11,15 @@ using FoodieFinder.Pages;
 using FoodieFinder.ViewModels;
 using Android.Service.Autofill;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using static Android.Content.ClipData;
 
 namespace FoodieFinder.ViewModels
 {
 	public partial class StoragePageViewModel : BaseViewModel
 	{
         public ObservableCollection<StorageItem> StorageItem { get; } = new();
-        
+
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(UserFirstLetter))]
         private string _welcomeUser;
@@ -26,14 +28,15 @@ namespace FoodieFinder.ViewModels
         [ObservableProperty]
         private string _addIngredientName = string.Empty;
 
-        private readonly AppDbContext _dbContext;
-        private readonly UserAccount.UserData _userData;
+        private readonly IServiceProvider _serviceProvider;
 
-        public StoragePageViewModel(AppDbContext appDbContext, UserAccount.UserData userData)
+        public StoragePageViewModel(IServiceProvider serviceProvider)
         {
-            _dbContext = appDbContext;
-            _userData = userData;
-            var username = _userData.UserName;
+            _serviceProvider = serviceProvider;
+
+            var userData = _serviceProvider.GetRequiredService<UserAccount.UserData>();
+
+            var username = userData.UserName;
             var atIdx = username.LastIndexOf('@');
             if (atIdx > -1)
             {
@@ -43,6 +46,11 @@ namespace FoodieFinder.ViewModels
             {
                 WelcomeUser = username;
             }
+
+            foreach (var item in _dbContext.StoreRoom.Where(u => u.User_UserId == userData.UserId)) {
+                StorageItem.Add(item);
+            }
+
         }
         [RelayCommand]
         private async Task UserOptionsTapped()
@@ -53,28 +61,44 @@ namespace FoodieFinder.ViewModels
             switch (result)
             {
                 case "logout":
-                    var log = new Login(_dbContext);
+                    var log = new Login(_serviceProvider);
                     log.DestroySession();
-                    Application.Current.MainPage = new StartNavigationPage(_dbContext, _userData);
+                    Application.Current.MainPage = new StartNavigationPage(_serviceProvider);
                     break;
 
                 default: break;
             }
         }
         [RelayCommand]
-        private void AddStorageItem()
+        private async Task AddStorageItem()
         {
-            
+            var popup = new AddStorageItemPopup();
+            var result = (StorageItem)await Application.Current.MainPage.ShowPopupAsync(popup);
+
+            _dbContext.StoreRoom.Add(result);
+            _dbContext.SaveChanges();
         }
         [RelayCommand]
-        private void DeleteStorageItem()
+        private void DeleteStorageItem(StorageItem StorageIt)
         {
-            
+            _dbContext.StoreRoom.Remove(StorageIt);
+            _dbContext.SaveChanges();
         }
         [RelayCommand]
-        private void StorageProductTapped()
+        private async Task StorageProductTapped(StorageItem StorageIt)
         {
-            
+            var popup = new StorageItemPopup(StorageIt);
+            var result = (string)await Application.Current.MainPage.ShowPopupAsync(popup);
+
+            switch (result)
+            {
+
+                default: break;
+            }
+        }
+        private void LoadUserItems()
+        {
+
         }
     } 
 }

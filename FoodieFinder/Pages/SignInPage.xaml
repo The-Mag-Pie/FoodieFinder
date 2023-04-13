@@ -72,6 +72,7 @@
 
             <Label Text="Sign in"/>
             <ImageButton Source="arrow_icon.svg" CornerRadius="35" BackgroundColor="#FCB664" WidthRequest="100" HeightRequest="100" Padding="15" Command="{Binding SignInCommand}"/>
+            <Button Text="Sign in with Google" Clicked="SignInGoogleClickedAsync"></Button>
         </VerticalStackLayout>
         <Label Text="Back"
                Style="{StaticResource LinkLabel}"
