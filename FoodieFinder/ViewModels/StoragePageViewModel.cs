@@ -12,12 +12,14 @@ using FoodieFinder.ViewModels;
 using Android.Service.Autofill;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using static Android.Content.ClipData;
 
 namespace FoodieFinder.ViewModels
 {
 	public partial class StoragePageViewModel : BaseViewModel
 	{
         public ObservableCollection<StorageItem> StorageItem { get; } = new();
+
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(UserFirstLetter))]
         private string _welcomeUser;
@@ -44,8 +46,13 @@ namespace FoodieFinder.ViewModels
             {
                 WelcomeUser = username;
             }
+
+            foreach (var item in _dbContext.StoreRoom.Where(u => u.User_UserId == userData.UserId)) {
+                StorageItem.Add(item);
+            }
+
         }
-            [RelayCommand]
+        [RelayCommand]
         private async Task UserOptionsTapped()
         {
             var popup = new UserOptionsPopup();
@@ -63,9 +70,35 @@ namespace FoodieFinder.ViewModels
             }
         }
         [RelayCommand]
-        private void AddStorageItem()
+        private async Task AddStorageItem()
         {
-            
+            var popup = new AddStorageItemPopup();
+            var result = (StorageItem)await Application.Current.MainPage.ShowPopupAsync(popup);
+
+            _dbContext.StoreRoom.Add(result);
+            _dbContext.SaveChanges();
+        }
+        [RelayCommand]
+        private void DeleteStorageItem(StorageItem StorageIt)
+        {
+            _dbContext.StoreRoom.Remove(StorageIt);
+            _dbContext.SaveChanges();
+        }
+        [RelayCommand]
+        private async Task StorageProductTapped(StorageItem StorageIt)
+        {
+            var popup = new StorageItemPopup(StorageIt);
+            var result = (string)await Application.Current.MainPage.ShowPopupAsync(popup);
+
+            switch (result)
+            {
+
+                default: break;
+            }
+        }
+        private void LoadUserItems()
+        {
+
         }
     } 
 }
