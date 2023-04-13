@@ -76,13 +76,21 @@ namespace FoodieFinder.ViewModels
         {
             var popup = new AddStorageItemPopup();
             var result = (StorageItem)await Application.Current.MainPage.ShowPopupAsync(popup);
-
-            _dbContext.StoreRoom.Add(result);
-            _dbContext.SaveChanges();
+            var userData = _serviceProvider.GetRequiredService<UserAccount.UserData>();
+            result.User_UserId = userData.UserId;
+            if (result != null 
+                && (result.ProductName != null || result.ProductName == "") 
+                && result.Quantity != 0
+                && result.Unit != null || result.Unit == "") {
+                _dbContext.StoreRoom.Add(result);
+                _dbContext.SaveChanges();
+            }
+            
         }
         [RelayCommand]
         private void DeleteStorageItem(StorageItem StorageIt)
         {
+
             _dbContext.StoreRoom.Remove(StorageIt);
             _dbContext.SaveChanges();
         }

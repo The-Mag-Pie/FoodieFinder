@@ -14,8 +14,8 @@ public partial class AddStorageItemPopup : Popup
     public AddStorageItemPopup()
 	{
 		InitializeComponent();
-
-		BindingContext = addmodel;
+        
+        BindingContext = addmodel;
 
 	}
 
