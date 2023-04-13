@@ -1,11 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FoodieFinder.Database
 {
     public partial class StorageItem : ObservableObject
     {
-        [ObservableProperty]
-        private int _productId;
+        //[ObservableProperty]
+        //[Key]
+        [Column("ProductId")]
+        public int Id {get; set;}
         [ObservableProperty]
         private string _productName;
         [ObservableProperty]

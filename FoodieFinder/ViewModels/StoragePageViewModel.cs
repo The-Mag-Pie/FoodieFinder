@@ -11,6 +11,7 @@ using FoodieFinder.Pages;
 using FoodieFinder.ViewModels;
 using Android.Service.Autofill;
 using Microsoft.EntityFrameworkCore;
+using static Android.Content.ClipData;
 
 namespace FoodieFinder.ViewModels
 {
@@ -43,8 +44,8 @@ namespace FoodieFinder.ViewModels
             {
                 WelcomeUser = username;
             }
-            var log = new Login(_dbContext);
-            foreach (var item in _dbContext.StoreRoom.Where(u => u.User_UserId == log.GetUserIdSession())) {
+
+            foreach (var item in _dbContext.StoreRoom.Where(u => u.User_UserId == userData.UserId)) {
                 StorageItem.Add(item);
             }
 
@@ -72,14 +73,22 @@ namespace FoodieFinder.ViewModels
             
         }
         [RelayCommand]
-        private void DeleteStorageItem()
+        private void DeleteStorageItem(StorageItem StorageIt)
         {
-            
+            _dbContext.StoreRoom.Remove(StorageIt);
+            _dbContext.SaveChanges();
         }
         [RelayCommand]
-        private void StorageProductTapped()
+        private async Task StorageProductTapped(StorageItem StorageIt)
         {
-            
+            var popup = new StorageItemPopup(StorageIt);
+            var result = (string)await Application.Current.MainPage.ShowPopupAsync(popup);
+
+            switch (result)
+            {
+
+                default: break;
+            }
         }
         private void LoadUserItems()
         {

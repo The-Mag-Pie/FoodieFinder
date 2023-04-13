@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="FoodieFinder.Popups.StorageItemPopup"
+               Color="Transparent">
+
+    <Border StrokeThickness="0"
+            StrokeShape="RoundRectangle 15,15,15,15"
+            BackgroundColor="#333333"
+            Margin="30,30,30,30">
+        <VerticalStackLayout Spacing="10"
+                             Padding="10"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center">
+            <Label Text="{Binding ProductName}" 
+                   FontAttributes="Bold"
+                   FontSize="23"
+                   HorizontalOptions="Center"></Label>
+            <Label Text="{Binding Count, StringFormat='Count: , {0}'}" 
+                   FontAttributes="None"
+                   FontSize="12"
+                   HorizontalOptions="Center"></Label>
+            <Label Text="{Binding ExpirationDate, StringFormat='Expiration date: , {0}'}" 
+                   FontSize="12"
+                   FontAttributes="None"
+                   HorizontalOptions="Center"></Label>
+            <Button Text="Ok"
+                    Clicked="Ok_Clicked" 
+                    WidthRequest="200"/>
+        </VerticalStackLayout>
+    </Border>
+
+</toolkit:Popup>
+    
