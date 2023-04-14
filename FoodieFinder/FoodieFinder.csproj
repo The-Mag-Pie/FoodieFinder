@@ -96,6 +96,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="AppShellUser.xaml.cs">
+	    <DependentUpon>AppShellUser.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="AppShellGuest.xaml.cs">
+	    <DependentUpon>AppShellGuest.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\SignInPage.xaml.cs">
 	    <DependentUpon>SignInPage.xaml</DependentUpon>
 	  </Compile>
@@ -108,6 +114,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="AppShellGuest.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\ForgotPasswordPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

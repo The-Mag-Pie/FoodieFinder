@@ -15,7 +15,7 @@ public partial class StorageItemPopup : Popup
 	{
 		InitializeComponent();
 		model = StorageIt;
-
+		model.ProductName = model.ProductName.ToUpper();
 		BindingContext = model;
 
 		ResultWhenUserTapsOutsideOfPopup = "cancel";

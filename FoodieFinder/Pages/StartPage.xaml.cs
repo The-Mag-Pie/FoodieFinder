@@ -38,6 +38,6 @@ public partial class StartPage : ContentPage
         userData.UserId = -1;
         userData.UserName = "Guest";
 
-        Application.Current.MainPage = new AppShell();
+        Application.Current.MainPage = new AppShellGuest();
     }
 }
