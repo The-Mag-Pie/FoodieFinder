@@ -21,7 +21,7 @@ public partial class App : Application
 			userData.IsGuest = false;
 			userData.UserId = log.GetUserIdSession();
 			userData.UserName = log.GetUserNameSession();
-            MainPage = new AppShell();
+            MainPage = new AppShellUser();
         }
 		else
 		{
