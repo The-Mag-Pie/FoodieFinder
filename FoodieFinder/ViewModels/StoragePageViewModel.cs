@@ -87,9 +87,9 @@ namespace FoodieFinder.ViewModels
             var userData = _serviceProvider.GetRequiredService<UserAccount.UserData>();
             result.User_UserId = userData.UserId;
             if (result != null 
-                && (result.ProductName != null || result.ProductName == "") 
-                && result.Quantity != 0
-                && result.Unit != null || result.Unit == "") {
+                && (result.ProductName != string.Empty || result.ProductName != "") 
+                && result.Quantity > 0
+                && result.Unit != string.Empty || result.Unit != "") {
                 _dbContext.StoreRoom.Add(result);
                 _dbContext.SaveChanges();
 

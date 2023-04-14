@@ -24,8 +24,14 @@ public partial class AddStorageItemPopup : Popup
 	{
 		// TODO: dorobić walidację czy dane nie są puste, jeśli tak to wyświetlić komunikat (przykład niżej), jeśli nie to Close(addmodel)
 		//Application.Current.MainPage.DisplayAlert("Error", "You have not provided required data", "OK");
-
-		Close(addmodel);
+		if(addmodel.ProductName != string.Empty && addmodel.Unit != string.Empty && addmodel.Quantity <= 0) {
+            Close(addmodel);
+		}
+		else
+		{
+            Application.Current.MainPage.DisplayAlert("Error", "You have not provided required data", "OK");
+        }
+		
     }
 
     private void QuantityEntry_TextChanged(object sender, TextChangedEventArgs e)
