@@ -85,11 +85,12 @@ namespace FoodieFinder.ViewModels
             var popup = new AddStorageItemPopup();
             var result = (StorageItem)await Application.Current.MainPage.ShowPopupAsync(popup);
             var userData = _serviceProvider.GetRequiredService<UserAccount.UserData>();
-            result.User_UserId = userData.UserId;
+            
             if (result != null 
                 && (result.ProductName != string.Empty || result.ProductName != "") 
                 && result.Quantity > 0
                 && result.Unit != string.Empty || result.Unit != "") {
+                result.User_UserId = userData.UserId;
                 _dbContext.StoreRoom.Add(result);
                 _dbContext.SaveChanges();
 

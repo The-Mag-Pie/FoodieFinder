@@ -41,11 +41,9 @@
                             Opacity="0.8"/>
                     </Border.Shadow>
                     <DatePicker MinimumDate="01/01/2022"
-                MaximumDate="12/31/2022"
-                Date="06/21/2022" 
                 TextColor="#6A6363"
                 HorizontalOptions="Center"
-                BindingContext="{Binding ExpirationDate}"/>
+                Date="{Binding ExpirationDate}"/>
                 </Border>
                 <Border StrokeThickness="0"
                 StrokeShape="RoundRectangle 15,15,15,15"
