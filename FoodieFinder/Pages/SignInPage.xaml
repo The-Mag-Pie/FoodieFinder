@@ -70,9 +70,10 @@
                 </Label.GestureRecognizers>
             </Label>
 
-            <Label Text="Sign in"/>
-            <ImageButton Source="arrow_icon.svg" CornerRadius="35" BackgroundColor="#FCB664" WidthRequest="100" HeightRequest="100" Padding="15" Command="{Binding SignInCommand}"/>
-            <Button Text="Sign in with Google" Clicked="SignInGoogleClickedAsync"></Button>
+            <Label Text="Sign in" Margin="0,-10"/>
+            <ImageButton Source="arrow_icon.svg" CornerRadius="35" BackgroundColor="#FCB664" WidthRequest="100" HeightRequest="100" Padding="15" Margin="0,0,0,10" Command="{Binding SignInCommand}"/>
+            <Label Text="Sign in with" Style="{StaticResource LinkLabel}" TextDecorations="None"/>
+            <ImageButton Source="google_icon.svg" CornerRadius="35" BackgroundColor="#262626" WidthRequest="100" HeightRequest="100" Padding="15" Clicked="SignInGoogleClickedAsync"/> 
         </VerticalStackLayout>
         <Label Text="Back"
                Style="{StaticResource LinkLabel}"
