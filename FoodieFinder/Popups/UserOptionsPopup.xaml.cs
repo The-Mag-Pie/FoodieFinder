@@ -12,4 +12,5 @@ public partial class UserOptionsPopup : Popup
 	}
 
 	private void Logout_Clicked(object sender, EventArgs e) => Close("logout");
+	private void Notification_Clicked(object sender, EventArgs e) => Close("notification");
 }
