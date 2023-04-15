@@ -4,7 +4,6 @@ namespace FoodieFinder.Models
 {
     internal class SetTimer
     {
-
-        public TimePicker SetTime { get; set;}
+        public TimeSpan SetTime { get; set;}
     }
 }
