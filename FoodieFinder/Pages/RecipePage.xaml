@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodieFinder.Pages.RecipePage"
+             xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
+             xmlns:m="clr-namespace:FoodieFinder.Models"
+             x:DataType="vm:RecipePageViewModel"
+             BackgroundColor="#2C3639"
+             Title="RecipePage">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontFamily" Value="Poppins-Medium"/>
+        </Style>
+        <Style x:Key="UserPhotoBorderStyle" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 30,30,30,30" />
+            <Setter Property="StrokeThickness" Value="0" />
+            <Setter Property="Padding" Value="7, 7, 7, 7" />
+            <Setter Property="BackgroundColor" Value="#FF9832" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="WidthRequest" Value="50" />
+            <Setter Property="HeightRequest" Value="50" />
+        </Style>
+        <Style x:Key="MainLabel" TargetType="Label">
+            <Setter Property="TextColor" Value="#ABABAB"></Setter>
+            <Setter Property="FontSize" Value="19"></Setter>
+            <Setter Property="FontFamily" Value="Poppins-SemiBold"/>
+        </Style>
+        <Style x:Key="InfoLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="TextColor" Value="#FFFFFF"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="26, 0, 26, 20">
+            <Grid Margin="0, 15, 0, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="54" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="54" />
+                </Grid.RowDefinitions>
+
+                <Label Text="{Binding WelcomeUser, StringFormat='Welcome, {0}'}"
+                       VerticalOptions="Center"
+                       TextColor="#959595"
+                       FontAttributes="Bold"/>
+
+                <Border Style="{StaticResource UserPhotoBorderStyle}"
+                        Grid.Column="1">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding UserOptionsTappedCommand}"/>
+                    </Border.GestureRecognizers>
+                    <Label Text="{Binding UserFirstLetter}"
+                           FontSize="23"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center" />
+                </Border>
+
+                <!--<Image Source="{Binding UserImage}"
+                       Grid.Column="1"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />-->
+            </Grid>
+            <Border StrokeShape="RoundRectangle 60"
+                        StrokeThickness="0"
+                        BackgroundColor="#2C3639"
+                        Scale="0.75">
+                <Image Source="guacamole.png"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Aspect="AspectFill"/>
+                </Border>
+            <Label Text="Guacamole"
+                   HorizontalOptions="Center"
+                   Style="{StaticResource MainLabel}">
+
+            </Label>
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20" Margin="20">
+                <Image Source="clock_icon.svg"></Image>
+                <Label Text="15 min" Style="{StaticResource InfoLabel}"></Label>
+                <Image Source="star_icon.svg>"></Image>
+                <Label Text="5.0" Style="{StaticResource InfoLabel}"></Label>
+            </HorizontalStackLayout>
+            <Label Style="{StaticResource MainLabel}"
+                   Text="Ingrediets:"
+                   Margin="20, 5">
+                
+            </Label>
+            <CollectionView ItemsSource="{Binding Ingredients}"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Center">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                                       ItemSpacing="5" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:IngredientModel">
+                        <VerticalStackLayout Margin="-5, 0">
+                            <HorizontalStackLayout>
+                                <CheckBox IsChecked="{Binding IsChecked}" IsEnabled="False"></CheckBox>
+                                <Label                                             
+                                   HorizontalOptions="Start"
+                                   FontAttributes="Bold"
+                                   TextColor="#FFFFFF"
+                                   FontSize="16"
+                                   VerticalOptions="Center">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="{}{0} {1} {2}">
+                                            <Binding Path="IngredientName"/>
+                                            <Binding Path="Quantity"/>
+                                            <Binding Path="Unit"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Label Style="{StaticResource MainLabel}"
+                   Text="Recipe preparation:"
+                   Margin="20, 15">
+
+            </Label>
+            <Label Text="Mash avocados, lime juice, and salt together in a medium bowl; mix in tomatoes, onion, cilantro, and garlic. Stir in cayenne pepper."></Label>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

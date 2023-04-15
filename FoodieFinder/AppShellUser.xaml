@@ -34,7 +34,7 @@
 
         <Tab Title="TODO2"
              Icon="bookbookmark.png">
-            <ShellContent ContentTemplate="{DataTemplate pages:HomePage}"
+            <ShellContent ContentTemplate="{DataTemplate pages:RecipePage}"
                           Route="HomePage3"/>
         </Tab>
     </TabBar>
