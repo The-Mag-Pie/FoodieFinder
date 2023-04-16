@@ -48,6 +48,8 @@ namespace FoodieFinder.UserAccount
                     // Single() throws an exception when there is no exactly one element in collection
                     var userData = _dbContext.User.Where(u => u.Email == email).Single();
 
+                    _dbContext.User.Entry(userData).Reload();
+
                     if (ComparePassword(password, userData.Password))
                     {
                         _dbContext.SaveChanges();
