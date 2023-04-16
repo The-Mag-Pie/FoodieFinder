@@ -94,9 +94,19 @@ namespace FoodieFinder.ViewModels
                     log.DestroySession();
                     Application.Current.MainPage = new StartNavigationPage(_serviceProvider);
                     break;
+                case "notification":
+                    NotificationPopupSet();
 
+                    break;
                 default: break;
             }
+        }
+        private async Task NotificationPopupSet()
+        {
+            var popup = new SetNotificationPopup();
+            var result = (SetTimer)await Application.Current.MainPage.ShowPopupAsync(popup);
+            // zmienna z czasem znajduje się pod result.SetTime
+
         }
     }
 

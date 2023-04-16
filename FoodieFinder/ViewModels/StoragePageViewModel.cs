@@ -80,6 +80,7 @@ namespace FoodieFinder.ViewModels
                     
                     break;
                 default: break;
+
             }
         }
         [RelayCommand]
@@ -125,7 +126,8 @@ namespace FoodieFinder.ViewModels
         {
             var popup = new SetNotificationPopup();
             var result = (SetTimer)await Application.Current.MainPage.ShowPopupAsync(popup);
-            Application.Current.MainPage.DisplayAlert("Error", result.SetTime.ToString(), "OK");
+            // zmienna z czasem znajduje siê pod result.SetTime
+
         }
     } 
 }
