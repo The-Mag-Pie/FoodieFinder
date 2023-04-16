@@ -31,7 +31,7 @@ namespace FoodieFinder.ViewModels
                 int userId;
                 try
                 {
-                    userId = dbContext.User.Where(u => u.Email == Email).Single().Id;
+                    userId = dbContext.User.Where(u => u.Email == Email && u.Password != "auth0").Single().Id;
                 }
                 catch
                 {

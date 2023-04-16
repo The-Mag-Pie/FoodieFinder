@@ -28,7 +28,7 @@
 
         <Tab Title="Search"
              Icon="search.png">
-            <ShellContent ContentTemplate="{DataTemplate pages:HomePage}"
+            <ShellContent ContentTemplate="{DataTemplate pages:UserAccountPage}"
                           Route="HomePage2"/>
         </Tab>
 

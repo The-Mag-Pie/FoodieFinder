@@ -104,7 +104,7 @@
                     <DataTemplate x:DataType="m:IngredientModel">
                         <VerticalStackLayout Margin="-5, 0">
                             <HorizontalStackLayout>
-                                <CheckBox IsChecked="{Binding IsChecked}" IsEnabled="False"></CheckBox>
+                                <CheckBox IsChecked="{Binding IsChecked}" IsEnabled="False" Color="#29ABE2"></CheckBox>
                                 <Label                                             
                                    HorizontalOptions="Start"
                                    FontAttributes="Bold"

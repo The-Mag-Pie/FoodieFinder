@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
+             xmlns:m="clr-namespace:FoodieFinder.Models"
+             x:Class="FoodieFinder.Pages.UserAccountPage"
+             Title="UserAccountPage"
+             x:DataType="vm:HomePageViewModel"
+             BackgroundColor="#3F4E4F">
+
+    <ContentPage.Resources>
+        <Style x:Key="UserPhotoBorderStyle" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 80" />
+            <Setter Property="StrokeThickness" Value="0" />
+            <Setter Property="Padding" Value="7" />
+            <Setter Property="BackgroundColor" Value="#FF9832" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="WidthRequest" Value="150" />
+            <Setter Property="HeightRequest" Value="150" />
+        </Style>
+    </ContentPage.Resources>
+    
+    <VerticalStackLayout Padding="30, 100">
+        <Border Style="{StaticResource UserPhotoBorderStyle}">
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding UserOptionsTappedCommand}"/>
+            </Border.GestureRecognizers>
+            <Label Text="{Binding UserFirstLetter}"
+                           FontSize="23"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center" />
+        </Border>
+        <Label 
+            Text="{Binding WelcomeUser}"
+            TextColor="#FFFFFF"
+            FontFamily="Poppins-SemiBold"
+            HorizontalOptions="Center"
+            Margin="0, 50"
+            FontSize="30"
+            TextTransform="Uppercase"/>
+    </VerticalStackLayout>
+</ContentPage>
