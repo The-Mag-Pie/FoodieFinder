@@ -103,6 +103,10 @@ namespace FoodieFinder.ViewModels
                     log.DestroySession();
                     Application.Current.MainPage = new StartNavigationPage(_serviceProvider);
                     break;
+                case "notification":
+                    NotificationPopupSet();
+
+                    break;
 
                 default: break;
             }
@@ -140,6 +144,13 @@ namespace FoodieFinder.ViewModels
         {
             BucketList.Remove(item);
             SaveBucketList();
+        }
+        private async Task NotificationPopupSet()
+        {
+            var popup = new SetNotificationPopup();
+            var result = (SetTimer)await Application.Current.MainPage.ShowPopupAsync(popup);
+            // zmienna z czasem znajduje się pod result.SetTime
+
         }
     }
 }
