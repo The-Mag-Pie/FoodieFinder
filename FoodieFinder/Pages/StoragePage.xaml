@@ -113,8 +113,8 @@
                     <Grid Margin="0,0,0,0" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30" />
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="60" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -137,6 +137,7 @@
                                    Grid.Row="0"
                                FontAttributes="Bold"
                                FontSize="15"
+                               HorizontalOptions="Start"
                                VerticalOptions="Center"/>
 
 
@@ -167,8 +168,9 @@
                                     <Grid Margin="0,0,0,0" >
                                             <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="30" />
-                                            <ColumnDefinition Width="200"/>
-                                            <ColumnDefinition Width="50" />
+                                            <ColumnDefinition Width="140"/>
+                                            <ColumnDefinition Width="55" />
+                                            <ColumnDefinition Width="55" />
                                             <ColumnDefinition Width="45" />
                                         </Grid.ColumnDefinitions>
 
@@ -191,16 +193,22 @@
                                         FontSize="15"
                                         FontFamily="Poppins-Regular"
                                         Grid.Column="2"
-                                        HorizontalOptions="Center"></Label>
+                                        HorizontalOptions="End"></Label>
+                                        <Label Text="{Binding Unit}"
+                                        VerticalOptions="Center"
+                                        FontSize="10"
+                                        FontFamily="Poppins-Regular"
+                                        Grid.Column="3"
+                                        HorizontalOptions="Start"></Label>
 
                                         <Border Style="{StaticResource DeleteStorageItemBorder}"
-                                        Grid.Column="3">
+                                        Grid.Column="4">
                                             <Line X1="6" Y1="12.5"
                                           X2="19" Y2="12.5"
                                           Stroke="#33363F"
                                           StrokeThickness="3"
                                           VerticalOptions="Center"
-                                          HorizontalOptions="Center"/>
+                                          HorizontalOptions="Start"/>
 
                                             <Border.GestureRecognizers>
                                                 <TapGestureRecognizer CommandParameter="{Binding .}"

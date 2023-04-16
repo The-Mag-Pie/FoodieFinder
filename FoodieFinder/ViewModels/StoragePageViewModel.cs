@@ -75,8 +75,12 @@ namespace FoodieFinder.ViewModels
                     log.DestroySession();
                     Application.Current.MainPage = new StartNavigationPage(_serviceProvider);
                     break;
-
+                case "notification":
+                    NotificationPopupSet();
+                    
+                    break;
                 default: break;
+
             }
         }
         [RelayCommand]
@@ -118,8 +122,11 @@ namespace FoodieFinder.ViewModels
                 default: break;
             }
         }
-        private void LoadUserItems()
+        private async Task NotificationPopupSet()
         {
+            var popup = new SetNotificationPopup();
+            var result = (SetTimer)await Application.Current.MainPage.ShowPopupAsync(popup);
+            // zmienna z czasem znajduje siê pod result.SetTime
 
         }
     } 
