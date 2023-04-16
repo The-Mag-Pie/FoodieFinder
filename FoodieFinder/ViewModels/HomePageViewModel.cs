@@ -85,6 +85,12 @@ namespace FoodieFinder.ViewModels
         }
 
         [RelayCommand]
+        private void RecipeTapped(HomePageRecipeModel recipe)
+        {
+            Shell.Current.GoToAsync("//HomePage3");
+        }
+
+        [RelayCommand]
         public void SaveBucketList()
         {
             Task.Run(() => BucketListDb.SaveItems(BucketList.ToList()));

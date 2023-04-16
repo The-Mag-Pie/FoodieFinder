@@ -198,6 +198,10 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:HomePageRecipeModel">
                         <VerticalStackLayout Padding="5">
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomePageViewModel}}, Path=RecipeTappedCommand}"
+                                                      CommandParameter="{Binding .}"/>
+                            </VerticalStackLayout.GestureRecognizers>
                             <Border Style="{StaticResource RecipesBorderStyle}">
                                 <Border.Shadow>
                                     <Shadow Radius="15"
