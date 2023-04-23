@@ -21,25 +21,210 @@
                        TextColor="White"
                        HorizontalOptions="Center"
                        VerticalOptions="Center"></Label>
-                <Border StrokeThickness="0"
+            <Border StrokeThickness="0"
                 StrokeShape="RoundRectangle 15,15,15,15"
                 BackgroundColor="#273133"
-                Margin="0,30,0,0">
-                    <Border.Shadow>
-                        <Shadow Radius="5"
-                                Opacity="0.8"/>
-                    </Border.Shadow>
-                    <TimePicker 
-                           BackgroundColor="#333333"  
-                           Time="{Binding SetTime}"
-                            FontSize="28"
-                           TextColor="White"
-                           HorizontalOptions="Center"
-                            FontAttributes="Bold"
-                           VerticalOptions="Center"></TimePicker>
-                </Border>
-                
-                <Button Text="SET"
+                Margin="0,10,10,0">
+                <Border.Shadow>
+                    <Shadow Radius="5"
+                            Opacity="0.8"/>
+                </Border.Shadow>
+                <Picker x:Name="HourPicker"
+                        TextColor="#6A6363"
+                        Title="Select Hour"
+                        SelectedItem="{Binding Hour}"
+                        HorizontalOptions="Center">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:Int16}">
+                            <x:Int16>0</x:Int16>
+                            <x:Int16>1</x:Int16>
+                            <x:Int16>2</x:Int16>
+                            <x:Int16>3</x:Int16>
+                            <x:Int16>4</x:Int16>
+                            <x:Int16>5</x:Int16>
+                            <x:Int16>6</x:Int16>
+                            <x:Int16>7</x:Int16>
+                            <x:Int16>8</x:Int16>
+                            <x:Int16>9</x:Int16>
+                            <x:Int16>10</x:Int16>
+                            <x:Int16>11</x:Int16>
+                            <x:Int16>12</x:Int16>
+                            <x:Int16>13</x:Int16>
+                            <x:Int16>14</x:Int16>
+                            <x:Int16>15</x:Int16>
+                            <x:Int16>16</x:Int16>
+                            <x:Int16>17</x:Int16>
+                            <x:Int16>18</x:Int16>
+                            <x:Int16>19</x:Int16>
+                            <x:Int16>20</x:Int16>
+                            <x:Int16>21</x:Int16>
+                            <x:Int16>22</x:Int16>
+                            <x:Int16>23</x:Int16>
+                            <x:Int16>24</x:Int16>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </Border>
+            <Border StrokeThickness="0"
+                StrokeShape="RoundRectangle 15,15,15,15"
+                BackgroundColor="#273133"
+                Margin="0,10,10,0">
+                <Border.Shadow>
+                    <Shadow Radius="5"
+                            Opacity="0.8"/>
+                </Border.Shadow>
+                <Picker x:Name="MinutePicker"
+                        TextColor="#6A6363"
+                        Title="Select Minutes"
+                        SelectedItem="{Binding Minutes}"
+                        HorizontalOptions="Center">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:Int16}">
+                            <x:Int16>0</x:Int16>
+                            <x:Int16>1</x:Int16>
+                            <x:Int16>2</x:Int16>
+                            <x:Int16>3</x:Int16>
+                            <x:Int16>4</x:Int16>
+                            <x:Int16>5</x:Int16>
+                            <x:Int16>6</x:Int16>
+                            <x:Int16>7</x:Int16>
+                            <x:Int16>8</x:Int16>
+                            <x:Int16>9</x:Int16>
+                            <x:Int16>10</x:Int16>
+                            <x:Int16>11</x:Int16>
+                            <x:Int16>12</x:Int16>
+                            <x:Int16>13</x:Int16>
+                            <x:Int16>14</x:Int16>
+                            <x:Int16>15</x:Int16>
+                            <x:Int16>16</x:Int16>
+                            <x:Int16>17</x:Int16>
+                            <x:Int16>18</x:Int16>
+                            <x:Int16>19</x:Int16>
+                            <x:Int16>20</x:Int16>
+                            <x:Int16>21</x:Int16>
+                            <x:Int16>22</x:Int16>
+                            <x:Int16>23</x:Int16>
+                            <x:Int16>24</x:Int16>
+                            <x:Int16>25</x:Int16>
+                            <x:Int16>26</x:Int16>
+                            <x:Int16>27</x:Int16>
+                            <x:Int16>28</x:Int16>
+                            <x:Int16>29</x:Int16>
+                            <x:Int16>30</x:Int16>
+                            <x:Int16>31</x:Int16>
+                            <x:Int16>32</x:Int16>
+                            <x:Int16>33</x:Int16>
+                            <x:Int16>34</x:Int16>
+                            <x:Int16>35</x:Int16>
+                            <x:Int16>36</x:Int16>
+                            <x:Int16>37</x:Int16>
+                            <x:Int16>38</x:Int16>
+                            <x:Int16>39</x:Int16>
+                            <x:Int16>40</x:Int16>
+                            <x:Int16>41</x:Int16>
+                            <x:Int16>42</x:Int16>
+                            <x:Int16>43</x:Int16>
+                            <x:Int16>44</x:Int16>
+                            <x:Int16>45</x:Int16>
+                            <x:Int16>46</x:Int16>
+                            <x:Int16>47</x:Int16>
+                            <x:Int16>48</x:Int16>
+                            <x:Int16>49</x:Int16>
+                            <x:Int16>50</x:Int16>
+                            <x:Int16>51</x:Int16>
+                            <x:Int16>52</x:Int16>
+                            <x:Int16>53</x:Int16>
+                            <x:Int16>54</x:Int16>
+                            <x:Int16>55</x:Int16>
+                            <x:Int16>56</x:Int16>
+                            <x:Int16>57</x:Int16>
+                            <x:Int16>58</x:Int16>
+                            <x:Int16>59</x:Int16>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </Border>
+            <Border StrokeThickness="0"
+                StrokeShape="RoundRectangle 15,15,15,15"
+                BackgroundColor="#273133"
+                Margin="0,10,10,0">
+                <Border.Shadow>
+                    <Shadow Radius="5"
+                            Opacity="0.8"/>
+                </Border.Shadow>
+                <Picker x:Name="SecondPicker"
+                        TextColor="#6A6363"
+                        Title="Select Seconds"
+                        SelectedItem="{Binding Seconds}"
+                        HorizontalOptions="Center">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:Int16}">
+                            <x:Int16>0</x:Int16>
+                            <x:Int16>1</x:Int16>
+                            <x:Int16>2</x:Int16>
+                            <x:Int16>3</x:Int16>
+                            <x:Int16>4</x:Int16>
+                            <x:Int16>5</x:Int16>
+                            <x:Int16>6</x:Int16>
+                            <x:Int16>7</x:Int16>
+                            <x:Int16>8</x:Int16>
+                            <x:Int16>9</x:Int16>
+                            <x:Int16>10</x:Int16>
+                            <x:Int16>11</x:Int16>
+                            <x:Int16>12</x:Int16>
+                            <x:Int16>13</x:Int16>
+                            <x:Int16>14</x:Int16>
+                            <x:Int16>15</x:Int16>
+                            <x:Int16>16</x:Int16>
+                            <x:Int16>17</x:Int16>
+                            <x:Int16>18</x:Int16>
+                            <x:Int16>19</x:Int16>
+                            <x:Int16>20</x:Int16>
+                            <x:Int16>21</x:Int16>
+                            <x:Int16>22</x:Int16>
+                            <x:Int16>23</x:Int16>
+                            <x:Int16>24</x:Int16>
+                            <x:Int16>25</x:Int16>
+                            <x:Int16>26</x:Int16>
+                            <x:Int16>27</x:Int16>
+                            <x:Int16>28</x:Int16>
+                            <x:Int16>29</x:Int16>
+                            <x:Int16>30</x:Int16>
+                            <x:Int16>31</x:Int16>
+                            <x:Int16>32</x:Int16>
+                            <x:Int16>33</x:Int16>
+                            <x:Int16>34</x:Int16>
+                            <x:Int16>35</x:Int16>
+                            <x:Int16>36</x:Int16>
+                            <x:Int16>37</x:Int16>
+                            <x:Int16>38</x:Int16>
+                            <x:Int16>39</x:Int16>
+                            <x:Int16>40</x:Int16>
+                            <x:Int16>41</x:Int16>
+                            <x:Int16>42</x:Int16>
+                            <x:Int16>43</x:Int16>
+                            <x:Int16>44</x:Int16>
+                            <x:Int16>45</x:Int16>
+                            <x:Int16>46</x:Int16>
+                            <x:Int16>47</x:Int16>
+                            <x:Int16>48</x:Int16>
+                            <x:Int16>49</x:Int16>
+                            <x:Int16>50</x:Int16>
+                            <x:Int16>51</x:Int16>
+                            <x:Int16>52</x:Int16>
+                            <x:Int16>53</x:Int16>
+                            <x:Int16>54</x:Int16>
+                            <x:Int16>55</x:Int16>
+                            <x:Int16>56</x:Int16>
+                            <x:Int16>57</x:Int16>
+                            <x:Int16>58</x:Int16>
+                            <x:Int16>59</x:Int16>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </Border>
+
+            <Button Text="SET"
                     Clicked="Set_Clicked" 
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
