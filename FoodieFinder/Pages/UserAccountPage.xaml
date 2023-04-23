@@ -5,7 +5,7 @@
              xmlns:m="clr-namespace:FoodieFinder.Models"
              x:Class="FoodieFinder.Pages.UserAccountPage"
              Title="UserAccountPage"
-             x:DataType="vm:HomePageViewModel"
+             x:DataType="vm:UserAccountPageViewModel"
              BackgroundColor="#3F4E4F">
 
     <ContentPage.Resources>
@@ -19,26 +19,113 @@
             <Setter Property="WidthRequest" Value="150" />
             <Setter Property="HeightRequest" Value="150" />
         </Style>
+        <Style x:Key="Label" TargetType="Label">
+            <Setter Property="TextColor" Value="#FFFFFF"/>
+            <Setter Property="FontFamily" Value="Poppins-SemiBold"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+        </Style>
+        <Style x:Key="InputBorder" TargetType="Border">
+            <Setter Property="StrokeThickness" Value="0"/>
+            <Setter Property="StrokeShape" Value="RoundRectangle 15,15,15,15"/>
+            <Setter Property="BackgroundColor" Value="#273133"/>
+            <Setter Property="WidthRequest" Value="200"/>
+            <Setter Property="Margin" Value="0,10"/>
+        </Style>
+        <Style x:Key="EntryText" TargetType="Entry">
+            <Setter Property="BackgroundColor" Value="#273133"/>
+            <Setter Property="TextColor" Value="#6A6363"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+        </Style>
+        <Style x:Key="ChangeButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#FF9832"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="WidthRequest" Value="100"/>
+            <Setter Property="FontFamily" Value="Poppins-SemiBold"/>
+            <Setter Property="CornerRadius" Value="30"/>
+            <Setter Property="Margin" Value="0,20, 0, 40"/>
+        </Style>
     </ContentPage.Resources>
     
-    <VerticalStackLayout Padding="30, 100">
-        <Border Style="{StaticResource UserPhotoBorderStyle}">
-            <Border.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding UserOptionsTappedCommand}"/>
-            </Border.GestureRecognizers>
-            <Label Text="{Binding UserFirstLetter}"
+    <Grid Padding="30, 100, 30, 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <VerticalStackLayout Grid.Row="0">
+            <Border Style="{StaticResource UserPhotoBorderStyle}">
+                <Label Text="{Binding UserFirstLetter}"
                            FontSize="23"
                            FontAttributes="Bold"
                            VerticalOptions="Center"
                            HorizontalOptions="Center" />
-        </Border>
-        <Label 
+            </Border>
+            <Label 
             Text="{Binding WelcomeUser}"
-            TextColor="#FFFFFF"
-            FontFamily="Poppins-SemiBold"
-            HorizontalOptions="Center"
+            Style="{StaticResource Label}"
             Margin="0, 50"
             FontSize="30"
             TextTransform="Uppercase"/>
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+        <ScrollView VerticalOptions="FillAndExpand" Grid.Row="1" VerticalScrollBarVisibility="Always">
+            <VerticalStackLayout>
+                <Label
+                Text="CHANGE PASSWORD"
+                Style="{StaticResource Label}"
+                FontSize="15"/>
+                <Border Style="{StaticResource InputBorder}">
+                    <Border.Shadow>
+                        <Shadow Radius="5"
+                                Opacity="0.8"/>
+                    </Border.Shadow>
+                    <Entry Style="{StaticResource EntryText}"
+                           Placeholder="Old password" 
+                           Text="{Binding OldPassword}"/>
+                </Border>
+                <Border Style="{StaticResource InputBorder}">
+                    <Border.Shadow>
+                        <Shadow Radius="5"
+                                Opacity="0.8"/>
+                    </Border.Shadow>
+                    <Entry Style="{StaticResource EntryText}"
+                           Placeholder="New password" 
+                           Text="{Binding NewPassword}"/>
+                </Border>
+                <Border Style="{StaticResource InputBorder}">
+                    <Border.Shadow>
+                        <Shadow Radius="5"
+                                Opacity="0.8"/>
+                    </Border.Shadow>
+                    <Entry Style="{StaticResource EntryText}"
+                           Placeholder="Confirm password" 
+                           Text="{Binding ConfirmedPassword}"/>
+                </Border>
+                <Button Style="{StaticResource ChangeButton}"
+                        Text="CHANGE"/>
+                <Label
+                Text="CHANGE EMAIL"
+                Style="{StaticResource Label}"
+                FontSize="15"/>
+                <Border Style="{StaticResource InputBorder}">
+                    <Border.Shadow>
+                        <Shadow Radius="5"
+                                Opacity="0.8"/>
+                    </Border.Shadow>
+                    <Entry Style="{StaticResource EntryText}"
+                           Placeholder="New email" 
+                           Text="{Binding NewEmail}"/>
+                </Border>
+                <Border Style="{StaticResource InputBorder}">
+                    <Border.Shadow>
+                        <Shadow Radius="5"
+                                Opacity="0.8"/>
+                    </Border.Shadow>
+                    <Entry Style="{StaticResource EntryText}"
+                           Placeholder="Confirm email" 
+                           Text="{Binding ConfirmedEmail}"/>
+                </Border>
+                <Button Style="{StaticResource ChangeButton}"
+                        Text="CHANGE"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>
