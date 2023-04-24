@@ -18,12 +18,13 @@ namespace FoodieFinder.Notification
         {
             TimeSpan Timer = new TimeSpan(Hour,Minutes, Seconds);
 
-
+            TimeSpan RealEndTime = DateTime.Now.TimeOfDay;
+            RealEndTime = RealEndTime.Add(Timer);
             var request = new NotificationRequest
             {
                 NotificationId = 1337,
-                Title = Timer.Hours.ToString() + " : " + Timer.Minutes.ToString() + " : " + Timer.Seconds.ToString(),
-                Subtitle = "Timer",
+                Title = "Alarm is set to: " + RealEndTime.Hours.ToString() + " : " + RealEndTime.Minutes.ToString() + " : " + RealEndTime.Seconds.ToString(),
+                Subtitle = "Alarm",
                 Description = "",
                 CategoryType = NotificationCategoryType.Status,
                 Schedule = new NotificationRequestSchedule
@@ -33,23 +34,10 @@ namespace FoodieFinder.Notification
                 },
 
             };
-            var requestdone = new NotificationRequest
-            {
-                NotificationId = 1338,
-                Title = "Timer",
-                Subtitle = "Timer",
-                Description = "DONE",
-                CategoryType = NotificationCategoryType.Alarm,
-                Schedule = new NotificationRequestSchedule
-                {
-                    NotifyTime = DateTime.Now,
-
-                },
-
-            };
+            
             try
             {
-                //LocalNotificationCenter.Current.Show(request);
+                LocalNotificationCenter.Current.Show(request);
 
                 Task.Run(async () =>
                 {
@@ -58,16 +46,16 @@ namespace FoodieFinder.Notification
                     while (true)
                     {
 
-                        await Task.Delay(100);
-                        request.Title = Timer.Hours.ToString() + " : " + Timer.Minutes.ToString() + " : " + Timer.Seconds.ToString();
-                        LocalNotificationCenter.Current.Show(request);
+                        await Task.Delay(1000);
+                        //request.Title = Timer.Hours.ToString() + " : " + Timer.Minutes.ToString() + " : " + Timer.Seconds.ToString();
+                        
                         TimeSpan AfterTime = DateTime.Now.TimeOfDay - StartTime;
                         Timer = DestinationTime - AfterTime;
                         if (AfterTime >= DestinationTime)
                         {
                             LocalNotificationCenter.Current.Cancel(1337);
-
-                            await LocalNotificationCenter.Current.Show(requestdone);
+                            Set_Done_Notification();
+                            
                             break;
                         }
                     }
@@ -88,6 +76,25 @@ namespace FoodieFinder.Notification
             {
 
             }
+        }
+        private void Set_Done_Notification()
+        {
+            var requestdone = new NotificationRequest
+            {
+                NotificationId = 1338,
+                Title = "",
+                Subtitle = "Timer",
+                Description = "DONE",
+                CategoryType = NotificationCategoryType.Alarm,
+                Schedule = new NotificationRequestSchedule
+                {
+                    NotifyTime = DateTime.Now,
+
+                },
+
+            };
+            LocalNotificationCenter.Current.Show(requestdone);
+            
         }
     }
    
