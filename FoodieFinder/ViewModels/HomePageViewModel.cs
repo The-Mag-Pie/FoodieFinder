@@ -5,6 +5,7 @@ using FoodieFinder.Database;
 using FoodieFinder.LocalJsonDatabase;
 using FoodieFinder.Models;
 using FoodieFinder.Popups;
+using FoodieFinder.Notification;
 using FoodieFinder.UserAccount;
 using System.Collections.ObjectModel;
 using FoodieFinder.Pages;
@@ -156,6 +157,12 @@ namespace FoodieFinder.ViewModels
             var popup = new SetNotificationPopup();
             var result = (SetTimer)await Application.Current.MainPage.ShowPopupAsync(popup);
             // zmienna z czasem znajduje się pod result.SetTime
+            var not = new AndroidNotification();
+            if (!not.CreateNotification(result.Hour,result.Minutes,result.Seconds))
+            {
+                Application.Current.MainPage.DisplayAlert("Error", "Notification has not been established!", "OK");
+            }
+            
 
         }
     }

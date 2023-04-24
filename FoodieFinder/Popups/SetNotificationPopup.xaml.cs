@@ -24,8 +24,8 @@ public partial class SetNotificationPopup : Popup
 	{
         // TODO: dorobić walidację czy dane nie są puste, jeśli tak to wyświetlić komunikat (przykład niżej), jeśli nie to Close(addmodel)
         //Application.Current.MainPage.DisplayAlert("Error", "You have not provided required data", "OK");
-        if (model != null && model.SetTime.ToString() != string.Empty) {
-            Application.Current.MainPage.DisplayAlert("Error", model.SetTime.ToString(), "OK");
+        if (model != null && model.Hour.ToString() != string.Empty) {
+            //Application.Current.MainPage.DisplayAlert("Error", model.Hour.ToString() + model.Minutes.ToString() + model.Seconds.ToString(), "OK");
             Close(model);
 		}
 		else
