@@ -2,6 +2,7 @@
 using GraphQL;
 using GraphQL.Client.Http;
 using GraphQL.Client.Serializer.SystemTextJson;
+using System.Text.Json;
 
 namespace FoodieFinder.SuggesticAPI
 {
@@ -24,6 +25,8 @@ namespace FoodieFinder.SuggesticAPI
         public async Task<List<Recipe>> SearchRecipesByIngredients(List<string> ingredients)
         {
             var query = Queries.SearchRecipesByIngredientsQuery;
+            var ingredientsJson = JsonSerializer.Serialize(ingredients);
+            query = query.Replace("{{ingredientsList}}", ingredientsJson);
             var response = await _sendQueryAsync<SearchRecipesByIngredientsResponse>(query);
             return response.SearchRecipesByIngredients.Edges.Select(e => e.Node).ToList();
         }

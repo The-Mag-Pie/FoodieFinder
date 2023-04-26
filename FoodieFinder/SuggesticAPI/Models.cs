@@ -1,4 +1,6 @@
-﻿namespace FoodieFinder.SuggesticAPI.Models
+﻿using System.Text.Json.Serialization;
+
+namespace FoodieFinder.SuggesticAPI.Models
 {
     public class SearchRecipesByIngredientsResponse
     {
@@ -18,12 +20,16 @@
     public class Recipe
     {
         public string Name { get; set; }
-        public List<Ingredient> Ingredients { get; set; }
+        [JsonPropertyName("parsedIngredientLines")]
+        public List<IngredientLine> Ingredients { get; set; }
         public List<string> Instructions { get; set; }
     }
 
-    public class Ingredient
+    public class IngredientLine
     {
-        public string Name { get; set; }
+        [JsonPropertyName("ingredient")]
+        public string IngredientName { get; set; }
+        public int Quantity { get; set; }
+        public string Unit { get; set; }
     }
 }

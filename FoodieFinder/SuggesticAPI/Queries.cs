@@ -5,13 +5,17 @@
         public const string SearchRecipesByIngredientsQuery = @"
         {
             searchRecipesByIngredients (
-                mustIngredients: [""broccoli"", ""eggs""]
+                mustIngredients: {{ingredientsList}}
             ) {
                 edges {
                     node {
                         name
-                        ingredients {
-                            name
+                        parsedIngredientLines (
+                            preferredUnitSystem: METRIC
+                        ) {
+                            ingredient
+                            quantity
+                            unit
                         }
                         instructions
                     }
