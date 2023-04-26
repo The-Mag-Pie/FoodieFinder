@@ -56,7 +56,7 @@ namespace FoodieFinder.UserAccount
             }
             return false;
         }
-        private bool IsEmail(string input)
+        public bool IsEmail(string input)
         {
             try
             {

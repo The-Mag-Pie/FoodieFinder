@@ -81,7 +81,7 @@ namespace FoodieFinder.UserAccount
                 return true;
             }
         }
-        private string EncryptPassword(string password)
+        public string EncryptPassword(string password)
         {
             using (var sha256 = SHA256.Create())
             {
@@ -89,7 +89,7 @@ namespace FoodieFinder.UserAccount
                 return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
             }
         }
-        private bool ComparePassword(string password, string hashedPassword)
+        public bool ComparePassword(string password, string hashedPassword)
         {
             using (var sha256 = SHA256.Create())
             {

@@ -45,7 +45,7 @@
             <Setter Property="Margin" Value="0,20, 0, 40"/>
         </Style>
     </ContentPage.Resources>
-    
+
     <Grid Padding="30, 100, 30, 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -66,7 +66,7 @@
             FontSize="30"
             TextTransform="Uppercase"/>
         </VerticalStackLayout>
-        <ScrollView VerticalOptions="FillAndExpand" Grid.Row="1" VerticalScrollBarVisibility="Always">
+        <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Always">
             <VerticalStackLayout>
                 <Label
                 Text="CHANGE PASSWORD"
@@ -100,7 +100,8 @@
                            Text="{Binding ConfirmedPassword}"/>
                 </Border>
                 <Button Style="{StaticResource ChangeButton}"
-                        Text="CHANGE"/>
+                        Text="CHANGE"
+                        Command="{Binding ChangePasswordCommand}"/>
                 <Label
                 Text="CHANGE EMAIL"
                 Style="{StaticResource Label}"
@@ -124,7 +125,8 @@
                            Text="{Binding ConfirmedEmail}"/>
                 </Border>
                 <Button Style="{StaticResource ChangeButton}"
-                        Text="CHANGE"/>
+                        Text="CHANGE"
+                        Command="{Binding ChangeEmailCommand}"/>
             </VerticalStackLayout>
         </ScrollView>
     </Grid>

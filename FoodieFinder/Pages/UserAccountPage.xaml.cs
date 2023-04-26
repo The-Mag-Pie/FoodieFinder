@@ -4,7 +4,7 @@ namespace FoodieFinder.Pages;
 
 public partial class UserAccountPage : ContentPage
 {
-    private readonly HomePageViewModel vm;
+    private readonly UserAccountPageViewModel vm;
     public UserAccountPage(IServiceProvider serviceProvider)
 	{
 		InitializeComponent();
