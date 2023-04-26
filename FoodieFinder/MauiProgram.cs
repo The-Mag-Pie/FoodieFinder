@@ -3,6 +3,7 @@ using FoodieFinder.Auth0;
 using FoodieFinder.Database;
 using FoodieFinder.Models;
 using FoodieFinder.Pages;
+using FoodieFinder.SuggesticAPI;
 using FoodieFinder.UserAccount;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -53,8 +54,12 @@ public static class MauiProgram
 			RedirectUri = "myapp://callback"
 		}));
 
-		// Add pages to services (dependency injection)
-		builder.Services.AddTransient<HomePage>();
+		// Add Suggestic API client
+		var apiKey = config.GetRequiredSection("SuggesticAPI")["ApiKey"];
+		builder.Services.AddSingleton(new SuggesticApiClient(apiKey));
+
+        // Add pages to services (dependency injection)
+        builder.Services.AddTransient<HomePage>();
 		builder.Services.AddTransient<StoragePage>();
         builder.Services.AddTransient<StartPage>();
         builder.Services.AddTransient<RecipePage>();
