@@ -6,6 +6,8 @@ namespace FoodieFinder;
 
 public partial class App : Application
 {
+	public static int? SharedRecipeID { get; set; } = null;
+
 	public App(IServiceProvider serviceProvider)
 	{
 		InitializeComponent();
