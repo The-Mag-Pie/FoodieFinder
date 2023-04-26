@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Plugin.LocalNotification;
-using Plugin.LocalNotification.AndroidOption;
-using Android.App;
-using Android.Content;
-using Android.Support.V4.App;
-using System.Threading.Tasks;
+﻿using Plugin.LocalNotification;
 
 namespace FoodieFinder.Notification
 {

@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using FoodieFinder.Database;
-using FoodieFinder.Pages;
 using FoodieFinder.UserAccount;
 
 namespace FoodieFinder.ViewModels

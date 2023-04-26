@@ -1,8 +1,4 @@
-﻿using FoodieFinder.Database;
-using FoodieFinder.UserAccount;
-using Microsoft.Extensions.Configuration;
-
-namespace FoodieFinder.Pages
+﻿namespace FoodieFinder.Pages
 {
     internal class StartNavigationPage : NavigationPage
     {

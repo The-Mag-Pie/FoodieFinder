@@ -3,8 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using FoodieFinder.Database;
 using FoodieFinder.Pages;
 using FoodieFinder.UserAccount;
-using Microsoft.Extensions.Configuration;
-using System;
 
 
 namespace FoodieFinder.ViewModels

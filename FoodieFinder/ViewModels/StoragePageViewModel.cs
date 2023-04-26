@@ -2,21 +2,15 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Maui.Views;
 using FoodieFinder.Database;
-using FoodieFinder.LocalJsonDatabase;
 using FoodieFinder.Models;
 using FoodieFinder.Popups;
 using FoodieFinder.UserAccount;
 using System.Collections.ObjectModel;
 using FoodieFinder.Pages;
-using FoodieFinder.ViewModels;
-using Android.Service.Autofill;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using static Android.Content.ClipData;
 
 namespace FoodieFinder.ViewModels
 {
-	public partial class StoragePageViewModel : BaseViewModel
+    public partial class StoragePageViewModel : BaseViewModel
 	{
         public ObservableCollection<StorageItem> StorageItems { get; } = new();
 

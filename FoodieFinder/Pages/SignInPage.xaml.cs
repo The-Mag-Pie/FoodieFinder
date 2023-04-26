@@ -2,14 +2,8 @@ using FoodieFinder.ViewModels;
 using FoodieFinder.Database;
 using FoodieFinder.UserAccount;
 //using Auth0.OidcClient;
-using Microsoft.Extensions.Configuration;
-using FoodieFinder.Models;
 using FoodieFinder.Auth0;
-using System.Security.Claims;
-using Android.Service.Autofill;
-using Microsoft.EntityFrameworkCore;
 using UserData = FoodieFinder.UserAccount.UserData;
-using Android.Util;
 
 namespace FoodieFinder.Pages;
 

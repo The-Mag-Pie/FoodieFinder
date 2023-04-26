@@ -9,7 +9,6 @@ using FoodieFinder.Notification;
 using FoodieFinder.UserAccount;
 using System.Collections.ObjectModel;
 using FoodieFinder.Pages;
-using Microsoft.Extensions.Configuration;
 
 namespace FoodieFinder.ViewModels
 {

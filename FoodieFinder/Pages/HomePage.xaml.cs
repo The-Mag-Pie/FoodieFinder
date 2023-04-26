@@ -1,7 +1,4 @@
-using FoodieFinder.Database;
-using FoodieFinder.UserAccount;
 using FoodieFinder.ViewModels;
-using Microsoft.Extensions.Configuration;
 
 namespace FoodieFinder.Pages;
 

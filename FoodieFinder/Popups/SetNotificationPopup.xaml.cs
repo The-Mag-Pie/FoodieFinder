@@ -1,7 +1,4 @@
 ﻿using CommunityToolkit.Maui.Views;
-using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System.Collections.ObjectModel;
 using FoodieFinder.Models;
 
 

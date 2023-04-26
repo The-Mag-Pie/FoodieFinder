@@ -1,8 +1,4 @@
-using Android.Service.Autofill;
-using FoodieFinder.Database;
-using FoodieFinder.UserAccount;
 using FoodieFinder.ViewModels;
-using System;
 
 namespace FoodieFinder.Pages;
 

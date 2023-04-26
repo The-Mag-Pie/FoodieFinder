@@ -1,7 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using FoodieFinder.Database;
-using FoodieFinder.LocalJsonDatabase;
-using FoodieFinder.Popups;
 using FoodieFinder.UserAccount;
 
 namespace FoodieFinder.ViewModels

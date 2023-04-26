@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Text;
 using FoodieFinder.Database;
-using Android.OS;
 using System.Security.Cryptography;
 
 namespace FoodieFinder.UserAccount

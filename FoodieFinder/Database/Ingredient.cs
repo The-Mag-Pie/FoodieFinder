@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Reflection;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FoodieFinder.Database
 {

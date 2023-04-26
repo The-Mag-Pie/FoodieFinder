@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace FoodieFinder.Models
+﻿namespace FoodieFinder.Models
 {
     internal class SetTimer
     {
