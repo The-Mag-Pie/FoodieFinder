@@ -2,7 +2,6 @@
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
-using Android.Widget;
 
 namespace FoodieFinder;
 
@@ -12,33 +11,18 @@ namespace FoodieFinder;
     LaunchMode = LaunchMode.SingleTop)]
 [IntentFilter(new[] { Intent.ActionView },
     Categories = new[] { Intent.CategoryBrowsable, Intent.CategoryDefault },
-    DataScheme = "https",
-    DataHost = "XXXX",
-    DataPathPrefix = "/share-recipe",
-    AutoVerify = true)]
-[IntentFilter(new[] { Intent.ActionView },
-    Categories = new[] { Intent.CategoryBrowsable, Intent.CategoryDefault },
     DataScheme = "app",
     DataHost = "foodiefinder",
-    DataPathPrefix = "/share-recipe",
-    AutoVerify = true)]
+    DataPathPrefix = "/share-recipe")]
 public class MainActivity : MauiAppCompatActivity
 {
     protected override void OnCreate(Bundle savedInstanceState)
     {
-        var intent = Intent;
-        var intentDataStr = intent.Data?.ToString();
-        if (intentDataStr != null && intentDataStr.Contains("/share-recipe/"))
+        var recipeID = getSharedRecipeIdFromIntent(Intent);
+        if (recipeID != null)
         {
-            var recipeIDstr = intentDataStr[(intentDataStr.LastIndexOf("/") + 1)..];
-
-            if (int.TryParse(recipeIDstr, out var recipeID))
-            {
-                App.SharedRecipeID = recipeID;
-            }
+            App.SharedRecipeID = recipeID;
         }
-
-        Toast.MakeText(this, $"{Intent.Data}", ToastLength.Long).Show();
 
         base.OnCreate(savedInstanceState);
     }
@@ -46,7 +30,27 @@ public class MainActivity : MauiAppCompatActivity
     protected override void OnNewIntent(Intent intent)
     {
         base.OnNewIntent(intent);
-        Toast.MakeText(this, $"{Intent.Data}", ToastLength.Long).Show();
-        //MauiApplication.Current.Services
+
+        var recipeID = getSharedRecipeIdFromIntent(intent);
+        if (recipeID != null)
+        {
+            App.SharedRecipeID = recipeID;
+            App.OnSharedRecipeIntentReceived();
+        }
+    }
+
+    private static int? getSharedRecipeIdFromIntent(Intent intent)
+    {
+        var intentDataStr = intent.Data?.ToString();
+        if (intentDataStr != null && intentDataStr.Contains("/share-recipe/"))
+        {
+            var recipeIDstr = intentDataStr[(intentDataStr.LastIndexOf("/") + 1)..];
+
+            if (int.TryParse(recipeIDstr, out var recipeID))
+            {
+                return recipeID;
+            }
+        }
+        return null;
     }
 }

@@ -11,6 +11,8 @@ public partial class StartPage : ContentPage
 		InitializeComponent();
 
         _serviceProvider = serviceProvider;
+
+        App.ClearSharedRecipeIntentReceived();
     }
 
     private void GoToRegisterPage(object sender, EventArgs e)

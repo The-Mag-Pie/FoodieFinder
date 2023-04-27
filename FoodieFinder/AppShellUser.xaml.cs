@@ -6,15 +6,16 @@ public partial class AppShellUser : Shell
 	{
 		InitializeComponent();
 
-		Loaded += async (s, e) =>
+		Loaded += async (s, e) => await OnSharedRecipeIntentReceived();
+		App.SharedRecipeIntentReceived += async () => await OnSharedRecipeIntentReceived();
+	}
+
+	private async Task OnSharedRecipeIntentReceived()
+	{
+		if (App.SharedRecipeID != null)
 		{
             await DisplayAlert("Intent", $"SharedRecipeID: {App.SharedRecipeID}", "OK");
-            App.SharedRecipeID = null;
-   //         if (App.SharedRecipeID != null)
-			//{
-			//	await DisplayAlert("Intent", $"SharedRecipeID: {App.SharedRecipeID}", "OK");
-			//	App.SharedRecipeID = null;
-			//}
-		};
+			App.SharedRecipeID = null;
+        }
 	}
 }

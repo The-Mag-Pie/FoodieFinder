@@ -7,6 +7,15 @@ namespace FoodieFinder;
 public partial class App : Application
 {
 	public static int? SharedRecipeID { get; set; } = null;
+	public static event Action SharedRecipeIntentReceived;
+	public static void OnSharedRecipeIntentReceived() => SharedRecipeIntentReceived?.Invoke();
+	public static void ClearSharedRecipeIntentReceived()
+	{
+		foreach (var d in SharedRecipeIntentReceived.GetInvocationList())
+		{
+			SharedRecipeIntentReceived -= (Action)d;
+		}
+	}
 
 	public App(IServiceProvider serviceProvider)
 	{
