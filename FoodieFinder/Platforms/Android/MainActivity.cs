@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
+using Android.Widget;
 
 namespace FoodieFinder;
 
@@ -13,6 +14,12 @@ namespace FoodieFinder;
     Categories = new[] { Intent.CategoryBrowsable, Intent.CategoryDefault },
     DataScheme = "https",
     DataHost = "XXXX",
+    DataPathPrefix = "/share-recipe",
+    AutoVerify = true)]
+[IntentFilter(new[] { Intent.ActionView },
+    Categories = new[] { Intent.CategoryBrowsable, Intent.CategoryDefault },
+    DataScheme = "app",
+    DataHost = "foodiefinder",
     DataPathPrefix = "/share-recipe",
     AutoVerify = true)]
 public class MainActivity : MauiAppCompatActivity
@@ -31,12 +38,15 @@ public class MainActivity : MauiAppCompatActivity
             }
         }
 
+        Toast.MakeText(this, $"{Intent.Data}", ToastLength.Long).Show();
+
         base.OnCreate(savedInstanceState);
     }
 
     protected override void OnNewIntent(Intent intent)
     {
         base.OnNewIntent(intent);
+        Toast.MakeText(this, $"{Intent.Data}", ToastLength.Long).Show();
         //MauiApplication.Current.Services
     }
 }
