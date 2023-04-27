@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="FoodieFinder.Popups.SaveSharedRecipePopup"
+               Color="Transparent">
+
+    <Border StrokeThickness="0"
+            StrokeShape="RoundRectangle 15,15,15,15"
+            BackgroundColor="#273133"
+            Margin="30,30,30,30">
+        <VerticalStackLayout Margin="10"
+                             VerticalOptions="Center">
+
+            <Label Text="Do you want to save"
+                   HorizontalOptions="Center"
+                   FontSize="20"
+                   TextColor="White"/>
+            <Label x:Name="recipeNameLabel"
+                   HorizontalOptions="Center"
+                   FontSize="20"
+                   TextColor="White"/>
+            <Label Text="in your recipes?"
+                   HorizontalOptions="Center"
+                   FontSize="20"
+                   TextColor="White"/>
+
+            <Button Text="Yes"
+                    Clicked="ButtonYesClicked"
+                    WidthRequest="100"
+                    HorizontalOptions="Center"
+                    Margin="0,10">
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Radius="20"
+                            Opacity="0.8"/>
+                </Button.Shadow>
+            </Button>
+            <Button Text="No"
+                    Clicked="ButtonNoClicked"
+                    BackgroundColor="#333333"
+                    WidthRequest="100"
+                    HorizontalOptions="Center"
+                    Margin="0,10">
+                <Button.Shadow>
+                    <Shadow Brush="Black"
+                            Radius="20"
+                            Opacity="0.8"/>
+                </Button.Shadow>
+            </Button>
+            
+        </VerticalStackLayout>
+    </Border>
+
+</toolkit:Popup>
+    

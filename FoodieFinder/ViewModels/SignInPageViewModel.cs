@@ -28,7 +28,7 @@ namespace FoodieFinder.ViewModels
                         userData.UserId = dbUserData.Id;
                         userData.UserName = Email;
 
-                        Application.Current.MainPage = new AppShellUser();
+                        Application.Current.MainPage = new AppShellUser(_serviceProvider);
 
                         //Application.Current.MainPage.DisplayAlert("Error", log.GetUserNameSession(), "Ok");
                     }

@@ -65,7 +65,7 @@ public partial class SignInPage : ContentPage
             userData.UserId = dbUserData.Id;
             userData.UserName = email;
 
-            Application.Current.MainPage = new AppShellUser();
+            Application.Current.MainPage = new AppShellUser(_serviceProvider);
 
         }
         else

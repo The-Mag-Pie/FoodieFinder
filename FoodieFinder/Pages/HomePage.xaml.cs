@@ -13,6 +13,7 @@ public partial class HomePage : ContentPage
 		vm = new(serviceProvider);
 		BindingContext = vm;
 
+		Appearing += (s, e) => vm.OnAppearing();
 		Disappearing += (s, e) => vm.SaveBucketList();
 	}
 

@@ -109,6 +109,9 @@
 	  <Compile Update="Pages\SignInPage.xaml.cs">
 	    <DependentUpon>SignInPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Popups\SaveSharedRecipePopup.xaml.cs">
+	    <DependentUpon>SaveSharedRecipePopup.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Popups\SetNotificationPopup.xaml.cs">
 	    <DependentUpon>SetNotificationPopup.xaml</DependentUpon>
 	  </Compile>
@@ -149,6 +152,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\StoragePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Popups\SaveSharedRecipePopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\SetNotificationPopup.xaml">

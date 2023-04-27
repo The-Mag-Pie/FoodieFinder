@@ -11,6 +11,8 @@ public partial class App : Application
 	public static void OnSharedRecipeIntentReceived() => SharedRecipeIntentReceived?.Invoke();
 	public static void ClearSharedRecipeIntentReceived()
 	{
+		if (SharedRecipeIntentReceived == null) return;
+
 		foreach (var d in SharedRecipeIntentReceived.GetInvocationList())
 		{
 			SharedRecipeIntentReceived -= (Action)d;
@@ -32,7 +34,7 @@ public partial class App : Application
 			userData.IsGuest = false;
 			userData.UserId = log.GetUserIdSession();
 			userData.UserName = log.GetUserNameSession();
-            MainPage = new AppShellUser();
+            MainPage = new AppShellUser(serviceProvider);
         }
 		else
 		{

@@ -30,6 +30,14 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
 
+		// Configure custom handlers
+		builder.ConfigureMauiHandlers(handlers =>
+		{
+#if ANDROID
+			handlers.AddHandler<CollectionView, FoodieFinder.Platforms.Android.CustomHandlers.CollectionViewCustomHandler>();
+#endif
+		});
+
 		// Add appsettings.json configuration
 		var a = Assembly.GetExecutingAssembly();
 		using var stream = a.GetManifestResourceStream("FoodieFinder.appsettings.json");
@@ -58,7 +66,10 @@ public static class MauiProgram
 		var apiKey = config.GetRequiredSection("SuggesticAPI")["ApiKey"];
 		builder.Services.AddSingleton(new SuggesticApiClient(apiKey));
 
-        // Add pages to services (dependency injection)
+		// Add shell to services
+		builder.Services.AddTransient<AppShellUser>();
+
+        // Add pages to services
         builder.Services.AddTransient<HomePage>();
 		builder.Services.AddTransient<StoragePage>();
         builder.Services.AddTransient<StartPage>();

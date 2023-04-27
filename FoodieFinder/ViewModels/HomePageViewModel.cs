@@ -9,6 +9,7 @@ using FoodieFinder.Notification;
 using FoodieFinder.UserAccount;
 using System.Collections.ObjectModel;
 using FoodieFinder.Pages;
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodieFinder.ViewModels
 {
@@ -33,15 +34,17 @@ namespace FoodieFinder.ViewModels
         //private ImageSource _userImage = ImageSource.FromFile("mclovitch.png");
 
         private readonly IServiceProvider _serviceProvider;
+        private readonly AppDbContext _dbContext;
+        private readonly UserData _userData;
 
         public HomePageViewModel(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
 
-            var dbContext = _serviceProvider.GetRequiredService<AppDbContext>();
-            var userData = _serviceProvider.GetRequiredService<UserData>();
+            _dbContext = _serviceProvider.GetRequiredService<AppDbContext>();
+            _userData = _serviceProvider.GetRequiredService<UserData>();
 
-            var username = userData.UserName;
+            var username = _userData.UserName;
             var atIdx = username.LastIndexOf('@');
             if (atIdx > -1)
             {
@@ -52,7 +55,7 @@ namespace FoodieFinder.ViewModels
                 WelcomeUser = username;
             }
 
-            IsYourRecipesVisible = !userData.IsGuest;
+            IsYourRecipesVisible = !_userData.IsGuest;
 
             //for (int i = 1; i <= 5; i++)
             //{
@@ -66,8 +69,18 @@ namespace FoodieFinder.ViewModels
             //}
 
             //_dbContext.SaveChanges();
+        }
 
-            foreach (var recipe in dbContext.Recipe.Where((r) => r.UserId == userData.UserId))
+        public void OnAppearing()
+        {
+            LoadRecipes();
+            LoadBucketList();
+        }
+
+        private void LoadRecipes()
+        {
+            YourRecipes.Clear();
+            foreach (var recipe in _dbContext.Recipe.Where((r) => r.UserId == _userData.UserId))
             {
                 YourRecipes.Add(new()
                 {
@@ -77,7 +90,11 @@ namespace FoodieFinder.ViewModels
                     //Image = ImageSource.FromFile("thai_soup.png")
                 });
             }
+        }
 
+        private void LoadBucketList()
+        {
+            BucketList.Clear();
             foreach (var bucketItem in BucketListDb.GetItems())
             {
                 BucketList.Add(bucketItem);
