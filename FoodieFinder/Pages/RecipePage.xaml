@@ -76,12 +76,30 @@
                            HorizontalOptions="Center"
                            VerticalOptions="Center"
                            Aspect="AspectFill"/>
-                </Border>
-            <Label Text="Guacamole"
-                   HorizontalOptions="Center"
-                   Style="{StaticResource MainLabel}">
+            </Border>
 
-            </Label>
+            <Grid HorizontalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="45"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="1"
+                       Text="Guacamole"
+                       Style="{StaticResource MainLabel}"
+                       VerticalOptions="Center"/>
+
+                <ImageButton Grid.Column="2"
+                             Source="share_icon.svg"
+                             Scale="1"
+                             Command="{Binding ShareButtonClickedCommand}"/>
+            </Grid>
+
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="20" Margin="20">
                 <Image Source="clock_icon.svg"></Image>
                 <Label Text="15 min" Style="{StaticResource InfoLabel}"></Label>

@@ -6,6 +6,7 @@ using FoodieFinder.Models;
 using FoodieFinder.Pages;
 using FoodieFinder.Popups;
 using FoodieFinder.UserAccount;
+using Microsoft.Extensions.Configuration;
 using System.Collections.ObjectModel;
 
 namespace FoodieFinder.ViewModels
@@ -101,6 +102,25 @@ namespace FoodieFinder.ViewModels
                 default: break;
             }
         }
+
+        [RelayCommand]
+        private async Task ShareButtonClicked()
+        {
+            var config = _serviceProvider.GetRequiredService<IConfiguration>();
+            var configSection = config.GetRequiredSection("FoodieFinder");
+
+            var domainName = configSection["DomainName"];
+            var shareRecipeEndpoint = configSection["ShareRecipeEndpoint"];
+            if (domainName == null || shareRecipeEndpoint == null) return;
+
+            await Share.Default.RequestAsync(new ShareTextRequest()
+            {
+                Title = "Share recipe",
+                Text = "Check out my recipe!",
+                Uri = $"https://{domainName}/{shareRecipeEndpoint.Replace("{{recipeId}}", 5.ToString())}" // TODO: recipe id
+            });
+        }
+
         private async Task NotificationPopupSet()
         {
             var popup = new SetNotificationPopup();
