@@ -8,12 +8,17 @@ using FoodieFinder.UserAccount;
 using System.Collections.ObjectModel;
 using FoodieFinder.Pages;
 using FoodieFinder.Notification;
+using System.Text.Json;
+using Microsoft.Extensions.DependencyInjection;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace FoodieFinder.ViewModels
 {
-    public partial class StoragePageViewModel : BaseViewModel
-	{
-        public ObservableCollection<StorageItem> StorageItems { get; } = new();
+    public partial class SavedRecipePageViewModel : BaseViewModel
+    {
+        public ObservableCollection<Recipe> SavedOfflineItems { get; } = new();
+        private static readonly string FullPath = Path.Combine(FileSystem.Current.AppDataDirectory, "SavedItems.json");
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(UserFirstLetter))]
@@ -27,7 +32,7 @@ namespace FoodieFinder.ViewModels
         private readonly AppDbContext _dbContext;
         private readonly UserAccount.UserData _userData;
 
-        public StoragePageViewModel(IServiceProvider serviceProvider)
+        public SavedRecipePageViewModel(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
             _userData = _serviceProvider.GetRequiredService<UserAccount.UserData>();
@@ -44,16 +49,48 @@ namespace FoodieFinder.ViewModels
                 WelcomeUser = username;
             }
 
-            LoadStorageItems();
+            LoadSavedItems();
         }
 
-        private void LoadStorageItems()
+        private void LoadSavedItems()
         {
-            StorageItems.Clear();
-
-            foreach (var item in _dbContext.StoreRoom.Where(u => u.User_UserId == _userData.UserId))
+            SavedOfflineItems.Clear();
+            /*foreach (var item in _dbContext.Recipe.Where(u => u.UserId == _userData.UserId))
             {
-                StorageItems.Add(item);
+                SavedOfflineItems.Add(item);
+            }*/
+            List<Recipe> SRecipe = new List<Recipe> { };
+            try
+            {
+                var log = new Login(_serviceProvider);
+                foreach (var item in _dbContext.Recipe.Where(u => u.UserId == _userData.UserId))
+                {
+                    //SavedOfflineItems.Add(item);
+
+                    //zapisywanie do nowego pliku danych z bazy
+                    SRecipe.Add(item);
+                }
+                string jsonString = JsonConvert.SerializeObject(SRecipe);
+                File.WriteAllText(FullPath, jsonString);
+                
+            }
+            catch
+            {
+                Application.Current.MainPage.DisplayAlert("Error", "nr1", "OK");
+            }
+            // odczytywanie z tego pliku do aplikacji
+            try
+            {
+                string FileContent = File.ReadAllText(FullPath);
+                SRecipe = JsonConvert.DeserializeObject<List<Recipe>>(FileContent);
+                foreach (Recipe item in SRecipe)
+                {
+                    SavedOfflineItems.Add(item);
+                }
+            }
+            catch
+            {
+                Application.Current.MainPage.DisplayAlert("Error", "nr2", "OK");
             }
         }
 
@@ -72,53 +109,44 @@ namespace FoodieFinder.ViewModels
                     break;
                 case "notification":
                     NotificationPopupSet();
-                    
-                    break;
-                case "SavedRecipes":
-                    Application.Current.MainPage = new SavedRecipePage(_serviceProvider);
+
                     break;
                 default: break;
 
             }
         }
         [RelayCommand]
-        private async Task AddStorageItem()
+        private async Task AddSavedItem()
         {
-            var popup = new AddStorageItemPopup();
-            var result = await Application.Current.MainPage.ShowPopupAsync(popup) as StorageItem;
-            var userData = _serviceProvider.GetRequiredService<UserAccount.UserData>();
             
-            if (result != null 
-                && (result.ProductName != string.Empty || result.ProductName != "") 
-                && result.Quantity > 0
-                && (result.Unit != string.Empty || result.Unit != "")) {
-                result.User_UserId = userData.UserId;
-                _dbContext.StoreRoom.Add(result);
+            var popup = new AddSavedRecipePopup();
+            var result = await Application.Current.MainPage.ShowPopupAsync(popup) as Recipe;
+            var userData = _serviceProvider.GetRequiredService<UserAccount.UserData>();
+
+            if (result != null
+                && (result.Name != string.Empty || result.Name != "")
+                && (result.Description != string.Empty || result.Description != "")
+                && (result.Preparation != string.Empty || result.Preparation != ""))
+            {
+                result.UserId = userData.UserId;
+                _dbContext.Recipe.Add(result);
                 _dbContext.SaveChanges();
 
-                LoadStorageItems();
+                LoadSavedItems();
             }
-            
         }
-        [RelayCommand]
-        private void DeleteStorageItem(StorageItem StorageIt)
-        {
-            _dbContext.StoreRoom.Remove(StorageIt);
-            _dbContext.SaveChanges();
 
-            LoadStorageItems();
-        }
         [RelayCommand]
-        private async Task StorageProductTapped(StorageItem StorageIt)
+        private async Task SavedItemTapped(Recipe RecipeIt)
         {
-            var popup = new StorageItemPopup(StorageIt);
+            /*var popup = new StorageItemPopup(RecipeIt);
             var result = (string)await Application.Current.MainPage.ShowPopupAsync(popup);
 
             switch (result)
             {
 
                 default: break;
-            }
+            }*/
         }
         private async Task NotificationPopupSet()
         {
@@ -133,5 +161,6 @@ namespace FoodieFinder.ViewModels
 
 
         }
-    } 
+
+    }
 }

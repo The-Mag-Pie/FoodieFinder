@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodieFinder.Pages.SavedRecipePage"
+             xmlns:dbmodel="clr-namespace:FoodieFinder.Database"
+             xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
+             x:DataType="vm:SavedRecipePageViewModel"
+             BackgroundColor="#3F4E4F"
+             Title="StoragePage">
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontFamily" Value="Poppins-Medium"/>
+        </Style>
+
+        <Style x:Key="UserPhotoBorderStyle" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 30,30,30,30" />
+            <Setter Property="StrokeThickness" Value="0" />
+            <Setter Property="Padding" Value="7, 7, 7, 7" />
+            <Setter Property="BackgroundColor" Value="#FF9832" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="WidthRequest" Value="50" />
+            <Setter Property="HeightRequest" Value="50" />
+        </Style>
+
+
+        <Style x:Key="StorageAddButtonBorder" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 25,25,25,25" />
+            <Setter Property="StrokeThickness" Value="0"/>
+            <Setter Property="BackgroundColor" Value="#FF9832"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HeightRequest" Value="40"/>
+            <Setter Property="WidthRequest" Value="40"/>
+        </Style>
+
+        <Style x:Key="SavedRecipesBorder" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 15,15,15,15"/>
+            <Setter Property="StrokeThickness" Value="0"/>
+            <Setter Property="BackgroundColor" Value="#3F4E4F"/>
+        </Style>
+
+        <Style x:Key="DeleteStorageItemBorder" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 15,15,15,15"/>
+            <Setter Property="StrokeThickness" Value="0"/>
+            <Setter Property="BackgroundColor" Value="#A4A2A0"/>
+            <Setter Property="HorizontalOptions" Value="End"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HeightRequest" Value="25"/>
+            <Setter Property="WidthRequest" Value="25"/>
+        </Style>
+
+    </ContentPage.Resources>
+    <ScrollView>
+        <VerticalStackLayout Padding="26, 0, 26, 20">
+
+            <Grid Margin="0, 15, 0, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="54" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="54" />
+                </Grid.RowDefinitions>
+
+
+                <Border Style="{StaticResource UserPhotoBorderStyle}"
+                        Grid.Column="1">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding UserOptionsTappedCommand}"/>
+                    </Border.GestureRecognizers>
+                    <Label Text="{Binding UserFirstLetter}"
+                           FontSize="23"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center" />
+                </Border>
+            </Grid>
+            <Grid Margin="0,0,0,0">
+                <Label Text="SAVED"
+                       FontSize="30"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"/>
+            </Grid>
+            <Grid Margin="10,50,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="55"/>
+                    <ColumnDefinition Width="45"/>
+                    <ColumnDefinition Width="55"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Offline recipes" FontSize="18" FontAttributes="Bold" Grid.Column="0" VerticalOptions="Center"/>
+                <Label Text="Offline" Grid.Column="1" VerticalOptions="Center"/>
+                <Switch IsToggled="False" Grid.Column="2"/>
+                <Label Text="Online" Grid.Column="3" VerticalOptions="Center"/>
+            </Grid>
+
+
+            <Border Style="{StaticResource SavedRecipesBorder}" Grid.ColumnSpan="3" Margin="0,5,0,0">
+
+                <HorizontalStackLayout MinimumHeightRequest="100">
+                    <Grid Margin="0,0,0,0" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="50" />
+                        </Grid.ColumnDefinitions>
+
+                        <CollectionView ItemsSource="{Binding SavedOfflineItems}"
+                                    EmptyView="You have no saved recipes yet."
+                                    Grid.Column="0"
+                                        Grid.ColumnSpan="3"
+                                    HorizontalOptions="Start"
+                                    Margin="0,10,0,0"
+                                    Grid.Row="2">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout ItemSpacing="2"
+                                           Orientation="Vertical"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="dbmodel:Recipe">
+                                    
+                                        <Border Background="#18272C" 
+                                                Stroke="#F39B27" 
+                                                StrokeThickness="2"
+                                                StrokeShape="RoundRectangle 15,15,15,15"
+                                                MinimumHeightRequest="300">
+
+                                            <HorizontalStackLayout>
+                                            <Grid Margin="0,0,0,0" >
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="340"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="50" />
+                                                    <RowDefinition Height="20"/>
+
+                                                </Grid.RowDefinitions>
+                                                <Label Text=" " Grid.Column="0" HorizontalOptions="Center"></Label>
+
+                                                <Label Text="{Binding Name}"
+                                       VerticalOptions="Center"
+                                       FontSize="20"
+                                       FontFamily="Poppins-Regular"
+                                       Grid.Row="0"
+                                       FontAttributes="Bold"
+                                       HorizontalOptions="Center">
+                                                </Label>
+
+                                                <Label Text="{Binding Description}"
+                                        VerticalOptions="Center"
+                                        FontSize="15"
+                                        FontFamily="Poppins-Regular"
+                                        Grid.Row="1"
+                                        HorizontalOptions="Center">
+
+                                                </Label>
+
+                                            </Grid>
+                                        </HorizontalStackLayout>
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedRecipePageViewModel}}, Path=SavedItemTappedCommand}" />
+                                            </Border.GestureRecognizers>
+                                        </Border>
+                                    
+
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                    </Grid>
+                </HorizontalStackLayout>
+            </Border>
+            <Border Style="{StaticResource StorageAddButtonBorder}"
+                        Grid.Column="0">
+                <Polyline Points="8,20 20,20 20,8 20,20 32,20 20,20 20,32"
+                              Stroke="#33363F"
+                              StrokeThickness="3"/>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding AddSavedItemCommand}"/>
+                </Border.GestureRecognizers>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+
+
+</ContentPage>

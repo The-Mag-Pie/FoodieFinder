@@ -98,6 +98,9 @@ namespace FoodieFinder.ViewModels
                     NotificationPopupSet();
 
                     break;
+                case "SavedRecipes":
+                    Application.Current.MainPage = new SavedRecipePage(_serviceProvider);
+                    break;
                 default: break;
             }
         }

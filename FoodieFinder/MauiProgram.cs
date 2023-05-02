@@ -64,6 +64,7 @@ public static class MauiProgram
         builder.Services.AddTransient<StartPage>();
         builder.Services.AddTransient<RecipePage>();
         builder.Services.AddTransient<UserAccountPage>();
+        builder.Services.AddTransient<SavedRecipePage>();
 
         // Add other services
         builder.Services.AddSingleton<UserData>();
