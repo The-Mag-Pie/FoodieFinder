@@ -12,15 +12,22 @@ using System.Text.Json;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
+using IdentityModel.OidcClient;
 
 namespace FoodieFinder.ViewModels
 {
     public partial class AddSavedRecipePageViewModel : BaseViewModel
     {
-        public ObservableCollection<Recipe> SavedOfflineItems { get; } = new();
+        public Recipe SavedOfflineItems { get; } = new();
         public ObservableCollection<Ingredient> IngredientItems { get; } = new();
+        private List<Ingredient> IngredientList= new List<Ingredient>();
 
-
+        [ObservableProperty]
+        private string name;
+        [ObservableProperty]
+        private string description;
+        [ObservableProperty]
+        private string preparation;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(UserFirstLetter))]
@@ -33,6 +40,7 @@ namespace FoodieFinder.ViewModels
         private readonly IServiceProvider _serviceProvider;
         private readonly AppDbContext _dbContext;
         private readonly UserAccount.UserData _userData;
+
 
         public AddSavedRecipePageViewModel(IServiceProvider serviceProvider)
         {
@@ -51,7 +59,8 @@ namespace FoodieFinder.ViewModels
                 WelcomeUser = username;
             }
 
-            
+            SavedOfflineItems = new Recipe();
+
         }
 
         [RelayCommand]
@@ -78,15 +87,57 @@ namespace FoodieFinder.ViewModels
         [RelayCommand]
         private void AddSavedItem()
         {
-            
-            
-        }
+            SavedOfflineItems.Name = Name;
+            SavedOfflineItems.Description = Description;
+            SavedOfflineItems.Preparation = Preparation;
+            var userData = _serviceProvider.GetRequiredService<UserAccount.UserData>();
+            SavedOfflineItems.UserId = userData.UserId;
+            _dbContext.Recipe.Add(SavedOfflineItems);
+            _dbContext.SaveChanges();
+            int id_recipe = 0;
+            foreach (var item2 in _dbContext.Recipe.Where(u => u.Preparation == Preparation))
+            {
+                id_recipe = item2.Id;
+            }
+            foreach (var item in IngredientList)
+            {
+                item.RecipeId = id_recipe;
+                _dbContext.Ingredient.Add(item);
+                _dbContext.SaveChanges();
 
-        
+            }
+
+            //PRZEJŒCIE DO SavedRecipePage
+
+        }
+        [RelayCommand]
+        private async Task AddIgredientItem()
+        {
+            var popup = new AddSavedRecipePopup();
+            var result = await Application.Current.MainPage.ShowPopupAsync(popup) as Ingredient;
+            IngredientList.Add(result);
+            LoadIngredientItems();
+        }
+        [RelayCommand]
+        private void DeleteIgredientItem(Ingredient IngredientIt)
+        {
+            IngredientList.Remove(IngredientIt);
+            LoadIngredientItems();
+        }
+        private void LoadIngredientItems()
+        {
+            IngredientItems.Clear();
+
+            foreach (var item in IngredientList)
+            {
+                IngredientItems.Add(item);
+            }
+        }
         [RelayCommand]
         private void Back()
         {
-            Application.Current.MainPage = new SavedRecipePage(_serviceProvider);
+
+            //PRZEJŒCIE DO SavedRecipePage
         }
         private async Task NotificationPopupSet()
         {

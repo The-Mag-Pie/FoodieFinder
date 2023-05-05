@@ -4,10 +4,12 @@ namespace FoodieFinder.Pages;
 
 public partial class AddSavedRecipePage : ContentPage
 {
+    private readonly AddSavedRecipePageViewModel vm;
     public AddSavedRecipePage(IServiceProvider serviceProvider)
 	{
 		InitializeComponent();
-        BindingContext = new SavedRecipePageViewModel(serviceProvider);
+        vm = new(serviceProvider);
+        BindingContext = vm;
 
     }
 }

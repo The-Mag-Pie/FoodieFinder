@@ -63,7 +63,16 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="54" />
                 </Grid.RowDefinitions>
-
+                <Image Source="arrow_icon.svg" 
+                                   Grid.Column="0" 
+                                    Rotation="180"
+                                   Margin="0,0,0,0"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Start">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BackCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
 
                 <Border Style="{StaticResource UserPhotoBorderStyle}"
                         Grid.Column="1">
@@ -175,9 +184,9 @@
                                     <Grid Margin="0,0,0,0" >
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="30" />
-                                            <ColumnDefinition Width="140"/>
+                                            <ColumnDefinition Width="120"/>
                                             <ColumnDefinition Width="55" />
-                                            <ColumnDefinition Width="55" />
+                                            <ColumnDefinition Width="60" />
                                             <ColumnDefinition Width="45" />
                                         </Grid.ColumnDefinitions>
 
@@ -216,7 +225,7 @@
 
                                             <Border.GestureRecognizers>
                                                 <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:StoragePageViewModel}}, Path=DeleteIgredientItemCommand}" />
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AddSavedRecipePageViewModel}}, Path=DeleteIgredientItemCommand}" />
                                             </Border.GestureRecognizers>
                                         </Border>
                                     </Grid>

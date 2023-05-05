@@ -118,22 +118,8 @@ namespace FoodieFinder.ViewModels
         [RelayCommand]
         private void AddSavedItem()
         {
-            Application.Current.MainPage = new AddSavedRecipePage(_serviceProvider);
-            /*var popup = new AddSavedRecipePopup();
-            var result = await Application.Current.MainPage.ShowPopupAsync(popup) as Recipe;
-            var userData = _serviceProvider.GetRequiredService<UserAccount.UserData>();
+            Application.Current.MainPage = new AddSavedRecipePage(_serviceProvider); //Przejœcie do AddSavedRecipe
 
-            if (result != null
-                && (result.Name != string.Empty || result.Name != "")
-                && (result.Description != string.Empty || result.Description != "")
-                && (result.Preparation != string.Empty || result.Preparation != ""))
-            {
-                result.UserId = userData.UserId;
-                _dbContext.Recipe.Add(result);
-                _dbContext.SaveChanges();
-
-                LoadSavedItems();
-            }*/
         }
 
         [RelayCommand]

@@ -75,7 +75,7 @@ namespace FoodieFinder.ViewModels
                     
                     break;
                 case "SavedRecipes":
-                    Application.Current.MainPage = new SavedRecipePage(_serviceProvider);
+                    await Shell.Current.GoToAsync("SavedRecipePage");
                     break;
                 default: break;
 
