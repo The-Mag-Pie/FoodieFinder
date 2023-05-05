@@ -30,6 +30,9 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
 
+		// Routes
+		Routing.RegisterRoute(nameof(SavedRecipePage), typeof(SavedRecipePage));
+
 		// Add appsettings.json configuration
 		var a = Assembly.GetExecutingAssembly();
 		using var stream = a.GetManifestResourceStream("FoodieFinder.appsettings.json");
