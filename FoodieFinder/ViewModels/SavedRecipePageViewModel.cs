@@ -118,7 +118,7 @@ namespace FoodieFinder.ViewModels
         [RelayCommand]
         private void AddSavedItem()
         {
-            Application.Current.MainPage = new AddSavedRecipePage(_serviceProvider); //Przejœcie do AddSavedRecipe
+            Shell.Current.GoToAsync("AddSavedRecipePage"); //Przejœcie do AddSavedRecipe
 
         }
 

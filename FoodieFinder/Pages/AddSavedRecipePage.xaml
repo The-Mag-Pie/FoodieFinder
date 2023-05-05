@@ -6,7 +6,8 @@
              xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
              x:DataType="vm:AddSavedRecipePageViewModel"
              BackgroundColor="#3F4E4F"
-             Title="AddSavedRecipePage">
+             Title="AddSavedRecipePage"
+             Shell.TabBarIsVisible="False">
     <ContentPage.Resources>
         <Style TargetType="Label">
             <Setter Property="TextColor" Value="White"/>

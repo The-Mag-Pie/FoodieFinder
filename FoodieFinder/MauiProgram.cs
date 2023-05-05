@@ -31,7 +31,7 @@ public static class MauiProgram
 #endif
 
 		// Routes
-		Routing.RegisterRoute(nameof(SavedRecipePage), typeof(SavedRecipePage));
+		Routing.RegisterRoute(nameof(AddSavedRecipePage), typeof(AddSavedRecipePage));
 
 		// Add appsettings.json configuration
 		var a = Assembly.GetExecutingAssembly();

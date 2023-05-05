@@ -107,7 +107,7 @@ namespace FoodieFinder.ViewModels
 
             }
 
-            //PRZEJŒCIE DO SavedRecipePage
+            Back(); //PRZEJŒCIE DO SavedRecipePage
 
         }
         [RelayCommand]
@@ -136,8 +136,7 @@ namespace FoodieFinder.ViewModels
         [RelayCommand]
         private void Back()
         {
-
-            //PRZEJŒCIE DO SavedRecipePage
+            Shell.Current.SendBackButtonPressed();
         }
         private async Task NotificationPopupSet()
         {
