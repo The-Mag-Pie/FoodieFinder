@@ -76,7 +76,7 @@ namespace FoodieFinder.ViewModels
             }
             catch
             {
-                Application.Current.MainPage.DisplayAlert("Error", "nr1", "OK");
+                Application.Current.MainPage.DisplayAlert("Error", "Cannot connect to the server", "OK");
             }
             // odczytywanie z tego pliku do aplikacji
             try
@@ -116,10 +116,10 @@ namespace FoodieFinder.ViewModels
             }
         }
         [RelayCommand]
-        private async Task AddSavedItem()
+        private void AddSavedItem()
         {
-            
-            var popup = new AddSavedRecipePopup();
+            Application.Current.MainPage = new AddSavedRecipePage(_serviceProvider);
+            /*var popup = new AddSavedRecipePopup();
             var result = await Application.Current.MainPage.ShowPopupAsync(popup) as Recipe;
             var userData = _serviceProvider.GetRequiredService<UserAccount.UserData>();
 
@@ -133,7 +133,7 @@ namespace FoodieFinder.ViewModels
                 _dbContext.SaveChanges();
 
                 LoadSavedItems();
-            }
+            }*/
         }
 
         [RelayCommand]
@@ -147,6 +147,14 @@ namespace FoodieFinder.ViewModels
 
                 default: break;
             }*/
+        }
+        [RelayCommand]
+        private void DeleteIgredientItem(Recipe RecipeIt)
+        {
+            _dbContext.Recipe.Remove(RecipeIt);
+            _dbContext.SaveChanges();
+
+            LoadSavedItems();
         }
         private async Task NotificationPopupSet()
         {

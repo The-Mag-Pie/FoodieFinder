@@ -7,6 +7,7 @@ namespace FoodieFinder.Popups;
 public partial class AddSavedRecipePopup : Popup
 {
 	private readonly Recipe addmodel;
+	private readonly List <Ingredient> ingredientmodel;
 
     public AddSavedRecipePopup()
 	{

@@ -100,7 +100,7 @@
 
             <Border Style="{StaticResource SavedRecipesBorder}" Grid.ColumnSpan="3" Margin="0,5,0,0">
 
-                <HorizontalStackLayout MinimumHeightRequest="100">
+                <HorizontalStackLayout>
                     <Grid Margin="0,0,0,0" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="90" />
@@ -126,12 +126,13 @@
                                                 Stroke="#F39B27" 
                                                 StrokeThickness="2"
                                                 StrokeShape="RoundRectangle 15,15,15,15"
-                                                MinimumHeightRequest="300">
+                                                MinimumHeightRequest="80">
 
                                             <HorizontalStackLayout>
                                             <Grid Margin="0,0,0,0" >
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="340"/>
+                                                    <ColumnDefinition Width="300"/>
+                                                    <ColumnDefinition Width="40"/>
                                                 </Grid.ColumnDefinitions>
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="50" />
@@ -145,8 +146,13 @@
                                        FontSize="20"
                                        FontFamily="Poppins-Regular"
                                        Grid.Row="0"
+                                       Grid.ColumnSpan="2"
                                        FontAttributes="Bold"
                                        HorizontalOptions="Center">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedRecipePageViewModel}}, Path=SavedItemTappedCommand}" />
+                                                    </Label.GestureRecognizers>
                                                 </Label>
 
                                                 <Label Text="{Binding Description}"
@@ -154,16 +160,30 @@
                                         FontSize="15"
                                         FontFamily="Poppins-Regular"
                                         Grid.Row="1"
-                                        HorizontalOptions="Center">
-
+                                        Margin="20,0,0,0"
+                                        HorizontalOptions="Start">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedRecipePageViewModel}}, Path=SavedItemTappedCommand}" />
+                                                    </Label.GestureRecognizers>
                                                 </Label>
+                                                <Border Style="{StaticResource DeleteStorageItemBorder}"
+                                        Grid.Column="1">
+                                                    <Line X1="6" Y1="12.5"
+                                          X2="19" Y2="12.5"
+                                          Stroke="#33363F"
+                                          StrokeThickness="3"
+                                          VerticalOptions="Center"
+                                          HorizontalOptions="Start"/>
 
+                                                    <Border.GestureRecognizers>
+                                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedRecipePageViewModel}}, Path=DeleteSavedRecipeCommand}" />
+                                                    </Border.GestureRecognizers>
+                                                </Border>
                                             </Grid>
                                         </HorizontalStackLayout>
-                                            <Border.GestureRecognizers>
-                                                <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedRecipePageViewModel}}, Path=SavedItemTappedCommand}" />
-                                            </Border.GestureRecognizers>
+                                            
                                         </Border>
                                     
 
