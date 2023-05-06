@@ -52,7 +52,7 @@ namespace FoodieFinder.ViewModels
             LoadSavedItems();
         }
 
-        private void LoadSavedItems()
+        public void LoadSavedItems()
         {
             SavedOfflineItems.Clear();
             /*foreach (var item in _dbContext.Recipe.Where(u => u.UserId == _userData.UserId))
@@ -119,12 +119,13 @@ namespace FoodieFinder.ViewModels
         private void AddSavedItem()
         {
             Shell.Current.GoToAsync("AddSavedRecipePage"); //Przejœcie do AddSavedRecipe
-
+            LoadSavedItems();
         }
 
         [RelayCommand]
         private async Task SavedItemTapped(Recipe RecipeIt)
         {
+            Application.Current.MainPage.DisplayAlert("Error", RecipeIt.Preparation, "OK");
             /*var popup = new StorageItemPopup(RecipeIt);
             var result = (string)await Application.Current.MainPage.ShowPopupAsync(popup);
 
@@ -135,11 +136,29 @@ namespace FoodieFinder.ViewModels
             }*/
         }
         [RelayCommand]
-        private void DeleteIgredientItem(Recipe RecipeIt)
+        private void DeleteSavedRecipe(Recipe RecipeIt)
         {
+            Application.Current.MainPage.DisplayAlert("Error", RecipeIt.Id.ToString()+" "+RecipeIt.Name, "OK");
+            
+            foreach (var item in _dbContext.Ingredient.Where(u => u.RecipeId == RecipeIt.Id))
+            {
+                _dbContext.Ingredient.Remove(item);
+            }
             _dbContext.Recipe.Remove(RecipeIt);
             _dbContext.SaveChanges();
 
+            LoadSavedItems();
+        }
+        [RelayCommand]
+        private void ModifySavedRecipe(Recipe RecipeIt)
+        {
+            Application.Current.MainPage.DisplayAlert("Error", "Modify element", "OK");
+            //MODYFIKACJA ELEMENTU <-------------------------------------------------------------
+            //MODYFIKACJA ELEMENTU <-------------------------------------------------------------
+            //MODYFIKACJA ELEMENTU <-------------------------------------------------------------
+            //MODYFIKACJA ELEMENTU <-------------------------------------------------------------
+            //MODYFIKACJA ELEMENTU <-------------------------------------------------------------
+            //MODYFIKACJA ELEMENTU <-------------------------------------------------------------
             LoadSavedItems();
         }
         private async Task NotificationPopupSet()

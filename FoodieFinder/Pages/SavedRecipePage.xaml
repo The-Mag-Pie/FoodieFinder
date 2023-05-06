@@ -136,7 +136,8 @@
                                                 </Grid.ColumnDefinitions>
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="50" />
-                                                    <RowDefinition Height="20"/>
+                                                    <RowDefinition Height="50"/>
+                                                    <RowDefinition Height="10"/>
 
                                                 </Grid.RowDefinitions>
                                                 <Label Text=" " Grid.Column="0" HorizontalOptions="Center"></Label>
@@ -167,20 +168,34 @@
                                                               Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedRecipePageViewModel}}, Path=SavedItemTappedCommand}" />
                                                     </Label.GestureRecognizers>
                                                 </Label>
-                                                <Border Style="{StaticResource DeleteStorageItemBorder}"
-                                        Grid.Column="1">
-                                                    <Line X1="6" Y1="12.5"
-                                          X2="19" Y2="12.5"
-                                          Stroke="#33363F"
-                                          StrokeThickness="3"
-                                          VerticalOptions="Center"
-                                          HorizontalOptions="Start"/>
+                                                <Border Grid.Column="1" Grid.Row="0" Background="#18272C" StrokeThickness="0" Margin="0,5,10,0">
+                                                    <Image Source="trash_icon.svg" 
 
+                                   Margin="0,0,0,0"                     
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Start">
+                                                        
+                                                    </Image>
                                                     <Border.GestureRecognizers>
                                                         <TapGestureRecognizer CommandParameter="{Binding .}"
                                                               Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedRecipePageViewModel}}, Path=DeleteSavedRecipeCommand}" />
                                                     </Border.GestureRecognizers>
                                                 </Border>
+                                                <Border Grid.Column="1" Grid.Row="1" Background="#18272C" StrokeThickness="0" Margin="0,5,10,0">
+                                                <Image Source="edit_icon.svg" 
+                                   Grid.Column="1" 
+                                   Grid.Row="1"
+                                   Margin="2,5,0,0"                     
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Start">
+                                                    
+                                                </Image>
+                                                    <Border.GestureRecognizers>
+                                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedRecipePageViewModel}}, Path=ModifySavedRecipeCommand}" />
+                                                    </Border.GestureRecognizers>
+                                                </Border>
+
                                             </Grid>
                                         </HorizontalStackLayout>
                                             

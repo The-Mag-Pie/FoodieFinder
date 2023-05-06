@@ -112,9 +112,6 @@ namespace FoodieFinder.ViewModels
                 case "notification":
                     NotificationPopupSet();
                     break;
-                case "SavedRecipes":
-                    await Shell.Current.GoToAsync("SavedRecipePage");
-                    break;
                 default: break;
             }
         }

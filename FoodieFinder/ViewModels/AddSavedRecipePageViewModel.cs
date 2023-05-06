@@ -87,36 +87,46 @@ namespace FoodieFinder.ViewModels
         [RelayCommand]
         private void AddSavedItem()
         {
-            SavedOfflineItems.Name = Name;
-            SavedOfflineItems.Description = Description;
-            SavedOfflineItems.Preparation = Preparation;
-            var userData = _serviceProvider.GetRequiredService<UserAccount.UserData>();
-            SavedOfflineItems.UserId = userData.UserId;
-            _dbContext.Recipe.Add(SavedOfflineItems);
-            _dbContext.SaveChanges();
-            int id_recipe = 0;
-            foreach (var item2 in _dbContext.Recipe.Where(u => u.Preparation == Preparation))
+            if (Name != String.Empty && Description != String.Empty && 
+                Preparation != String.Empty && IngredientList.Count > 0)
             {
-                id_recipe = item2.Id;
-            }
-            foreach (var item in IngredientList)
-            {
-                item.RecipeId = id_recipe;
-                _dbContext.Ingredient.Add(item);
+                SavedOfflineItems.Name = Name;
+                SavedOfflineItems.Description = Description;
+                SavedOfflineItems.Preparation = Preparation;
+                var userData = _serviceProvider.GetRequiredService<UserAccount.UserData>();
+                SavedOfflineItems.UserId = userData.UserId;
+                _dbContext.Recipe.Add(SavedOfflineItems);
                 _dbContext.SaveChanges();
+                int id_recipe = 0;
+                foreach (var item2 in _dbContext.Recipe.Where(u => u.Preparation == Preparation))
+                {
+                    id_recipe = item2.Id;
+                }
+                foreach (var item in IngredientList)
+                {
+                    item.RecipeId = id_recipe;
+                    _dbContext.Ingredient.Add(item);
+                    _dbContext.SaveChanges();
 
+                }
+
+                Back(); //PRZEJŒCIE DO SavedRecipePage
             }
-
-            Back(); //PRZEJŒCIE DO SavedRecipePage
-
+            else
+            {
+                Application.Current.MainPage.DisplayAlert("Error", "You must enter all the data, to add the recipe!", "OK");
+            }
         }
         [RelayCommand]
         private async Task AddIgredientItem()
         {
             var popup = new AddSavedRecipePopup();
             var result = await Application.Current.MainPage.ShowPopupAsync(popup) as Ingredient;
-            IngredientList.Add(result);
-            LoadIngredientItems();
+            if (result.Name != String.Empty && result.Quantity > 0 && result.Unit != String.Empty)
+            {
+                IngredientList.Add(result);
+                LoadIngredientItems();
+            }
         }
         [RelayCommand]
         private void DeleteIgredientItem(Ingredient IngredientIt)

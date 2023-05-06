@@ -12,9 +12,6 @@
                              Padding="10"
                              HorizontalOptions="Center"
                              VerticalOptions="Center">
-            <Button Text="Saved Recipes"
-                    Clicked="SavedRecipes_Clicked"
-                    WidthRequest="200"></Button>
             <Button Text="Set Notification"
                     Clicked="Notification_Clicked"
                     WidthRequest="200"></Button>
