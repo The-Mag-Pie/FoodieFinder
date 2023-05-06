@@ -37,6 +37,11 @@
             <ShellContent ContentTemplate="{DataTemplate pages:SavedRecipePage}"
                           Route="SavedRecipePage"/>
         </Tab>
+
+        <Tab Title="RecipePage"
+             Icon="bookbookmark.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:RecipePage}"/>
+        </Tab>
     </TabBar>
 
 </Shell>
