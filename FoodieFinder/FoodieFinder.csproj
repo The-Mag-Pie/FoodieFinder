@@ -95,6 +95,7 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
 		<PackageReference Include="Plugin.LocalNotification" Version="10.1.4" />
 		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
 	</ItemGroup>
@@ -106,8 +107,17 @@
 	  <Compile Update="AppShellGuest.xaml.cs">
 	    <DependentUpon>AppShellGuest.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Pages\AddSavedRecipePage.xaml.cs">
+	    <DependentUpon>AddSavedRecipePage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\SignInPage.xaml.cs">
 	    <DependentUpon>SignInPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\SavedRecipePage.xaml.cs">
+	    <DependentUpon>SavedRecipePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Popups\AddSavedRecipePopup.xaml.cs">
+	    <DependentUpon>AddSavedRecipePopup.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Popups\SaveSharedRecipePopup.xaml.cs">
 	    <DependentUpon>SaveSharedRecipePopup.xaml</DependentUpon>
@@ -139,10 +149,16 @@
 	  <MauiXaml Update="Pages\HomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\ModifySavedRecipePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\RecipePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\RegisterPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\AddSavedRecipePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\SignInPage.xaml">
@@ -151,7 +167,13 @@
 	  <MauiXaml Update="Pages\StartPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\SavedRecipePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\StoragePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Popups\AddSavedRecipePopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\SaveSharedRecipePopup.xaml">

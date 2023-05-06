@@ -128,9 +128,7 @@ namespace FoodieFinder.ViewModels
                     break;
                 case "notification":
                     NotificationPopupSet();
-
                     break;
-
                 default: break;
             }
         }

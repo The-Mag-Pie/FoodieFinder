@@ -7,6 +7,7 @@ using FoodieFinder.Popups;
 using FoodieFinder.UserAccount;
 using System.Collections.ObjectModel;
 using FoodieFinder.Pages;
+using FoodieFinder.Notification;
 
 namespace FoodieFinder.ViewModels
 {
@@ -121,6 +122,12 @@ namespace FoodieFinder.ViewModels
             var popup = new SetNotificationPopup();
             var result = (SetTimer)await Application.Current.MainPage.ShowPopupAsync(popup);
             // zmienna z czasem znajduje siê pod result.SetTime
+            var not = new AndroidNotification();
+            if (!not.CreateNotification(result.Hour, result.Minutes, result.Seconds))
+            {
+                Application.Current.MainPage.DisplayAlert("Error", "Notification has not been established!", "OK");
+            }
+
 
         }
     } 
