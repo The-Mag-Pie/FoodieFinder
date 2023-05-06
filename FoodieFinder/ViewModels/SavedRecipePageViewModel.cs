@@ -138,7 +138,7 @@ namespace FoodieFinder.ViewModels
         [RelayCommand]
         private void DeleteSavedRecipe(Recipe RecipeIt)
         {
-            Application.Current.MainPage.DisplayAlert("Error", RecipeIt.Id.ToString()+" "+RecipeIt.Name, "OK");
+            //Application.Current.MainPage.DisplayAlert("Error", RecipeIt.Id.ToString()+" "+RecipeIt.Name, "OK");
             
             foreach (var item in _dbContext.Ingredient.Where(u => u.RecipeId == RecipeIt.Id))
             {
