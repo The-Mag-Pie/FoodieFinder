@@ -155,13 +155,11 @@ namespace FoodieFinder.ViewModels
         [RelayCommand]
         private void ModifySavedRecipe(Recipe RecipeIt)
         {
-            Application.Current.MainPage.DisplayAlert("Error", "Modify element", "OK");
-            //MODYFIKACJA ELEMENTU <-------------------------------------------------------------
-            //MODYFIKACJA ELEMENTU <-------------------------------------------------------------
-            //MODYFIKACJA ELEMENTU <-------------------------------------------------------------
-            //MODYFIKACJA ELEMENTU <-------------------------------------------------------------
-            //MODYFIKACJA ELEMENTU <-------------------------------------------------------------
-            //MODYFIKACJA ELEMENTU <-------------------------------------------------------------
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "Recipe", RecipeIt }
+            };
+            Shell.Current.GoToAsync($"ModifySavedRecipePage", navigationParameter);
             LoadSavedItems();
         }
         private async Task NotificationPopupSet()

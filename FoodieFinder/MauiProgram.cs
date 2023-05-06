@@ -32,9 +32,10 @@ public static class MauiProgram
 
 		// Routes
 		Routing.RegisterRoute(nameof(AddSavedRecipePage), typeof(AddSavedRecipePage));
+        Routing.RegisterRoute(nameof(ModifySavedRecipePage), typeof(ModifySavedRecipePage));
 
-		// Add appsettings.json configuration
-		var a = Assembly.GetExecutingAssembly();
+        // Add appsettings.json configuration
+        var a = Assembly.GetExecutingAssembly();
 		using var stream = a.GetManifestResourceStream("FoodieFinder.appsettings.json");
 
 		var config = new ConfigurationBuilder()
@@ -69,6 +70,7 @@ public static class MauiProgram
         builder.Services.AddTransient<UserAccountPage>();
         builder.Services.AddTransient<SavedRecipePage>();
         builder.Services.AddTransient<AddSavedRecipePage>();
+        builder.Services.AddTransient<ModifySavedRecipePage>();
 
         // Add other services
         builder.Services.AddSingleton<UserData>();
