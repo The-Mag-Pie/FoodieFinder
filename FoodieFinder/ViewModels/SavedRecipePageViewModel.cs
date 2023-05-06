@@ -144,7 +144,10 @@ namespace FoodieFinder.ViewModels
             {
                 _dbContext.Ingredient.Remove(item);
             }
+
+            _dbContext.ChangeTracker.Clear();
             _dbContext.Recipe.Remove(RecipeIt);
+
             _dbContext.SaveChanges();
 
             LoadSavedItems();
