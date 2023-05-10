@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
              xmlns:m="clr-namespace:FoodieFinder.Models"
+             xmlns:customviews="clr-namespace:FoodieFinder.CustomViews"
              x:Class="FoodieFinder.Pages.HomePage"
              x:DataType="vm:HomePageViewModel"
              BackgroundColor="#3F4E4F"
@@ -81,7 +82,9 @@
     <ScrollView>
         <VerticalStackLayout Padding="26, 0, 26, 20">
 
-            <Grid Margin="0, 15, 0, 0">
+            <customviews:PageHeader Margin="0, 15, 0, 0"/>
+
+            <!--<Grid Margin="0, 15, 0, 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition Width="54" />
@@ -107,11 +110,11 @@
                            HorizontalOptions="Center" />
                 </Border>
 
-                <!--<Image Source="{Binding UserImage}"
+                --><!--<Image Source="{Binding UserImage}"
                        Grid.Column="1"
                        VerticalOptions="Center"
-                       HorizontalOptions="Center" />-->
-            </Grid>
+                       HorizontalOptions="Center" />--><!--
+            </Grid>-->
 
             <!--<HorizontalStackLayout Spacing="8"
                                    Margin="0, 30, 0, 15">

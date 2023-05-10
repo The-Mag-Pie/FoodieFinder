@@ -14,6 +14,9 @@ namespace FoodieFinder;
 
 public static class MauiProgram
 {
+	private static IServiceProvider _serviceProvider;
+	public static IServiceProvider ServiceProvider => _serviceProvider;
+
 	public static MauiApp CreateMauiApp()
 	{
 		var builder = MauiApp.CreateBuilder();
@@ -87,6 +90,10 @@ public static class MauiProgram
         builder.Services.AddSingleton<UserData>();
         builder.Services.AddSingleton<HttpClient>();
 
-        return builder.Build();
+		var app = builder.Build();
+
+		_serviceProvider = app.Services;
+
+		return app;
 	}
 }

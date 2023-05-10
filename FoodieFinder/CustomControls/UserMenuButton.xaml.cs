@@ -4,10 +4,10 @@ namespace FoodieFinder.CustomControls;
 
 public partial class UserMenuButton : ContentView
 {
-	public UserMenuButton(IServiceProvider serviceProvider)
+	public UserMenuButton()
 	{
 		InitializeComponent();
 
-		BindingContext = new UserMenuButtonViewModel(serviceProvider);
+		BindingContext = new UserMenuButtonViewModel(MauiProgram.ServiceProvider);
     }
 }

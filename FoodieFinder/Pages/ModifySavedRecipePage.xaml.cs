@@ -1,8 +1,5 @@
 using FoodieFinder.ViewModels;
 using FoodieFinder.Database;
-using System.Diagnostics;
-using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace FoodieFinder.Pages;
 

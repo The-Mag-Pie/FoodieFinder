@@ -8,11 +8,6 @@ using FoodieFinder.UserAccount;
 using System.Collections.ObjectModel;
 using FoodieFinder.Pages;
 using FoodieFinder.Notification;
-using System.Text.Json;
-using Microsoft.Extensions.DependencyInjection;
-using System.Text.Json.Serialization;
-using Newtonsoft.Json;
-using IdentityModel.OidcClient;
 
 namespace FoodieFinder.ViewModels
 {
