@@ -2,12 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Maui.Views;
 using FoodieFinder.Database;
-using FoodieFinder.Models;
 using FoodieFinder.Popups;
-using FoodieFinder.UserAccount;
 using System.Collections.ObjectModel;
-using FoodieFinder.Pages;
-using FoodieFinder.Notification;
 
 namespace FoodieFinder.ViewModels
 {
@@ -18,11 +14,6 @@ namespace FoodieFinder.ViewModels
         private List<Ingredient> IngredientList = new List<Ingredient>();
 
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(UserFirstLetter))]
-        private string _welcomeUser;
-        public string UserFirstLetter => WelcomeUser.First().ToString().ToUpper();
-
-        [ObservableProperty]
         public Recipe modifiedRecipe;
 
         [ObservableProperty]
@@ -30,26 +21,12 @@ namespace FoodieFinder.ViewModels
 
         private readonly IServiceProvider _serviceProvider;
         private readonly AppDbContext _dbContext;
-        private readonly UserAccount.UserData _userData;
         private IEnumerable<Recipe> currentRecipe;
-
 
         public ModifySavedRecipePageViewModel(IServiceProvider serviceProvider, Recipe recipe)
         {
             _serviceProvider = serviceProvider;
-            _userData = _serviceProvider.GetRequiredService<UserAccount.UserData>();
             _dbContext = _serviceProvider.GetRequiredService<AppDbContext>();
-
-            var username = _userData.UserName;
-            var atIdx = username.LastIndexOf('@');
-            if (atIdx > -1)
-            {
-                WelcomeUser = username[..atIdx];
-            }
-            else
-            {
-                WelcomeUser = username;
-            }
            
             ModifiedRecipe = recipe;
 
@@ -59,30 +36,9 @@ namespace FoodieFinder.ViewModels
             }
             LoadIngredientItems();
 
-            currentRecipe = (IEnumerable<Recipe>)_dbContext.Recipe.Where(u => u.Id == ModifiedRecipe.Id);
+            currentRecipe = _dbContext.Recipe.Where(u => u.Id == ModifiedRecipe.Id);
         }
 
-        [RelayCommand]
-        private async Task UserOptionsTapped()
-        {
-            var popup = new UserOptionsPopup();
-            var result = (string)await Application.Current.MainPage.ShowPopupAsync(popup);
-
-            switch (result)
-            {
-                case "logout":
-                    var log = new Login(_serviceProvider);
-                    log.DestroySession();
-                    Application.Current.MainPage = new StartNavigationPage(_serviceProvider);
-                    break;
-                case "notification":
-                    NotificationPopupSet();
-
-                    break;
-                default: break;
-
-            }
-        }
         [RelayCommand]
         private void ModifySavedItem()
         {
@@ -147,19 +103,5 @@ namespace FoodieFinder.ViewModels
         {
             Shell.Current.SendBackButtonPressed();
         }
-        private async Task NotificationPopupSet()
-        {
-            var popup = new SetNotificationPopup();
-            var result = (SetTimer)await Application.Current.MainPage.ShowPopupAsync(popup);
-            // zmienna z czasem znajduje się pod result.SetTime
-            var not = new AndroidNotification();
-            if (!not.CreateNotification(result.Hour, result.Minutes, result.Seconds))
-            {
-                Application.Current.MainPage.DisplayAlert("Error", "Notification has not been established!", "OK");
-            }
-
-
-        }
-
     }
 }

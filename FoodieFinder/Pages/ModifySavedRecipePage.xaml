@@ -4,6 +4,7 @@
              x:Class="FoodieFinder.Pages.ModifySavedRecipePage"
              xmlns:dbmodel="clr-namespace:FoodieFinder.Database"
              xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
+             xmlns:customcontrols="clr-namespace:FoodieFinder.CustomControls"
              x:DataType="vm:ModifySavedRecipePageViewModel"
              BackgroundColor="#3F4E4F"
              Title="ModifySavedRecipePage"
@@ -13,18 +14,6 @@
             <Setter Property="TextColor" Value="White"/>
             <Setter Property="FontFamily" Value="Poppins-Medium"/>
         </Style>
-
-        <Style x:Key="UserPhotoBorderStyle" TargetType="Border">
-            <Setter Property="StrokeShape" Value="RoundRectangle 30,30,30,30" />
-            <Setter Property="StrokeThickness" Value="0" />
-            <Setter Property="Padding" Value="7, 7, 7, 7" />
-            <Setter Property="BackgroundColor" Value="#FF9832" />
-            <Setter Property="VerticalOptions" Value="Center" />
-            <Setter Property="HorizontalOptions" Value="Center" />
-            <Setter Property="WidthRequest" Value="50" />
-            <Setter Property="HeightRequest" Value="50" />
-        </Style>
-
 
         <Style x:Key="StorageAddButtonBorder" TargetType="Border">
             <Setter Property="StrokeShape" Value="RoundRectangle 25,25,25,25" />
@@ -75,17 +64,8 @@
                     </Image.GestureRecognizers>
                 </Image>
 
-                <Border Style="{StaticResource UserPhotoBorderStyle}"
-                        Grid.Column="1">
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding UserOptionsTappedCommand}"/>
-                    </Border.GestureRecognizers>
-                    <Label Text="{Binding UserFirstLetter}"
-                           FontSize="23"
-                           FontAttributes="Bold"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Center" />
-                </Border>
+                <customcontrols:UserMenuButton Grid.Column="1"/>
+
             </Grid>
             <Grid Margin="0,0,0,0">
 

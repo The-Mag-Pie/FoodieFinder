@@ -53,7 +53,8 @@ namespace FoodieFinder.CustomControls.CustomControlsViewModels
         private async Task NotificationPopupSet()
         {
             var popup = new SetNotificationPopup();
-            var result = (SetTimer)await Application.Current.MainPage.ShowPopupAsync(popup);
+            var result = await Application.Current.MainPage.ShowPopupAsync(popup) as SetTimer;
+            if (result is null) return;
             // zmienna z czasem znajduje się pod result.SetTime
             var not = new AndroidNotification();
             if (!not.CreateNotification(result.Hour, result.Minutes, result.Seconds))

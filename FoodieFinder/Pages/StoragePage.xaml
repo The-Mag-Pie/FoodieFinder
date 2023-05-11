@@ -4,6 +4,7 @@
              x:Class="FoodieFinder.Pages.StoragePage"
              xmlns:dbmodel="clr-namespace:FoodieFinder.Database"
              xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
+             xmlns:customview="clr-namespace:FoodieFinder.CustomViews"
              x:DataType="vm:StoragePageViewModel"
              BackgroundColor="#3F4E4F"
              Title="StoragePage">
@@ -12,18 +13,6 @@
             <Setter Property="TextColor" Value="White"/>
             <Setter Property="FontFamily" Value="Poppins-Medium"/>
         </Style>
-
-        <Style x:Key="UserPhotoBorderStyle" TargetType="Border">
-            <Setter Property="StrokeShape" Value="RoundRectangle 30,30,30,30" />
-            <Setter Property="StrokeThickness" Value="0" />
-            <Setter Property="Padding" Value="7, 7, 7, 7" />
-            <Setter Property="BackgroundColor" Value="#FF9832" />
-            <Setter Property="VerticalOptions" Value="Center" />
-            <Setter Property="HorizontalOptions" Value="Center" />
-            <Setter Property="WidthRequest" Value="50" />
-            <Setter Property="HeightRequest" Value="50" />
-        </Style>
-
 
         <Style x:Key="StorageAddButtonBorder" TargetType="Border">
             <Setter Property="StrokeShape" Value="RoundRectangle 25,25,25,25" />
@@ -55,32 +44,8 @@
     <ScrollView>
         <VerticalStackLayout Padding="26, 0, 26, 20">
 
-            <Grid Margin="0, 15, 0, 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="54" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="54" />
-                </Grid.RowDefinitions>
+            <customview:PageHeader Margin="0, 15, 0, 0"/>
 
-                <Label Text="{Binding WelcomeUser, StringFormat='Welcome, {0}'}"
-                       VerticalOptions="Center"
-                       TextColor="#959595"
-                       FontAttributes="Bold"/>
-
-                <Border Style="{StaticResource UserPhotoBorderStyle}"
-                        Grid.Column="1">
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding UserOptionsTappedCommand}"/>
-                    </Border.GestureRecognizers>
-                    <Label Text="{Binding UserFirstLetter}"
-                           FontSize="23"
-                           FontAttributes="Bold"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Center" />
-                </Border>
-            </Grid>
             <Grid Margin="0,40,0,0">
                 <Label Text="My pantry:"
                        FontSize="15"
