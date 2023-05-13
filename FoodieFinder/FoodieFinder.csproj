@@ -110,6 +110,9 @@
 	  <Compile Update="Pages\AddSavedRecipePage.xaml.cs">
 	    <DependentUpon>AddSavedRecipePage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Pages\OnlineRecipePage.xaml.cs">
+	    <DependentUpon>OnlineRecipePage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\SignInPage.xaml.cs">
 	    <DependentUpon>SignInPage.xaml</DependentUpon>
 	  </Compile>
@@ -165,6 +168,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\AddSavedRecipePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\OnlineRecipePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\SignInPage.xaml">

@@ -14,4 +14,10 @@ public partial class SavedRecipePage : ContentPage
 
         Appearing += (s, e) => vm.LoadSavedItems();
     }
+    async void OfflineOnline(object sender, ToggledEventArgs e)
+    {
+        //Application.Current.MainPage.DisplayAlert("Error", "sss", "OK");
+        await Task.Delay(200);
+        Shell.Current.GoToAsync(nameof(OnlineRecipePage));
+    }
 }

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FoodieFinder.Pages.SavedRecipePage"
+             x:Class="FoodieFinder.Pages.OnlineRecipePage"
              xmlns:dbmodel="clr-namespace:FoodieFinder.Database"
              xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
              xmlns:customview="clr-namespace:FoodieFinder.CustomViews"
-             x:DataType="vm:SavedRecipePageViewModel"
+             x:DataType="vm:OnlineRecipePageViewModel"
              BackgroundColor="#3F4E4F"
-             Title="StoragePage">
+             Title="OnlineRecipePage">
     <ContentPage.Resources>
         <Style TargetType="Label">
             <Setter Property="TextColor" Value="White"/>
@@ -60,9 +60,9 @@
                     <ColumnDefinition Width="55"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Text="Offline recipes" FontSize="18" FontAttributes="Bold" Grid.Column="0" VerticalOptions="Center"/>
+                <Label Text="Online recipes" FontSize="18" FontAttributes="Bold" Grid.Column="0" VerticalOptions="Center"/>
                 <Label Text="Offline" Grid.Column="1" VerticalOptions="Center"/>
-                <Switch IsToggled="False" Toggled="OfflineOnline" Grid.Column="2"/>
+                <Switch IsToggled="True" Toggled="OfflineOnline" Grid.Column="2"/>
                 <Label Text="Online" Grid.Column="3" VerticalOptions="Center"/>
             </Grid>
 
@@ -77,7 +77,7 @@
                             <ColumnDefinition Width="50" />
                         </Grid.ColumnDefinitions>
 
-                        <CollectionView ItemsSource="{Binding SavedOfflineItems}"
+                        <CollectionView ItemsSource="{Binding SavedOnlineItems}"
                                     EmptyView="You have no saved recipes yet."
                                     Grid.Column="0"
                                         Grid.ColumnSpan="3"
@@ -89,29 +89,24 @@
                                            Orientation="Vertical"/>
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="dbmodel:Recipe">
-                                    
-                                        <Border Background="#18272C" 
+                                <DataTemplate x:DataType="dbmodel:OnlineRecipe">
+
+                                    <Border Background="#18272C" 
                                                 Stroke="#F39B27" 
                                                 StrokeThickness="2"
                                                 StrokeShape="RoundRectangle 15,15,15,15"
                                                 MinimumHeightRequest="80">
 
-                                            <HorizontalStackLayout>
+                                        <HorizontalStackLayout>
                                             <Grid Margin="0,0,0,0" >
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="300"/>
                                                     <ColumnDefinition Width="40"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="50" />
-                                                    <RowDefinition Height="50"/>
-                                                    <RowDefinition Height="10"/>
 
-                                                </Grid.RowDefinitions>
                                                 <Label Text=" " Grid.Column="0" HorizontalOptions="Center"></Label>
 
-                                                <Label Text="{Binding Name}"
+                                                <Label Text="{Binding RecipeName}"
                                        VerticalOptions="Center"
                                        FontSize="20"
                                        FontFamily="Poppins-Regular"
@@ -121,55 +116,30 @@
                                        HorizontalOptions="Center">
                                                     <Label.GestureRecognizers>
                                                         <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedRecipePageViewModel}}, Path=SavedItemTappedCommand}" />
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OnlineRecipePageViewModel}}, Path=SavedItemTappedCommand}" />
                                                     </Label.GestureRecognizers>
                                                 </Label>
 
-                                                <Label Text="{Binding Description}"
-                                        VerticalOptions="Center"
-                                        FontSize="15"
-                                        FontFamily="Poppins-Regular"
-                                        Grid.Row="1"
-                                        Margin="20,0,0,0"
-                                        HorizontalOptions="Start">
-                                                    <Label.GestureRecognizers>
-                                                        <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedRecipePageViewModel}}, Path=SavedItemTappedCommand}" />
-                                                    </Label.GestureRecognizers>
-                                                </Label>
-                                                <Border Grid.Column="1" Grid.Row="0" Background="#18272C" StrokeThickness="0" Margin="0,5,10,0">
+                                                <Border Grid.Column="1" Grid.Row="0" Background="#18272C" StrokeThickness="0" Margin="0,5,10,10">
                                                     <Image Source="trash_icon.svg" 
 
                                    Margin="0,0,0,0"                     
                                    VerticalOptions="Center"
                                    HorizontalOptions="Start">
-                                                        
+
                                                     </Image>
                                                     <Border.GestureRecognizers>
                                                         <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedRecipePageViewModel}}, Path=DeleteSavedRecipeCommand}" />
-                                                    </Border.GestureRecognizers>
-                                                </Border>
-                                                <Border Grid.Column="1" Grid.Row="1" Background="#18272C" StrokeThickness="0" Margin="0,5,10,0">
-                                                <Image Source="edit_icon.svg" 
-                                   Grid.Column="1" 
-                                   Grid.Row="1"
-                                   Margin="2,5,0,0"                     
-                                   VerticalOptions="Center"
-                                   HorizontalOptions="Start">
-                                                    
-                                                </Image>
-                                                    <Border.GestureRecognizers>
-                                                        <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedRecipePageViewModel}}, Path=ModifySavedRecipeCommand}" />
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OnlineRecipePageViewModel}}, Path=DeleteOnlineRecipeCommand}" />
                                                     </Border.GestureRecognizers>
                                                 </Border>
 
+
                                             </Grid>
                                         </HorizontalStackLayout>
-                                            
-                                        </Border>
-                                    
+
+                                    </Border>
+
 
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
@@ -177,15 +147,6 @@
 
                     </Grid>
                 </HorizontalStackLayout>
-            </Border>
-            <Border Style="{StaticResource StorageAddButtonBorder}"
-                        Grid.Column="0">
-                <Polyline Points="8,20 20,20 20,8 20,20 32,20 20,20 20,32"
-                              Stroke="#33363F"
-                              StrokeThickness="3"/>
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding AddSavedItemCommand}"/>
-                </Border.GestureRecognizers>
             </Border>
         </VerticalStackLayout>
     </ScrollView>

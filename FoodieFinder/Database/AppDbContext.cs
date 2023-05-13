@@ -9,6 +9,7 @@ namespace FoodieFinder.Database
         public DbSet<Recipe> Recipe { get; set; }
         public DbSet<StorageItem> StoreRoom { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<OnlineRecipe> OnlineRecipe { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
     }
