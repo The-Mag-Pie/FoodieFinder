@@ -10,7 +10,7 @@ namespace FoodieFinder.ViewModels
 {
     partial class HomePageViewModel : BaseViewModel
     {
-        public ObservableCollection<HomePageRecipeModel> YourRecipes { get; } = new();
+        public ObservableCollection<Recipe> YourRecipes { get; } = new();
         public ObservableCollection<BucketListItem> BucketList { get; } = new();
 
         [ObservableProperty]
@@ -46,10 +46,10 @@ namespace FoodieFinder.ViewModels
             {
                 YourRecipes.Add(new()
                 {
-                    RecipeName = recipe.Name,
-                    //Image = ImageSource.FromFile("pesto_pasta.png")
-                    Image = ImageSource.FromFile("guacamole.png")
-                    //Image = ImageSource.FromFile("thai_soup.png")
+                    Id = recipe.Id,
+                    Name = recipe.Name,
+                    Description = recipe.Description,
+                    Preparation = recipe.Preparation,
                 });
             }
         }
@@ -64,9 +64,13 @@ namespace FoodieFinder.ViewModels
         }
 
         [RelayCommand]
-        private void RecipeTapped(HomePageRecipeModel recipe)
+        private void RecipeTapped(Recipe recipe)
         {
-            Shell.Current.GoToAsync("//HomePage3");
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "Recipe", recipe }
+            };
+            Shell.Current.GoToAsync($"RecipePage", navigationParameter);
         }
 
         [RelayCommand]

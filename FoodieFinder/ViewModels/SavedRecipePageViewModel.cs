@@ -80,15 +80,11 @@ namespace FoodieFinder.ViewModels
         [RelayCommand]
         private async Task SavedItemTapped(Recipe RecipeIt)
         {
-            Application.Current.MainPage.DisplayAlert("Error", RecipeIt.Preparation, "OK");
-            /*var popup = new StorageItemPopup(RecipeIt);
-            var result = (string)await Application.Current.MainPage.ShowPopupAsync(popup);
-
-            switch (result)
+            var navigationParameter = new Dictionary<string, object>
             {
-
-                default: break;
-            }*/
+                { "Recipe", RecipeIt }
+            };
+            Shell.Current.GoToAsync($"RecipePage", navigationParameter);
         }
         [RelayCommand]
         private void DeleteSavedRecipe(Recipe RecipeIt)

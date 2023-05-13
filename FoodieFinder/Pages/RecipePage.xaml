@@ -7,7 +7,8 @@
              xmlns:customview="clr-namespace:FoodieFinder.CustomViews"
              x:DataType="vm:RecipePageViewModel"
              BackgroundColor="#2C3639"
-             Title="RecipePage">
+             Title="RecipePage"
+             Shell.TabBarIsVisible="False">
 
     <ContentPage.Resources>
         <Style TargetType="Label">
@@ -29,9 +30,20 @@
     <ScrollView>
         <VerticalStackLayout Padding="26, 0, 26, 20">
 
+            <Image Source="arrow_icon.svg" 
+                                   Grid.Column="0" 
+                                    Rotation="180"
+                                   Margin="0,30,0,0"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Start">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BackCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            
             <customview:PageHeader Margin="0, 15, 0, 0"/>
 
-            <Border StrokeShape="RoundRectangle 60"
+            <!--<Border StrokeShape="RoundRectangle 60"
                         StrokeThickness="0"
                         BackgroundColor="#2C3639"
                         Scale="0.75">
@@ -39,7 +51,7 @@
                            HorizontalOptions="Center"
                            VerticalOptions="Center"
                            Aspect="AspectFill"/>
-            </Border>
+            </Border>-->
 
             <Grid HorizontalOptions="Center">
                 <Grid.RowDefinitions>
@@ -53,7 +65,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Column="1"
-                       Text="Guacamole"
+                       Text="{Binding TappedRecipe.Name}"
                        Style="{StaticResource MainLabel}"
                        VerticalOptions="Center"/>
 
@@ -70,8 +82,14 @@
                 <Label Text="5.0" Style="{StaticResource InfoLabel}"></Label>
             </HorizontalStackLayout>
             <Label Style="{StaticResource MainLabel}"
-                   Text="Ingrediets:"
+                   Text="Description:"
                    Margin="20, 5">
+
+            </Label>
+            <Label Text="{Binding TappedRecipe.Description}"/>
+            <Label Style="{StaticResource MainLabel}"
+                   Text="Ingrediets:"
+                   Margin="20, 15">
                 
             </Label>
             <CollectionView ItemsSource="{Binding Ingredients}"
@@ -110,7 +128,7 @@
                    Margin="20, 15">
 
             </Label>
-            <Label Text="Mash avocados, lime juice, and salt together in a medium bowl; mix in tomatoes, onion, cilantro, and garlic. Stir in cayenne pepper."></Label>
+            <Label Text="{Binding TappedRecipe.Preparation}"></Label>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
