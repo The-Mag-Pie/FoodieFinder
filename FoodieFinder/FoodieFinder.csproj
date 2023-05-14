@@ -110,6 +110,9 @@
 	  <Compile Update="Pages\AddSavedRecipePage.xaml.cs">
 	    <DependentUpon>AddSavedRecipePage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Pages\SearchPage.xaml.cs">
+	    <DependentUpon>SearchPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\OnlineRecipePage.xaml.cs">
 	    <DependentUpon>OnlineRecipePage.xaml</DependentUpon>
 	  </Compile>
@@ -155,6 +158,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Pages\SearchPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\HomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

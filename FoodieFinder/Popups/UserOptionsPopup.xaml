@@ -15,6 +15,9 @@
             <Button Text="Set Notification"
                     Clicked="Notification_Clicked"
                     WidthRequest="200"></Button>
+            <Button Text="User Options"
+                    Clicked="UserOptions_Clicked"
+                    WidthRequest="200"></Button>
             <Button Text="Log out"
                     Clicked="Logout_Clicked" 
                     WidthRequest="200"/>

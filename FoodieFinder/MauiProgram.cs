@@ -46,6 +46,7 @@ public static class MauiProgram
         Routing.RegisterRoute(nameof(ModifySavedRecipePage), typeof(ModifySavedRecipePage));
 		Routing.RegisterRoute(nameof(OnlineRecipePage), typeof(OnlineRecipePage));
 		Routing.RegisterRoute(nameof(SavedRecipePage), typeof(SavedRecipePage));
+		Routing.RegisterRoute(nameof(UserAccountPage), typeof(UserAccountPage));
 
         // Add appsettings.json configuration
         var a = Assembly.GetExecutingAssembly();
@@ -89,6 +90,7 @@ public static class MauiProgram
         builder.Services.AddTransient<ModifySavedRecipePage>();
         builder.Services.AddTransient<OnlineRecipePage>();
         builder.Services.AddTransient<SavedRecipePage>();
+        builder.Services.AddTransient<SearchPage>();
 
         // Add other services
         builder.Services.AddSingleton<UserData>();

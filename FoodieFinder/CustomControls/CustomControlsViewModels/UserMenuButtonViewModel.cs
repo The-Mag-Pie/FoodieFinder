@@ -39,6 +39,9 @@ namespace FoodieFinder.CustomControls.CustomControlsViewModels
                 case "notification":
                     await NotificationPopupSet();
                     break;
+                case "UserOptions":
+                    Shell.Current.GoToAsync(nameof(UserAccountPage));
+                    break;
                 default: break;
             }
         }

@@ -28,8 +28,8 @@
 
         <Tab Title="Search"
              Icon="search.png">
-            <ShellContent ContentTemplate="{DataTemplate pages:UserAccountPage}"
-                          Route="HomePage2"/>
+            <ShellContent ContentTemplate="{DataTemplate pages:SearchPage}"
+                          Route="SearchPage"/>
         </Tab>
 
         <Tab Title="Saved recipes"
