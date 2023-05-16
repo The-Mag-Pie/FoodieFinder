@@ -1,70 +1,69 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using FoodieFinder.Database;
-using FoodieFinder.LocalJsonDatabase;
-using FoodieFinder.Models;
-using FoodieFinder.UserAccount;
+using FoodieFinder.SuggesticAPI;
+using FoodieFinder.SuggesticAPI.Models;
 using System.Collections.ObjectModel;
 
 namespace FoodieFinder.ViewModels
 {
     partial class SearchPageViewModel : BaseViewModel
     {
-
-        public ObservableCollection<OnlineRecipe> SearchedRecipes { get; } = new();
-        public ObservableCollection<OnlineRecipe> RecentSearch { get; } = new();
-        [ObservableProperty]
-        private bool _isYourRecipesVisible = false;
-        [ObservableProperty]
-        private string searched;
+        //public ObservableCollection<string> RecentSearches { get; } = new();
+        public ObservableCollection<Recipe> FoundRecipes { get; } = new();
 
         [ObservableProperty]
-        private string _addIngredientName = string.Empty;
+        private string _searchQuery;
 
-        private readonly IServiceProvider _serviceProvider;
-        private readonly AppDbContext _dbContext;
-        private readonly UserData _userData;
+        private readonly SuggesticApiClient _apiClient;
 
-        public SearchPageViewModel(IServiceProvider serviceProvider)
+        public SearchPageViewModel(SuggesticApiClient apiClient)
         {
-            _serviceProvider = serviceProvider;
+            _apiClient = apiClient;
+        }
 
-            _dbContext = _serviceProvider.GetRequiredService<AppDbContext>();
-            _userData = _serviceProvider.GetRequiredService<UserData>();
-            OnlineRecipe item = new OnlineRecipe();
-            item.Id = 1;
-            item.RecipeName = "Testowa";
-            item.UserId = 1;
-            SearchedRecipes.Add(item);
-            SearchedRecipes.Add(item);
-            SearchedRecipes.Add(item);
-            RecentSearch.Add(item);
-            RecentSearch.Add(item);
-            RecentSearch.Add(item);
-
-        }
-        private void SearchItemTapped(OnlineRecipe ORecipe)
-        {
-            //----------------------------------
-        }
-        private void RecentSearchTapped(OnlineRecipe RecentSearchRecipe)
-        {
-            //----------------------------------
-        }
-        private void DeleteRecentSearchTapped(OnlineRecipe RecentSearchRecipe)
-        {
-            //----------------------------------
-        }
-        private void Search(OnlineRecipe RecentSearchRecipe)
-        {
-            //----------------------------------
-        }
+        [RelayCommand]
         private void FiltersTapped()
         {
             //----------------------------------
         }
 
+        [RelayCommand]
+        private async Task Search()
+        {
+            if (SearchQuery is null || SearchQuery.Length == 0)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Recipe name is empty", "OK");
+                return;
+            }
 
+            await InvokeAsyncWithLoader(async () =>
+            {
+                var foundRecipes = await _apiClient.SearchRecipesByNameAsync(SearchQuery);
 
+                FoundRecipes.Clear();
+                foreach (var recipe in foundRecipes)
+                {
+                    FoundRecipes.Add(recipe);
+                }
+            });
+        }
+
+        [RelayCommand]
+        private void SearchItemTapped(Recipe recipe)
+        {
+            Application.Current.MainPage.DisplayAlert(
+                recipe.Name,
+                $"Preparation time: {recipe.PreparationTime / 60} minutes\n\nIngredients:\n{string.Join("\n", recipe.Ingredients.Select(r => r.Quantity + " " + r.Unit + " of " + r.IngredientName))}",
+                "OK");
+        }
+
+        //private void RecentSearchTapped(string searchQuery)
+        //{
+        //    //----------------------------------
+        //}
+        //private void DeleteRecentSearchTapped(string searchQuery)
+        //{
+        //    //----------------------------------
+        //}
     }
 }

@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
-             xmlns:m="clr-namespace:FoodieFinder.Models"
-             xmlns:dbmodel="clr-namespace:FoodieFinder.Database"
+             xmlns:apimodels="clr-namespace:FoodieFinder.SuggesticAPI.Models"
              xmlns:customviews="clr-namespace:FoodieFinder.CustomViews"
              x:Class="FoodieFinder.Pages.SearchPage"
              x:DataType="vm:SearchPageViewModel"
@@ -87,25 +86,21 @@
                     </Border.Shadow>
                     <Entry Placeholder="Recipe Name" 
                            BackgroundColor="#273133"  
-                           Text="{Binding Searched}"
+                           Text="{Binding SearchQuery}"
                            TextColor="#6A6363"
                            Grid.Column="0"
-                           Margin="0,0,0,0"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center"></Entry>
+                           Margin="15,0,15,0"
+                           HorizontalOptions="Fill"
+                           HorizontalTextAlignment="Center"
+                           VerticalOptions="Center"
+                           ReturnCommand="{Binding SearchCommand}"></Entry>
                 </Border>
-                <Border Grid.Column="1" Grid.Row="0" Background="#3F4E4F" StrokeThickness="0">
-                    <Image Source="search_icon2.png" 
-                                   HeightRequest="25"                    
-                                   VerticalOptions="Center"
-                                   HorizontalOptions="Start">
-
-                    </Image>
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SearchPageViewModel}}, Path=SearchCommand}" />
-                    </Border.GestureRecognizers>
-                </Border>
+                <ImageButton Grid.Column="1" Grid.Row="0"
+                             Source="search_icon2.png" 
+                             HeightRequest="25"                    
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             Command="{Binding SearchCommand}"/>
                 <Border Grid.Column="2" Grid.Row="0" Background="#3F4E4F" StrokeThickness="0">
                     <Image Source="filter_icon.png" 
                                    HeightRequest="20"                    
@@ -119,7 +114,7 @@
                     </Border.GestureRecognizers>
                 </Border>
             </Grid>
-            <Border StrokeThickness="0"
+            <!--<Border StrokeThickness="0"
                 StrokeShape="RoundRectangle 15,15,15,15"
                 BackgroundColor="#273033"
                 Margin="0,10,10,0">
@@ -133,9 +128,9 @@
                             <RowDefinition Height="30"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Label Text="Recent searchs" Margin="10,5,5,5" Grid.Row="0"/>
-                        <CollectionView ItemsSource="{Binding RecentSearch}"
-                                    EmptyView="You have no recent searchs"
+                        <Label Text="Recent searches" Margin="10,5,5,5" Grid.Row="0"/>
+                        <CollectionView ItemsSource="{Binding RecentSearches}"
+                                    EmptyView="You have no recent searches"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="3"
                                     VerticalOptions="Start"
@@ -147,7 +142,7 @@
                                            Orientation="Vertical"/>
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="dbmodel:OnlineRecipe">
+                                <DataTemplate x:DataType="x:String">
 
                                     <Border Background="#273033" 
 
@@ -174,7 +169,7 @@
                                                     </Image>
 
 
-                                                <Label Text="{Binding RecipeName}"
+                                                <Label Text="{Binding .}"
                                        VerticalOptions="Center"
                                        FontSize="12"
                                        FontFamily="Poppins-Regular"
@@ -209,9 +204,9 @@
                         </CollectionView>
                     </Grid>
                 </HorizontalStackLayout>
-            </Border>
-            <CollectionView ItemsSource="{Binding SearchedRecipes}"
-                                    EmptyView="No recipe found"
+            </Border>-->
+            <CollectionView ItemsSource="{Binding FoundRecipes}"
+                                    EmptyView="No recipes found"
                                     Grid.Column="0"
                                         Grid.ColumnSpan="3"
                                     HorizontalOptions="Center"
@@ -222,7 +217,7 @@
                                            Orientation="Vertical"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="dbmodel:OnlineRecipe">
+                    <DataTemplate x:DataType="apimodels:Recipe">
 
                         <Border Background="#18272C" 
                                                 Stroke="#F39B27" 
@@ -230,33 +225,14 @@
                                                 StrokeShape="RoundRectangle 15,15,15,15"
                                                 MinimumHeightRequest="80">
 
-                            <HorizontalStackLayout>
-                                <Grid Margin="0,0,0,0" >
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="300"/>
-                                        <ColumnDefinition Width="40"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="50" />
-                                        <RowDefinition Height="50"/>
-                                        <RowDefinition Height="10"/>
-
-                                    </Grid.RowDefinitions>
-                                    <Label Text=" " Grid.Column="0" HorizontalOptions="Center"></Label>
-
-                                    <Label Text="{Binding RecipeName}"
-                                       VerticalOptions="Center"
-                                       FontSize="20"
-                                       FontFamily="Poppins-Regular"
-                                       Grid.Row="0"
-                                       Grid.ColumnSpan="2"
-                                       FontAttributes="Bold"
-                                       HorizontalOptions="Center">
-                                        
-                                    </Label>
-
-                                </Grid>
-                            </HorizontalStackLayout>
+                            <Label Text="{Binding Name}"
+                                   Margin="15,5"
+                                   VerticalOptions="Center"
+                                   FontSize="20"
+                                   FontFamily="Poppins-Regular"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   LineBreakMode="WordWrap"/>
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer CommandParameter="{Binding .}"
                                                               Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SearchPageViewModel}}, Path=SearchItemTappedCommand}" />

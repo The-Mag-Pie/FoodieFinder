@@ -1,3 +1,4 @@
+using FoodieFinder.SuggesticAPI;
 using FoodieFinder.ViewModels;
 
 namespace FoodieFinder.Pages;
@@ -10,7 +11,7 @@ public partial class SearchPage : ContentPage
 	{
 		InitializeComponent();
 
-		vm = new(serviceProvider);
+		vm = new(serviceProvider.GetRequiredService<SuggesticApiClient>());
 		BindingContext = vm;
 
 	}
