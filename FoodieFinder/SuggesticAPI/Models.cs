@@ -36,6 +36,7 @@ namespace FoodieFinder.SuggesticAPI.Models
 
     public class Recipe
     {
+        public string ID { get; set; }
         public string Name { get; set; }
         [JsonPropertyName("totalTimeInSeconds")]
         public int? PreparationTime { get; set; }

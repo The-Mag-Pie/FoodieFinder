@@ -9,6 +9,7 @@
             ) {
                 edges {
                     node {
+                        id
                         name
                         totalTimeInSeconds
                         parsedIngredientLines {
@@ -28,6 +29,7 @@
                 query: {{searchQuery}}
             ) {
                 onPlan {
+                    id
                     name
                     totalTimeInSeconds
                     parsedIngredientLines {
@@ -38,6 +40,7 @@
                     instructions
                 }
                 otherResults {
+                    id
                     name
                     totalTimeInSeconds
                     parsedIngredientLines {
@@ -57,6 +60,7 @@
             ) {
                 edges {
                     node {
+                        id
                         name
                         totalTimeInSeconds
                         parsedIngredientLines {

@@ -8,7 +8,7 @@ namespace FoodieFinder.Database
         public int Id { get; set; }
 
         [Column("Recipe_API_Id")]
-        public int RecipeApiId { get; set; }
+        public string RecipeApiId { get; set; }
 
         [Column("Recipe_Name")]
         public string RecipeName { get; set; }

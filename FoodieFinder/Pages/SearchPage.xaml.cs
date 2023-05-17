@@ -11,7 +11,7 @@ public partial class SearchPage : ContentPage
 	{
 		InitializeComponent();
 
-		vm = new(serviceProvider.GetRequiredService<SuggesticApiClient>());
+		vm = new(serviceProvider);
 		BindingContext = vm;
 
 	}
