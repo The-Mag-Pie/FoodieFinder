@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
+             xmlns:dbmodel="clr-namespace:FoodieFinder.Database"
              xmlns:m="clr-namespace:FoodieFinder.Models"
              xmlns:customviews="clr-namespace:FoodieFinder.CustomViews"
              x:Class="FoodieFinder.Pages.HomePage"
@@ -85,27 +86,28 @@
                                        ItemSpacing="10" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="m:HomePageRecipeModel">
-                        <VerticalStackLayout Padding="5">
-                            <VerticalStackLayout.GestureRecognizers>
+                    <DataTemplate x:DataType="dbmodel:Recipe">
+                        <Grid Padding="5">
+                            <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomePageViewModel}}, Path=RecipeTappedCommand}"
                                                       CommandParameter="{Binding .}"/>
-                            </VerticalStackLayout.GestureRecognizers>
+                            </Grid.GestureRecognizers>
                             <Border Style="{StaticResource RecipesBorderStyle}">
                                 <Border.Shadow>
                                     <Shadow Radius="15"
                                             Opacity="0.8"/>
                                 </Border.Shadow>
-                                <Image Source="{Binding Image}"
+                                <Image Source="recipe_blured.jpg"
                                        HeightRequest="70"
                                        Aspect="AspectFill" />
                             </Border>
-                            <Label Text="{Binding RecipeName}"
+                            <Label Text="{Binding Name}"
                                    HorizontalOptions="Center"
+                                   VerticalOptions="Center"
                                    FontAttributes="Bold"
-                                   TextColor="#ABABAB"
-                                   FontSize="10"/>
-                        </VerticalStackLayout>
+                                   TextColor="#FFFFFF"
+                                   FontSize="14"/>
+                        </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

@@ -39,7 +39,7 @@
 
         <Tab Title="RecipePage"
              Icon="bookbookmark.png">
-            <ShellContent ContentTemplate="{DataTemplate pages:RecipePage}"/>
+            <ShellContent ContentTemplate="{DataTemplate pages:HomePage}"/>
         </Tab>
     </TabBar>
 

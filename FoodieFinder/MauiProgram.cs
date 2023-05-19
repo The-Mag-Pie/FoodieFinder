@@ -44,6 +44,7 @@ public static class MauiProgram
 		// Routes
 		Routing.RegisterRoute(nameof(AddSavedRecipePage), typeof(AddSavedRecipePage));
         Routing.RegisterRoute(nameof(ModifySavedRecipePage), typeof(ModifySavedRecipePage));
+        Routing.RegisterRoute(nameof(RecipePage), typeof(RecipePage));
 		Routing.RegisterRoute(nameof(OnlineRecipePage), typeof(OnlineRecipePage));
 		Routing.RegisterRoute(nameof(SavedRecipePage), typeof(SavedRecipePage));
 		Routing.RegisterRoute(nameof(UserAccountPage), typeof(UserAccountPage));
