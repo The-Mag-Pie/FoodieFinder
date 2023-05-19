@@ -36,11 +36,6 @@
              Icon="bookbookmark.png">
             <ShellContent ContentTemplate="{DataTemplate pages:SavedRecipePage}"/>
         </Tab>
-
-        <Tab Title="RecipePage"
-             Icon="bookbookmark.png">
-            <ShellContent ContentTemplate="{DataTemplate pages:HomePage}"/>
-        </Tab>
     </TabBar>
 
 </Shell>
