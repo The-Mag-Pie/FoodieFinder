@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FoodieFinder.Database
 {
@@ -12,6 +13,7 @@ namespace FoodieFinder.Database
         [ObservableProperty]
         private string _productName;
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(DotColor))]
         private DateOnly _expirationDate;
         [ObservableProperty]
         private int _user_UserId;
@@ -19,6 +21,28 @@ namespace FoodieFinder.Database
         private int _quantity;
         [ObservableProperty]
         private string _unit;
+
+        [NotMapped]
+        public Color DotColor
+        {
+            get
+            {
+                DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now.Date);
+
+                if (ExpirationDate < currentDate)
+                {
+                    return Color.FromRgb(255, 0, 0);
+                }
+                else if (ExpirationDate.Day - currentDate.Day <= 2)
+                {
+                    return Color.FromRgb(255, 165, 0);
+                }
+                else
+                {
+                    return Color.FromRgb(0, 128, 0);
+                }
+            }
+        }
     }
 
     //public class StoreRoomContext : DbContext

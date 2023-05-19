@@ -118,29 +118,6 @@
                                    Grid.Row="1"
                                    Grid.ColumnSpan="4"
                                    Background="#313D40"/>
-                        <CollectionView ItemsSource="{Binding DateColors}"
-                                        Grid.Column="0"
-                                        Grid.Row="2">
-                            <CollectionView.ItemsLayout>
-                                <LinearItemsLayout ItemSpacing="5"
-                                           Orientation="Vertical"/>
-                            </CollectionView.ItemsLayout>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="m:DateColor">
-                                    <Border Style="{StaticResource StorageBorder}"
-                                            VerticalOptions="Center"
-                                            HorizontalOptions="Start">
-                                        <Frame BackgroundColor="{Binding Color}" 
-                                                   BorderColor="black"
-                                                   Margin="5,5,5,5" 
-                                                   CornerRadius="45"
-                                                   WidthRequest="10"
-                                                   HeightRequest="10"
-                                                   ></Frame>
-                                    </Border>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
                         <CollectionView ItemsSource="{Binding StorageItems}"
                                     EmptyView="You have no items in the storage yet."
                                     Grid.Column="1"
@@ -158,18 +135,30 @@
                                     <Grid Margin="0,0,0,0" >
                                             <Grid.ColumnDefinitions>
 
+                                            <ColumnDefinition Width="30"/>
                                             <ColumnDefinition Width="140"/>
                                             <ColumnDefinition Width="55" />
                                             <ColumnDefinition Width="55" />
                                             <ColumnDefinition Width="45" />
                                         </Grid.ColumnDefinitions>
-
+                                        <Border Style="{StaticResource StorageBorder}"
+                                            VerticalOptions="Center"
+                                                Grid.Column="0"
+                                            HorizontalOptions="Start">
+                                            <Frame BackgroundColor="{Binding DotColor}" 
+                                                   BorderColor="black"
+                                                   Margin="5,5,5,5" 
+                                                   CornerRadius="45"
+                                                   WidthRequest="10"
+                                                   HeightRequest="10"
+                                                   ></Frame>
+                                        </Border>
 
                                         <Label Text="{Binding ProductName}"
                                        VerticalOptions="Center"
                                        FontSize="15"
                                        FontFamily="Poppins-Regular"
-                                       Grid.Column="0"
+                                       Grid.Column="1"
                                        FontAttributes="Bold"
                                        HorizontalOptions="Start">
                                             <Label.GestureRecognizers>
@@ -181,13 +170,13 @@
                                         VerticalOptions="Center"
                                         FontSize="15"
                                         FontFamily="Poppins-Regular"
-                                        Grid.Column="1"
+                                        Grid.Column="2"
                                         HorizontalOptions="End"></Label>
                                         <Label Text="{Binding Unit}"
                                         VerticalOptions="Center"
                                         FontSize="10"
                                         FontFamily="Poppins-Regular"
-                                        Grid.Column="2"
+                                        Grid.Column="3"
                                         HorizontalOptions="Start"></Label>
 
                                         <Border Style="{StaticResource DeleteStorageItemBorder}"

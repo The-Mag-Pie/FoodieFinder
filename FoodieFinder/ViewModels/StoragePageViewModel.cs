@@ -13,7 +13,6 @@ namespace FoodieFinder.ViewModels
 	{
         public ObservableCollection<StorageItem> StorageItems { get; } = new();
 
-        public ObservableCollection<DateColor> DateColors { get; } = new();
 
         [ObservableProperty]
         private string _addIngredientName = string.Empty;
@@ -35,14 +34,9 @@ namespace FoodieFinder.ViewModels
         private void LoadStorageItems()
         {
             StorageItems.Clear();
-            DateColors.Clear();
-            DateColor Color = new DateColor();
             foreach (var item in _dbContext.StoreRoom.Where(u => u.User_UserId == _userData.UserId))
             {
                 StorageItems.Add(item);
-                
-                Color.Color = GetColorString(item.ExpirationDate);
-                DateColors.Add(Color);
             }
         }
 
