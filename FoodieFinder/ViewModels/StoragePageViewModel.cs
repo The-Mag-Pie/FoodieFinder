@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Maui.Views;
 using FoodieFinder.Database;
+using FoodieFinder.Models;
 using FoodieFinder.Popups;
 using FoodieFinder.UserAccount;
 using System.Collections.ObjectModel;
@@ -12,8 +13,11 @@ namespace FoodieFinder.ViewModels
 	{
         public ObservableCollection<StorageItem> StorageItems { get; } = new();
 
+        public ObservableCollection<DateColor> DateColors { get; } = new();
+
         [ObservableProperty]
         private string _addIngredientName = string.Empty;
+
 
         private readonly IServiceProvider _serviceProvider;
         private readonly AppDbContext _dbContext;
@@ -31,10 +35,14 @@ namespace FoodieFinder.ViewModels
         private void LoadStorageItems()
         {
             StorageItems.Clear();
-
+            DateColors.Clear();
+            DateColor Color = new DateColor();
             foreach (var item in _dbContext.StoreRoom.Where(u => u.User_UserId == _userData.UserId))
             {
                 StorageItems.Add(item);
+                
+                Color.Color = GetColorString(item.ExpirationDate);
+                DateColors.Add(Color);
             }
         }
 
@@ -75,6 +83,23 @@ namespace FoodieFinder.ViewModels
             {
 
                 default: break;
+            }
+        }
+        public Color GetColorString(DateOnly date)
+        {
+            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now.Date);
+
+            if (date < currentDate)
+            {
+                return Color.FromRgb(255,0,0);
+            }
+            else if (date.Day - currentDate.Day <= 2)
+            {
+                return Color.FromRgb(255, 165, 0);
+            }
+            else
+            {
+                return Color.FromRgb(0, 128, 0);
             }
         }
     } 
