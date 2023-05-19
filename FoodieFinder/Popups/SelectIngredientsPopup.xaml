@@ -28,7 +28,7 @@
             <CollectionView ItemsSource="{Binding Ingredients}"
                             EmptyView="You don't have any items in your pantry"
                             SelectionMode="Multiple"
-                            SelectedItems="{Binding SelectedIngredients}"
+                            SelectionChanged="CollectionView_SelectionChanged"
                             Margin="20,15">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical"

@@ -50,12 +50,14 @@ namespace FoodieFinder.ViewModels
         [ObservableProperty]
         private string _searchQuery;
 
+        private readonly IServiceProvider _serviceProvider;
         private readonly SuggesticApiClient _apiClient;
         private readonly AppDbContext _dbContext;
         private readonly UserData _userData;
 
         public SearchPageViewModel(IServiceProvider serviceProvider)
         {
+            _serviceProvider = serviceProvider;
             _apiClient = serviceProvider.GetRequiredService<SuggesticApiClient>();
             _dbContext = serviceProvider.GetRequiredService<AppDbContext>();
             _userData = serviceProvider.GetRequiredService<UserData>();
@@ -91,9 +93,21 @@ namespace FoodieFinder.ViewModels
         [RelayCommand]
         private async Task SearchByIngredients()
         {
-            //await Application.Current.MainPage.DisplayAlert("aa", "aa", "ok");
-            var popup = new SelectIngredientsPopup();
-            await Application.Current.MainPage.ShowPopupAsync(popup);
+            var popup = new SelectIngredientsPopup(_serviceProvider);
+            var selectedIngredients = await Application.Current.MainPage.ShowPopupAsync(popup) as List<string>;
+
+            if (selectedIngredients == null) return;
+
+            await InvokeAsyncWithLoader(async () =>
+            {
+                var foundRecipes = await _apiClient.SearchRecipesByIngredientsAsync(selectedIngredients);
+
+                FoundRecipes.Clear();
+                foreach (var recipe in foundRecipes)
+                {
+                    FoundRecipes.Add(recipe);
+                }
+            });
         }
 
         [RelayCommand]
