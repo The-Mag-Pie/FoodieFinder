@@ -48,7 +48,7 @@ namespace FoodieFinder.ViewModels
             {
                 Title = "Share recipe",
                 Text = "Check out my recipe!",
-                Uri = $"https://{domainName}/{shareRecipeEndpoint.Replace("{{recipeId}}", 5.ToString())}" // TODO: recipe id
+                Uri = $"https://{domainName}/{shareRecipeEndpoint.Replace("{{recipeId}}", TappedRecipe.Id.ToString())}"
             });
         }
 
