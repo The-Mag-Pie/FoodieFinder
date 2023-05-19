@@ -46,7 +46,7 @@ namespace FoodieFinder.ViewModels
             var popup = new AddStorageItemPopup();
             var result = await Application.Current.MainPage.ShowPopupAsync(popup) as StorageItem;
             var userData = _serviceProvider.GetRequiredService<UserData>();
-            
+
             if (result != null 
                 && (result.ProductName != string.Empty || result.ProductName != "") 
                 && result.Quantity > 0
@@ -79,22 +79,6 @@ namespace FoodieFinder.ViewModels
                 default: break;
             }
         }
-        public Color GetColorString(DateOnly date)
-        {
-            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now.Date);
 
-            if (date < currentDate)
-            {
-                return Color.FromRgb(255,0,0);
-            }
-            else if (date.Day - currentDate.Day <= 2)
-            {
-                return Color.FromRgb(255, 165, 0);
-            }
-            else
-            {
-                return Color.FromRgb(0, 128, 0);
-            }
-        }
     } 
 }

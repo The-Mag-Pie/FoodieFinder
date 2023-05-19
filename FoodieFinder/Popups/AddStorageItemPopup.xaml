@@ -43,7 +43,7 @@
                     <DatePicker MinimumDate="01/01/2022"
                 TextColor="#6A6363"
                 HorizontalOptions="Center"
-                Date="{Binding ExpirationDate}"/>
+                DateSelected="DatePicker_DateSelected"/>
                 </Border>
                 <Border StrokeThickness="0"
                 StrokeShape="RoundRectangle 15,15,15,15"

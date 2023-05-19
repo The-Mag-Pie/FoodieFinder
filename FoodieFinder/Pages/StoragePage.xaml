@@ -120,9 +120,9 @@
                                    Background="#313D40"/>
                         <CollectionView ItemsSource="{Binding StorageItems}"
                                     EmptyView="You have no items in the storage yet."
-                                    Grid.Column="1"
+                                    Grid.Column="0"
                                         VerticalOptions="Center"
-                                        Grid.ColumnSpan="3"
+                                        Grid.ColumnSpan="4"
                                     HorizontalOptions="Start"
                                     Margin="0,10,0,0"
                                     Grid.Row="2">

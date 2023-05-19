@@ -33,7 +33,7 @@ namespace FoodieFinder.Database
                 {
                     return Color.FromRgb(255, 0, 0);
                 }
-                else if (ExpirationDate.Day - currentDate.Day <= 2)
+                else if (ExpirationDate.Day - currentDate.Day <= 5)
                 {
                     return Color.FromRgb(255, 165, 0);
                 }
