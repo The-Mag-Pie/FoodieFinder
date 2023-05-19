@@ -1,4 +1,3 @@
-using FoodieFinder.SuggesticAPI;
 using FoodieFinder.ViewModels;
 
 namespace FoodieFinder.Pages;

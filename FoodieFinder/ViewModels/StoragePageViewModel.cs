@@ -2,7 +2,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Maui.Views;
 using FoodieFinder.Database;
-using FoodieFinder.Models;
 using FoodieFinder.Popups;
 using FoodieFinder.UserAccount;
 using System.Collections.ObjectModel;

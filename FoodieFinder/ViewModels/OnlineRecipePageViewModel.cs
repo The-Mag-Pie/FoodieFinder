@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using FoodieFinder.Database;
 using FoodieFinder.UserAccount;
 using System.Collections.ObjectModel;
-using Newtonsoft.Json;
 
 namespace FoodieFinder.ViewModels
 {

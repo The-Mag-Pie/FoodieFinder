@@ -1,8 +1,5 @@
 ﻿using CommunityToolkit.Maui.Views;
 using FoodieFinder.Database;
-using IdentityModel.OidcClient;
-using System.Globalization;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace FoodieFinder.Popups;
