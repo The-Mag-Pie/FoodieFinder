@@ -4,6 +4,7 @@
              x:Class="FoodieFinder.Pages.StoragePage"
              xmlns:dbmodel="clr-namespace:FoodieFinder.Database"
              xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
+             xmlns:m="clr-namespace:FoodieFinder.Models"
              xmlns:customview="clr-namespace:FoodieFinder.CustomViews"
              x:DataType="vm:StoragePageViewModel"
              BackgroundColor="#3F4E4F"
@@ -120,6 +121,7 @@
                         <CollectionView ItemsSource="{Binding StorageItems}"
                                     EmptyView="You have no items in the storage yet."
                                     Grid.Column="0"
+                                        VerticalOptions="Center"
                                         Grid.ColumnSpan="4"
                                     HorizontalOptions="Start"
                                     Margin="0,10,0,0"
@@ -132,14 +134,25 @@
                                 <DataTemplate x:DataType="dbmodel:StorageItem">
                                     <Grid Margin="0,0,0,0" >
                                             <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="30" />
+
+                                            <ColumnDefinition Width="30"/>
                                             <ColumnDefinition Width="140"/>
                                             <ColumnDefinition Width="55" />
                                             <ColumnDefinition Width="55" />
                                             <ColumnDefinition Width="45" />
                                         </Grid.ColumnDefinitions>
-
-                                            <Label Text=" " Grid.Column="0" HorizontalOptions="Center"></Label>
+                                        <Border Style="{StaticResource StorageBorder}"
+                                            VerticalOptions="Center"
+                                                Grid.Column="0"
+                                            HorizontalOptions="Start">
+                                            <Frame BackgroundColor="{Binding DotColor}" 
+                                                   BorderColor="black"
+                                                   Margin="5,5,5,5" 
+                                                   CornerRadius="45"
+                                                   WidthRequest="10"
+                                                   HeightRequest="10"
+                                                   ></Frame>
+                                        </Border>
 
                                         <Label Text="{Binding ProductName}"
                                        VerticalOptions="Center"

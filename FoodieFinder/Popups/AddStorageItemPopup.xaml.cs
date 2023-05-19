@@ -1,5 +1,8 @@
 ﻿using CommunityToolkit.Maui.Views;
 using FoodieFinder.Database;
+using IdentityModel.OidcClient;
+using System.Globalization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace FoodieFinder.Popups;
@@ -13,14 +16,22 @@ public partial class AddStorageItemPopup : Popup
 		InitializeComponent();
         
 		addmodel = new StorageItem();
+
         BindingContext = addmodel;
 
-	}
 
-	private void AddItem_Clicked(object sender, EventArgs e) 
+
+    }
+    private void DatePicker_DateSelected(object sender, DateChangedEventArgs e)
+    {
+        addmodel.ExpirationDate = DateOnly.FromDateTime(e.NewDate);
+    }
+
+    private void AddItem_Clicked(object sender, EventArgs e) 
 	{
         // TODO: dorobić walidację czy dane nie są puste, jeśli tak to wyświetlić komunikat (przykład niżej), jeśli nie to Close(addmodel)
         //Application.Current.MainPage.DisplayAlert("Error", "You have not provided required data", "OK");
+        string a = addmodel.ExpirationDate.ToString();
         if (addmodel.ProductName != string.Empty && addmodel.Unit != string.Empty && addmodel.Quantity > 0) {
             Close(addmodel);
 		}
