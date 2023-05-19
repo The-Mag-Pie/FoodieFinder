@@ -125,6 +125,9 @@
 	  <Compile Update="Popups\AddSavedRecipePopup.xaml.cs">
 	    <DependentUpon>AddSavedRecipePopup.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Popups\SelectIngredientsPopup.xaml.cs">
+	    <DependentUpon>SelectIngredientsPopup.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Popups\SaveSharedRecipePopup.xaml.cs">
 	    <DependentUpon>SaveSharedRecipePopup.xaml</DependentUpon>
 	  </Compile>
@@ -192,6 +195,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\AddSavedRecipePopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Popups\SelectIngredientsPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\SaveSharedRecipePopup.xaml">

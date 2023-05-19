@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FoodieFinder.Database;
+using FoodieFinder.Popups;
 using FoodieFinder.SuggesticAPI;
 using FoodieFinder.UserAccount;
 using System.Collections.ObjectModel;
@@ -84,6 +86,14 @@ namespace FoodieFinder.ViewModels
                     FoundRecipes.Add(recipe);
                 }
             });
+        }
+
+        [RelayCommand]
+        private async Task SearchByIngredients()
+        {
+            //await Application.Current.MainPage.DisplayAlert("aa", "aa", "ok");
+            var popup = new SelectIngredientsPopup();
+            await Application.Current.MainPage.ShowPopupAsync(popup);
         }
 
         [RelayCommand]
