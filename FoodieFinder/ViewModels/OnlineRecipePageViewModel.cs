@@ -56,9 +56,9 @@ namespace FoodieFinder.ViewModels
 
 
         [RelayCommand]
-        private async Task SavedItemTapped(Recipe RecipeIt)
+        private async Task SavedItemTapped(OnlineRecipe RecipeIt)
         {
-            Application.Current.MainPage.DisplayAlert("Error", RecipeIt.Preparation, "OK");
+            Application.Current.MainPage.DisplayAlert("Error", "TODO", "OK");
             /*var popup = new StorageItemPopup(RecipeIt);
             var result = (string)await Application.Current.MainPage.ShowPopupAsync(popup);
 

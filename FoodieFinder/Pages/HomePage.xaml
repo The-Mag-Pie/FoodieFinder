@@ -106,7 +106,12 @@
                                    VerticalOptions="Center"
                                    FontAttributes="Bold"
                                    TextColor="#FFFFFF"
-                                   FontSize="14"/>
+                                   FontSize="14">
+                                <Label.Shadow>
+                                    <Shadow Radius="15"
+                                            Opacity="1"/>
+                                </Label.Shadow>
+                            </Label>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
