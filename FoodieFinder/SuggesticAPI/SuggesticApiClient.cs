@@ -76,6 +76,11 @@ namespace FoodieFinder.SuggesticAPI
                 .ToList();
         }
 
+        /// <summary>
+        /// Get recipe data with the given ID
+        /// </summary>
+        /// <param name="recipeId">An ID of the recipe</param>
+        /// <returns>A recipe with the given ID</returns>
         public async Task<Recipe> GetRecipeById(string recipeId)
         {
             var query = Queries.GetRecipeById;
