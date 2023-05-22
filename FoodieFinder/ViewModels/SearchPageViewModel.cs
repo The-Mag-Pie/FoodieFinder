@@ -96,6 +96,8 @@ namespace FoodieFinder.ViewModels
             var popup = new SelectIngredientsPopup(_serviceProvider);
             var selectedIngredients = await Application.Current.MainPage.ShowPopupAsync(popup) as List<string>;
 
+            SearchQuery = string.Empty;
+
             if (selectedIngredients == null) return;
 
             await InvokeAsyncWithLoader(async () =>

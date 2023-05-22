@@ -18,6 +18,11 @@ namespace FoodieFinderTests
 
             Assert.NotNull(result);
             Assert.NotEmpty(result);
+            foreach (var recipe in result)
+            {
+                Assert.NotEmpty(recipe.Ingredients);
+                Assert.NotEmpty(recipe.Instructions);
+            }
         }
 
         [Fact]
@@ -33,6 +38,11 @@ namespace FoodieFinderTests
 
             Assert.NotNull(result);
             Assert.NotEmpty(result);
+            foreach (var recipe in result)
+            {
+                Assert.NotEmpty(recipe.Ingredients);
+                Assert.NotEmpty(recipe.Instructions);
+            }
         }
 
         [Fact]
@@ -48,6 +58,23 @@ namespace FoodieFinderTests
 
             Assert.NotNull(result);
             Assert.NotEmpty(result);
+            foreach (var recipe in result)
+            {
+                Assert.NotEmpty(recipe.Ingredients);
+                Assert.NotEmpty(recipe.Instructions);
+            }
+        }
+
+        [Fact]
+        public void TestGetRecipeById()
+        {
+            using var apiClient = GetApiClient();
+
+            var recipeId = "UmVjaXBlOjk3MWZhZGIwLWJjZDQtNDQwZC1hYzNkLTEyZTAxY2M2YzRlOQ==";
+
+            var result = apiClient.GetRecipeById(recipeId).Result;
+
+            Assert.NotNull(result);
         }
 
         private static SuggesticApiClient GetApiClient()

@@ -2,76 +2,65 @@
 {
     public struct Queries
     {
-        public const string SearchRecipesByNameQuery = @"
+        private const string RecipeObjectFields = @"
+        id
+        name
+        totalTimeInSeconds
+        parsedIngredientLines {
+            ingredient
+            quantity
+            unit
+        }
+        instructions";
+
+        public static string SearchRecipesByNameQuery = @"
         {
             recipeSearch (
-                query: {{searchQuery}}
+                query: {{searchQuery}},
+                hasInstructions: true
             ) {
                 edges {
                     node {
-                        id
-                        name
-                        totalTimeInSeconds
-                        parsedIngredientLines {
-                            ingredient
-                            quantity
-                            unit
-                        }
-                        instructions
+                        {{recipeObjectFields}}
                     }
                 }
             }
-        }";
+        }".Replace("{{recipeObjectFields}}", RecipeObjectFields);
 
-        public const string SearchRecipesByNameOrIngredientsQuery = @"
+        public static string SearchRecipesByNameOrIngredientsQuery = @"
         {
             searchRecipeByNameOrIngredient (
                 query: {{searchQuery}}
             ) {
                 onPlan {
-                    id
-                    name
-                    totalTimeInSeconds
-                    parsedIngredientLines {
-                        ingredient
-                        quantity
-                        unit
-                    }
-                    instructions
+                    {{recipeObjectFields}}
                 }
                 otherResults {
-                    id
-                    name
-                    totalTimeInSeconds
-                    parsedIngredientLines {
-                        ingredient
-                        quantity
-                        unit
-                    }
-                    instructions
+                    {{recipeObjectFields}}
                 }
             }
-        }";
+        }".Replace("{{recipeObjectFields}}", RecipeObjectFields);
 
-        public const string SearchRecipesByIngredientsQuery = @"
+        public static string SearchRecipesByIngredientsQuery = @"
         {
             searchRecipesByIngredients (
                 mustIngredients: {{ingredientsList}}
             ) {
                 edges {
                     node {
-                        id
-                        name
-                        totalTimeInSeconds
-                        parsedIngredientLines {
-                            ingredient
-                            quantity
-                            unit
-                        }
-                        instructions
+                        {{recipeObjectFields}}
                     }
                 }
             }
-        }";
+        }".Replace("{{recipeObjectFields}}", RecipeObjectFields);
+
+        public static string GetRecipeById = @"
+        {
+            recipe(
+                id: {{recipeId}}
+            ) {
+                {{recipeObjectFields}}
+            }
+        }".Replace("{{recipeObjectFields}}", RecipeObjectFields);
     }
 }

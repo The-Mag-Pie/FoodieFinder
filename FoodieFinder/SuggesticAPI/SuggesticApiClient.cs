@@ -33,7 +33,10 @@ namespace FoodieFinder.SuggesticAPI
             var nameJson = JsonSerializer.Serialize(name);
             query = query.Replace("{{searchQuery}}", nameJson);
             var response = await _sendQueryAsync<SearchRecipesByNameResponse>(query);
-            return response.RecipeSearch.Edges.Select(e => e.Node).ToList();
+            return response.RecipeSearch.Edges
+                .Select(e => e.Node)
+                .Where(r => r.Ingredients.Count > 0 && r.Instructions.Count > 0)
+                .ToList();
         }
 
         /// <summary>
@@ -51,7 +54,9 @@ namespace FoodieFinder.SuggesticAPI
             var onPlan = response.SearchRecipeByNameOrIngredient.OnPlan;
             var otherResults = response.SearchRecipeByNameOrIngredient.OtherResults;
 
-            return onPlan.Concat(otherResults).ToList();
+            return onPlan.Concat(otherResults)
+                .Where(r => r.Ingredients.Count > 0 && r.Instructions.Count > 0)
+                .ToList();
         }
 
         /// <summary>
@@ -65,7 +70,19 @@ namespace FoodieFinder.SuggesticAPI
             var ingredientsJson = JsonSerializer.Serialize(ingredients);
             query = query.Replace("{{ingredientsList}}", ingredientsJson);
             var response = await _sendQueryAsync<SearchRecipesByIngredientsResponse>(query);
-            return response.SearchRecipesByIngredients.Edges.Select(e => e.Node).ToList();
+            return response.SearchRecipesByIngredients.Edges
+                .Select(e => e.Node)
+                .Where(r => r.Ingredients.Count > 0 && r.Instructions.Count > 0)
+                .ToList();
+        }
+
+        public async Task<Recipe> GetRecipeById(string recipeId)
+        {
+            var query = Queries.GetRecipeById;
+            var recipeIdJson = JsonSerializer.Serialize(recipeId);
+            query = query.Replace("{{recipeId}}", recipeIdJson);
+            var response = await _sendQueryAsync<RecipeByIdResult>(query);
+            return response.Recipe;
         }
 
         private async Task<T> _sendQueryAsync<T>(string query)

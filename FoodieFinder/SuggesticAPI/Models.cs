@@ -34,6 +34,11 @@ namespace FoodieFinder.SuggesticAPI.Models
         public List<Recipe> OtherResults { get; set; }
     }
 
+    public class RecipeByIdResult
+    {
+        public Recipe Recipe { get; set; }
+    }
+
     public class Recipe
     {
         public string ID { get; set; }
