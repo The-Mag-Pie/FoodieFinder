@@ -27,12 +27,12 @@ namespace FoodieFinder.Database
             get
             {
                 DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now.Date);
-
+                DateOnly fiveDaysLater = currentDate.AddDays(5);
                 if (ExpirationDate < currentDate)
                 {
                     return Color.FromRgb(255, 0, 0);
                 }
-                else if (ExpirationDate.Day - currentDate.Day <= 5)
+                else if (fiveDaysLater >= ExpirationDate)
                 {
                     return Color.FromRgb(255, 165, 0);
                 }
