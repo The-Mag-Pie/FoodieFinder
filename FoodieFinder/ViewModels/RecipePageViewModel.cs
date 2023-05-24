@@ -68,7 +68,7 @@ namespace FoodieFinder.ViewModels
 
         private static bool IsIngredientInStorage(Ingredient ingredient)
         {
-            var matchedIngredient = StorageItems.Where(i => String.Equals(i.ProductName, ingredient.Name, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+            var matchedIngredient = StorageItems.Where(i => IsStringSimilar(i.ProductName, ingredient.Name)).FirstOrDefault();
             if(matchedIngredient != null)
             {
                 if(matchedIngredient.Unit == ingredient.Unit)
@@ -81,6 +81,52 @@ namespace FoodieFinder.ViewModels
                 }
             }
             return false;
+        }
+
+        private static bool IsStringSimilar(string word, string input)
+        {
+            word = word.ToLower();
+            input = input.ToLower();
+            if (word == input)
+            {
+                return true;
+            }
+
+            if (Math.Abs(word.Length - input.Length) > 1)
+            {
+                return false;
+            }
+
+            string shorter = word.Length < input.Length ? word : input;
+            string longer = word.Length < input.Length ? input : word;
+
+            bool foundMismatch = false;
+            int shorterIndex = 0;
+            int longerIndex = 0;
+
+            while (shorterIndex < shorter.Length && longerIndex < longer.Length)
+            {
+                if (shorter[shorterIndex] != longer[longerIndex])
+                {
+                    if (foundMismatch)
+                    {
+                        return false;
+                    }
+                    foundMismatch = true;
+
+                    if (shorter.Length == longer.Length)
+                    {
+                        shorterIndex++;
+                    }
+                }
+                else
+                {
+                    shorterIndex++;
+                }
+                longerIndex++;
+            }
+
+            return true;
         }
     }
 }
