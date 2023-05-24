@@ -106,7 +106,8 @@
                                    VerticalOptions="Center"
                                    FontAttributes="Bold"
                                    TextColor="#FFFFFF"
-                                   FontSize="14">
+                                   FontSize="14"
+                                   LineBreakMode="TailTruncation">
                                 <Label.Shadow>
                                     <Shadow Radius="15"
                                             Opacity="1"/>
