@@ -54,7 +54,7 @@ namespace FoodieFinder.ViewModels
             var configSection = config.GetRequiredSection("FoodieFinder");
 
             var domainName = configSection["DomainName"];
-            var shareRecipeEndpoint = configSection["ShareOnlineRecipeEndpoint"];
+            var shareRecipeEndpoint = configSection["ShareRecipeEndpoint"];
             if (domainName == null || shareRecipeEndpoint == null) return;
 
             await Share.Default.RequestAsync(new ShareTextRequest()

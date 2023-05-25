@@ -7,7 +7,8 @@ namespace FoodieFinder;
 public partial class App : Application
 {
 	public static int? SharedRecipeID { get; set; } = null;
-	public static event Action SharedRecipeIntentReceived;
+    public static string SharedOnlineRecipeID { get; set; } = null;
+    public static event Action SharedRecipeIntentReceived;
 	public static void OnSharedRecipeIntentReceived() => SharedRecipeIntentReceived?.Invoke();
 	public static void ClearSharedRecipeIntentReceived()
 	{

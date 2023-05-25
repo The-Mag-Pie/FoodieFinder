@@ -86,7 +86,7 @@
                    Margin="20, 5">
 
             </Label>
-            <Label Text="{Binding TappedRecipe.Description}"/>
+            <!--<Label Text="{Binding TappedRecipe.Description}"/>-->
             <Label Style="{StaticResource MainLabel}"
                    Text="Ingrediets:"
                    Margin="20, 15">
@@ -128,7 +128,7 @@
                    Margin="20, 15">
 
             </Label>
-            <Label Text="{Binding TappedRecipe.Preparation}"></Label>
+            <Label Text="{Binding TappedRecipe.Instructions}"></Label>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
