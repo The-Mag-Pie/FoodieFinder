@@ -111,6 +111,36 @@ namespace FoodieFinder.ViewModels
                 }
             });
         }
+        [RelayCommand]
+        private async Task SurpriseMeSearch()
+        {
+            List <string> item1 = new List<string>();
+            foreach (var item in _dbContext.StoreRoom.Where(u => u.User_UserId == _userData.UserId))
+            {
+                item1.Add(item.ProductName);
+            }
+            for (int i = item1.Count; i>2; i--)
+            {
+                Random rnd = new Random();
+                item1.Remove(item1[rnd.Next(0, item1.Count)]);
+            }
+            var selectedIngredients = item1;
+
+            SearchQuery = string.Empty;
+
+            if (selectedIngredients == null) return;
+
+            await InvokeAsyncWithLoader(async () =>
+            {
+                var foundRecipes = await _apiClient.SearchRecipesByIngredientsAsync(selectedIngredients);
+
+                FoundRecipes.Clear();
+                foreach (var recipe in foundRecipes)
+                {
+                    FoundRecipes.Add(recipe);
+                }
+            });
+        }
 
         [RelayCommand]
         private async Task SearchItemTapped(Recipe recipe)
