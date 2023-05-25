@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodieFinder.Pages.OnlineRecipeDetailsPage"
+             xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
+             xmlns:m="clr-namespace:FoodieFinder.Models"
+             xmlns:customview="clr-namespace:FoodieFinder.CustomViews"
+             x:DataType="vm:OnlineRecipeDetailsPageViewModel"
+             BackgroundColor="#2C3639"
+             Title="RecipePage"
+             Shell.TabBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontFamily" Value="Poppins-Medium"/>
+        </Style>
+        <Style x:Key="MainLabel" TargetType="Label">
+            <Setter Property="TextColor" Value="#ABABAB"></Setter>
+            <Setter Property="FontSize" Value="19"></Setter>
+            <Setter Property="FontFamily" Value="Poppins-SemiBold"/>
+        </Style>
+        <Style x:Key="InfoLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="TextColor" Value="#FFFFFF"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="26, 0, 26, 20">
+
+            <Image Source="arrow_icon.svg" 
+                                   Grid.Column="0" 
+                                    Rotation="180"
+                                   Margin="0,30,0,0"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Start">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BackCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            
+            <customview:PageHeader Margin="0, 15, 0, 0"/>
+
+            <!--<Border StrokeShape="RoundRectangle 60"
+                        StrokeThickness="0"
+                        BackgroundColor="#2C3639"
+                        Scale="0.75">
+                <Image Source="guacamole.png"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Aspect="AspectFill"/>
+            </Border>-->
+
+            <Grid HorizontalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="45"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="1"
+                       Text="{Binding TappedRecipe.Name}"
+                       Style="{StaticResource MainLabel}"
+                       VerticalOptions="Center"/>
+
+                <ImageButton Grid.Column="2"
+                             Source="share_icon.svg"
+                             Scale="1"
+                             Command="{Binding ShareButtonClickedCommand}"/>
+            </Grid>
+
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20" Margin="20">
+                <Image Source="clock_icon.svg"></Image>
+                <Label Text="15 min" Style="{StaticResource InfoLabel}"></Label>
+                <Image Source="star_icon.svg>"></Image>
+                <Label Text="5.0" Style="{StaticResource InfoLabel}"></Label>
+            </HorizontalStackLayout>
+            <Label Style="{StaticResource MainLabel}"
+                   Text="Description:"
+                   Margin="20, 5">
+
+            </Label>
+            <Label Text="{Binding TappedRecipe.Description}"/>
+            <Label Style="{StaticResource MainLabel}"
+                   Text="Ingrediets:"
+                   Margin="20, 15">
+                
+            </Label>
+            <CollectionView ItemsSource="{Binding Ingredients}"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Center">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                                       ItemSpacing="5" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:IngredientModel">
+                        <VerticalStackLayout Margin="-5, 0">
+                            <HorizontalStackLayout>
+                                <CheckBox IsChecked="{Binding IsChecked}" IsEnabled="False" Color="#29ABE2"></CheckBox>
+                                <Label                                             
+                                   HorizontalOptions="Start"
+                                   FontAttributes="Bold"
+                                   TextColor="#FFFFFF"
+                                   FontSize="16"
+                                   VerticalOptions="Center">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="{}{0} {1} {2}">
+                                            <Binding Path="IngredientName"/>
+                                            <Binding Path="Quantity"/>
+                                            <Binding Path="Unit"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Label Style="{StaticResource MainLabel}"
+                   Text="Recipe preparation:"
+                   Margin="20, 15">
+
+            </Label>
+            <Label Text="{Binding TappedRecipe.Preparation}"></Label>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
