@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FoodieFinder.Database;
+using FoodieFinder.SuggesticAPI;
 using FoodieFinder.UserAccount;
 using System.Collections.ObjectModel;
 
@@ -51,23 +52,31 @@ namespace FoodieFinder.ViewModels
             {
                 Application.Current.MainPage.DisplayAlert("Error", "Cannot connect to the server", "OK");
             }
-
         }
-
 
         [RelayCommand]
         private async Task SavedItemTapped(OnlineRecipe RecipeIt)
         {
-            Application.Current.MainPage.DisplayAlert("Error", "TODO", "OK");
-            /*var popup = new StorageItemPopup(RecipeIt);
-            var result = (string)await Application.Current.MainPage.ShowPopupAsync(popup);
+            var apiClient = _serviceProvider.GetRequiredService<SuggesticApiClient>();
 
-            switch (result)
+            await InvokeAsyncWithLoader(async () =>
             {
+                var recipe = await apiClient.GetRecipeById(RecipeIt.RecipeApiId);
 
-                default: break;
-            }*/
+                if (recipe is null)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Recipe error", "Online recipe not found", "OK");
+                    return;
+                }
+
+                var navigationParameter = new Dictionary<string, object>
+                {
+                    { "Recipe", recipe }
+                };
+                await Shell.Current.GoToAsync("OnlineRecipeDetailsPage", navigationParameter);
+            });
         }
+
         [RelayCommand]
         private void DeleteOnlineRecipe(OnlineRecipe RecipeIt)
         {
