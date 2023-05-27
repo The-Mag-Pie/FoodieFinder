@@ -123,6 +123,12 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            <Button Text="Add missing ingredients to bucket list"
+                    WidthRequest="325"
+                    FontFamily="Poppins-SemiBold"
+                    FontSize="14"
+                    Margin="5,15"
+                    Command="{Binding GenerateBucketListCommand}"/>
             <Label Style="{StaticResource MainLabel}"
                    Text="Recipe preparation:"
                    Margin="20, 15">
