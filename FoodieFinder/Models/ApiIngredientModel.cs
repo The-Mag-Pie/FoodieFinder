@@ -10,5 +10,21 @@ namespace FoodieFinder.Models
 
         [ObservableProperty]
         public bool _isChecked;
+
+        public string IngredientPrettyString
+        {
+            get
+            {
+                var str = string.Empty;
+                if (Quantity is not null)
+                {
+                    str = Quantity + " ";
+                    if (Unit is not null)
+                        str += Unit + " of ";
+                }
+                str += IngredientName;
+                return str;
+            }
+        }
     }
 }

@@ -77,18 +77,18 @@
 
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="20" Margin="20">
                 <Image Source="clock_icon.svg"></Image>
-                <Label Text="15 min" Style="{StaticResource InfoLabel}"></Label>
+                <Label Text="{Binding RecipePreparationTime}" Style="{StaticResource InfoLabel}"></Label>
                 <Image Source="star_icon.svg>"></Image>
                 <Label Text="5.0" Style="{StaticResource InfoLabel}"></Label>
             </HorizontalStackLayout>
-            <Label Style="{StaticResource MainLabel}"
+            <!--<Label Style="{StaticResource MainLabel}"
                    Text="Description:"
                    Margin="20, 5">
 
             </Label>
-            <!--<Label Text="{Binding TappedRecipe.Description}"/>-->
+            <Label Text="{Binding TappedRecipe.Description}"/>-->
             <Label Style="{StaticResource MainLabel}"
-                   Text="Ingrediets:"
+                   Text="Ingredients:"
                    Margin="20, 15">
                 
             </Label>
@@ -100,7 +100,7 @@
                                        ItemSpacing="5" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="m:IngredientModel">
+                    <DataTemplate x:DataType="m:ApiIngredientModel">
                         <VerticalStackLayout Margin="-5, 0">
                             <HorizontalStackLayout>
                                 <CheckBox IsChecked="{Binding IsChecked}" IsEnabled="False" Color="#29ABE2"></CheckBox>
@@ -109,14 +109,15 @@
                                    FontAttributes="Bold"
                                    TextColor="#FFFFFF"
                                    FontSize="16"
-                                   VerticalOptions="Center">
-                                    <Label.Text>
+                                   VerticalOptions="Center"
+                                   Text="{Binding IngredientPrettyString}">
+                                    <!--<Label.Text>
                                         <MultiBinding StringFormat="{}{0} {1} {2}">
                                             <Binding Path="IngredientName"/>
                                             <Binding Path="Quantity"/>
                                             <Binding Path="Unit"/>
                                         </MultiBinding>
-                                    </Label.Text>
+                                    </Label.Text>-->
                                 </Label>
                             </HorizontalStackLayout>
                         </VerticalStackLayout>
@@ -128,7 +129,17 @@
                    Margin="20, 15">
 
             </Label>
-            <Label Text="{Binding TappedRecipe.Instructions}"></Label>
+            <CollectionView ItemsSource="{Binding TappedRecipe.Instructions}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                                       ItemSpacing="6"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Label Text="{Binding .}"></Label>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

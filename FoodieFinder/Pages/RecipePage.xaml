@@ -88,7 +88,7 @@
             </Label>
             <Label Text="{Binding TappedRecipe.Description}"/>
             <Label Style="{StaticResource MainLabel}"
-                   Text="Ingrediets:"
+                   Text="Ingredients:"
                    Margin="20, 15">
                 
             </Label>

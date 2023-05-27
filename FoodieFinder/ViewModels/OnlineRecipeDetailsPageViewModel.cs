@@ -16,6 +16,16 @@ namespace FoodieFinder.ViewModels
 
         [ObservableProperty]
         private ApiRecipe _tappedRecipe;
+        public string RecipePreparationTime
+        {
+            get
+            {
+                if (TappedRecipe.PreparationTime is not null)
+                    return $"{TappedRecipe.PreparationTime / 60} min";
+                else
+                    return "not specified";
+            }
+        }
 
         private readonly List<StorageItem> StorageItems = new();
 
