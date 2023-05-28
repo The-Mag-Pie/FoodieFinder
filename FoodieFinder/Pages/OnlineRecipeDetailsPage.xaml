@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FoodieFinder.Pages.RecipePage"
+             x:Class="FoodieFinder.Pages.OnlineRecipeDetailsPage"
              xmlns:vm="clr-namespace:FoodieFinder.ViewModels"
              xmlns:m="clr-namespace:FoodieFinder.Models"
              xmlns:customview="clr-namespace:FoodieFinder.CustomViews"
-             x:DataType="vm:RecipePageViewModel"
+             x:DataType="vm:OnlineRecipeDetailsPageViewModel"
              BackgroundColor="#2C3639"
              Title="RecipePage"
              Shell.TabBarIsVisible="False">
@@ -79,16 +79,16 @@
 
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="20" Margin="20">
                 <Image Source="clock_icon.svg"></Image>
-                <Label Text="15 min" Style="{StaticResource InfoLabel}"></Label>
+                <Label Text="{Binding RecipePreparationTime}" Style="{StaticResource InfoLabel}"></Label>
                 <Image Source="star_icon.svg>"></Image>
                 <Label Text="5.0" Style="{StaticResource InfoLabel}"></Label>
             </HorizontalStackLayout>
-            <Label Style="{StaticResource MainLabel}"
+            <!--<Label Style="{StaticResource MainLabel}"
                    Text="Description:"
                    Margin="20, 5">
 
             </Label>
-            <Label Text="{Binding TappedRecipe.Description}"/>
+            <Label Text="{Binding TappedRecipe.Description}"/>-->
             <Label Style="{StaticResource MainLabel}"
                    Text="Ingredients:"
                    Margin="20, 15">
@@ -102,7 +102,7 @@
                                        ItemSpacing="5" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="m:IngredientModel">
+                    <DataTemplate x:DataType="m:ApiIngredientModel">
                         <VerticalStackLayout Margin="-5, 0">
                             <HorizontalStackLayout>
                                 <CheckBox IsChecked="{Binding IsChecked}" IsEnabled="False" Color="#29ABE2"></CheckBox>
@@ -111,32 +111,37 @@
                                    FontAttributes="Bold"
                                    TextColor="#FFFFFF"
                                    FontSize="16"
-                                   VerticalOptions="Center">
-                                    <Label.Text>
+                                   VerticalOptions="Center"
+                                   Text="{Binding IngredientPrettyString}">
+                                    <!--<Label.Text>
                                         <MultiBinding StringFormat="{}{0} {1} {2}">
                                             <Binding Path="IngredientName"/>
                                             <Binding Path="Quantity"/>
                                             <Binding Path="Unit"/>
                                         </MultiBinding>
-                                    </Label.Text>
+                                    </Label.Text>-->
                                 </Label>
                             </HorizontalStackLayout>
                         </VerticalStackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <Button Text="Add missing ingredients to bucket list"
-                    WidthRequest="325"
-                    FontFamily="Poppins-SemiBold"
-                    FontSize="14"
-                    Margin="5,15"
-                    Command="{Binding GenerateBucketListCommand}"/>
             <Label Style="{StaticResource MainLabel}"
                    Text="Recipe preparation:"
                    Margin="20, 15">
 
             </Label>
-            <Label Text="{Binding TappedRecipe.Preparation}"></Label>
+            <CollectionView ItemsSource="{Binding TappedRecipe.Instructions}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                                       ItemSpacing="6"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Label Text="{Binding .}"></Label>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

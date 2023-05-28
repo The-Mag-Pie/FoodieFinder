@@ -21,9 +21,12 @@ public class MainActivity : MauiAppCompatActivity
         var recipeID = getSharedRecipeIdFromIntent(Intent);
         if (recipeID != null)
         {
-            App.SharedRecipeID = recipeID;
+            if (int.TryParse(recipeID, out var id))
+                App.SharedRecipeID = id;
+            else
+                App.SharedOnlineRecipeID = recipeID;
         }
-
+        
         base.OnCreate(savedInstanceState);
     }
 
@@ -34,23 +37,22 @@ public class MainActivity : MauiAppCompatActivity
         var recipeID = getSharedRecipeIdFromIntent(intent);
         if (recipeID != null)
         {
-            App.SharedRecipeID = recipeID;
+            if (int.TryParse(recipeID, out var id))
+                App.SharedRecipeID = id;
+            else
+                App.SharedOnlineRecipeID = recipeID;
+
             App.OnSharedRecipeIntentReceived();
         }
     }
 
-    private static int? getSharedRecipeIdFromIntent(Intent intent)
+    private static string getSharedRecipeIdFromIntent(Intent intent)
     {
         var intentDataStr = intent.Data?.ToString();
-        if (intentDataStr != null && intentDataStr.Contains("/share-recipe/"))
-        {
-            var recipeIDstr = intentDataStr[(intentDataStr.LastIndexOf("/") + 1)..];
 
-            if (int.TryParse(recipeIDstr, out var recipeID))
-            {
-                return recipeID;
-            }
-        }
+        if (intentDataStr != null && intentDataStr.Contains("/share-recipe/"))
+            return intentDataStr[(intentDataStr.LastIndexOf("/") + 1)..];
+
         return null;
     }
 }
