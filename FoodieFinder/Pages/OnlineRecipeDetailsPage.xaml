@@ -55,7 +55,7 @@
 
             <Grid HorizontalOptions="Center">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -67,11 +67,13 @@
                 <Label Grid.Column="1"
                        Text="{Binding TappedRecipe.Name}"
                        Style="{StaticResource MainLabel}"
-                       VerticalOptions="Center"/>
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       MaximumWidthRequest="200"/>
 
                 <ImageButton Grid.Column="2"
                              Source="share_icon.svg"
-                             Scale="1"
+                             Scale="0.7"
                              Command="{Binding ShareButtonClickedCommand}"/>
             </Grid>
 
