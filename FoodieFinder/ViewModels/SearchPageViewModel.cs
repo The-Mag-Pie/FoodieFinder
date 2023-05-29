@@ -3,6 +3,7 @@ using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FoodieFinder.Database;
+using FoodieFinder.LocalJsonDatabase;
 using FoodieFinder.Popups;
 using FoodieFinder.SuggesticAPI;
 using FoodieFinder.UserAccount;
@@ -178,42 +179,24 @@ namespace FoodieFinder.ViewModels
         private void LoadRecentSearches()
         {
             RecentSearches.Clear();
-            string PATH = Path.Combine(FileSystem.Current.AppDataDirectory, "RecentSearch.json");
-            if (!File.Exists(PATH))
+
+            var items = RecentSearchesDb.GetItems();
+
+            if (items.Count > 3)
             {
-                var emptyJson = new object();
-                var json = JsonConvert.SerializeObject(emptyJson, Formatting.Indented);
-                File.WriteAllText(PATH, json);
+                items.Remove(items.First());
+                RecentSearchesDb.SaveItems(items);
             }
 
-            Dictionary<string, string> RecentString = new Dictionary<string, string> { };
-            string json2 = File.ReadAllText(PATH);
-            RecentString = JsonConvert.DeserializeObject<Dictionary<string,string>>(json2);
-            foreach (var item in RecentString)
-                {
-                    RecentSearches.Add(item.Value);
-                    if (RecentSearches.Count()>3)
-                    {
-                    RecentSearches.Remove(RecentSearches.First());
-                    }
-                }
-
+            items.Reverse();
+            foreach (var item in items)
+            {
+                RecentSearches.Add(item);
+            }
         }
         private void AddStringToRecent(string searchQuery)
         {
- 
-        string PATH = Path.Combine(FileSystem.Current.AppDataDirectory, "RecentSearch.json");
-            using (StreamReader sr = new StreamReader(PATH))
-                {
-                string oldElem = sr.ReadToEnd();
-                dynamic obiektJson = JsonConvert.DeserializeObject(oldElem);
-                obiektJson["Recent"] = searchQuery;
-                    string newElem = JsonConvert.SerializeObject(obiektJson, Formatting.Indented);
-                    using (StreamWriter sw = new StreamWriter(PATH))
-                    {
-                        sw.Write(newElem);
-                    }
-                }
+            RecentSearchesDb.AddItem(searchQuery);
             LoadRecentSearches();
         }
 
