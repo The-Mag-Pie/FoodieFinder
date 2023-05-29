@@ -10,7 +10,7 @@ public partial class SearchPage : ContentPage
 	{
 		InitializeComponent();
 
-		vm = new(serviceProvider);
+		vm = new SearchPageViewModel(serviceProvider);
 		BindingContext = vm;
 
 	}

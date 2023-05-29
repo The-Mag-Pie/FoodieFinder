@@ -3,6 +3,7 @@ using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FoodieFinder.Database;
+using FoodieFinder.Models;
 using FoodieFinder.LocalJsonDatabase;
 using FoodieFinder.Popups;
 using FoodieFinder.SuggesticAPI;
@@ -68,9 +69,11 @@ namespace FoodieFinder.ViewModels
         }
 
         [RelayCommand]
-        private void FiltersTapped()
+        private async Task FiltersTapped()
         {
-            //----------------------------------
+            var popup = new FiltersPopup();
+            var result = (Filters)await Application.Current.MainPage.ShowPopupAsync(popup);
+            
         }
 
         [RelayCommand]
@@ -172,9 +175,13 @@ namespace FoodieFinder.ViewModels
                 Toast.Make("Recipe has been saved.", CommunityToolkit.Maui.Core.ToastDuration.Long).Show();
         }
 
-        private void RecentSearchTapped(string searchQuery)
+        [RelayCommand]
+        private void RecentSearchTapped(string searchRecent)
         {
-            //----------------------------------
+            DeleteRecentSearch(searchRecent);
+            SearchQuery = searchRecent;
+            Search();
+
         }
         private void LoadRecentSearches()
         {
@@ -194,16 +201,17 @@ namespace FoodieFinder.ViewModels
                 RecentSearches.Add(item);
             }
         }
-        private void AddStringToRecent(string searchQuery)
+        private void AddStringToRecent(string searchRecent)
         {
-            RecentSearchesDb.AddItem(searchQuery);
+            RecentSearchesDb.AddItem(searchRecent);
             LoadRecentSearches();
         }
 
-        
-        private void DeleteRecentSearchTapped(string searchQuery)
+        [RelayCommand]
+        private void DeleteRecentSearch(string recent)
         {
-            //----------------------------------
+            RecentSearchesDb.RemoveItem(recent);
+            LoadRecentSearches();
         }
     }
 }

@@ -39,5 +39,13 @@ namespace FoodieFinder.LocalJsonDatabase
             var jsonContent = JsonSerializer.Serialize(existingItems);
             File.WriteAllText(FullPath, jsonContent);
         }
+        public static void RemoveItem(string item)
+        {
+            var existingItems = GetItems();
+            existingItems.Remove(item);
+
+            var jsonContent = JsonSerializer.Serialize(existingItems);
+            File.WriteAllText(FullPath, jsonContent);
+        }
     }
 }
