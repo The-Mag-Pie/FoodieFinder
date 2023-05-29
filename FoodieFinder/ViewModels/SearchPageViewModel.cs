@@ -6,7 +6,9 @@ using FoodieFinder.Database;
 using FoodieFinder.Popups;
 using FoodieFinder.SuggesticAPI;
 using FoodieFinder.UserAccount;
+using Newtonsoft.Json;
 using System.Collections.ObjectModel;
+using System.Runtime.ExceptionServices;
 using Recipe = FoodieFinder.SuggesticAPI.Models.Recipe;
 
 namespace FoodieFinder.ViewModels
@@ -44,7 +46,7 @@ namespace FoodieFinder.ViewModels
             return message;
         }
 
-        //public ObservableCollection<string> RecentSearches { get; } = new();
+        public ObservableCollection<string> RecentSearches { get; } = new();
         public ObservableCollection<Recipe> FoundRecipes { get; } = new();
 
         [ObservableProperty]
@@ -61,6 +63,7 @@ namespace FoodieFinder.ViewModels
             _apiClient = serviceProvider.GetRequiredService<SuggesticApiClient>();
             _dbContext = serviceProvider.GetRequiredService<AppDbContext>();
             _userData = serviceProvider.GetRequiredService<UserData>();
+            LoadRecentSearches();
         }
 
         [RelayCommand]
@@ -77,7 +80,8 @@ namespace FoodieFinder.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Error", "Recipe name is empty", "OK");
                 return;
             }
-
+            //kod na recent searches
+            AddStringToRecent(SearchQuery);
             await InvokeAsyncWithLoader(async () =>
             {
                 var foundRecipes = await _apiClient.SearchRecipesByNameAsync(SearchQuery);
@@ -167,13 +171,56 @@ namespace FoodieFinder.ViewModels
                 Toast.Make("Recipe has been saved.", CommunityToolkit.Maui.Core.ToastDuration.Long).Show();
         }
 
-        //private void RecentSearchTapped(string searchQuery)
-        //{
-        //    //----------------------------------
-        //}
-        //private void DeleteRecentSearchTapped(string searchQuery)
-        //{
-        //    //----------------------------------
-        //}
+        private void RecentSearchTapped(string searchQuery)
+        {
+            //----------------------------------
+        }
+        private void LoadRecentSearches()
+        {
+            RecentSearches.Clear();
+            string PATH = Path.Combine(FileSystem.Current.AppDataDirectory, "RecentSearch.json");
+            if (!File.Exists(PATH))
+            {
+                var emptyJson = new object();
+                var json = JsonConvert.SerializeObject(emptyJson, Formatting.Indented);
+                File.WriteAllText(PATH, json);
+            }
+
+            Dictionary<string, string> RecentString = new Dictionary<string, string> { };
+            string json2 = File.ReadAllText(PATH);
+            RecentString = JsonConvert.DeserializeObject<Dictionary<string,string>>(json2);
+            foreach (var item in RecentString)
+                {
+                    RecentSearches.Add(item.Value);
+                    if (RecentSearches.Count()>3)
+                    {
+                    RecentSearches.Remove(RecentSearches.First());
+                    }
+                }
+
+        }
+        private void AddStringToRecent(string searchQuery)
+        {
+ 
+        string PATH = Path.Combine(FileSystem.Current.AppDataDirectory, "RecentSearch.json");
+            using (StreamReader sr = new StreamReader(PATH))
+                {
+                string oldElem = sr.ReadToEnd();
+                dynamic obiektJson = JsonConvert.DeserializeObject(oldElem);
+                obiektJson["Recent"] = searchQuery;
+                    string newElem = JsonConvert.SerializeObject(obiektJson, Formatting.Indented);
+                    using (StreamWriter sw = new StreamWriter(PATH))
+                    {
+                        sw.Write(newElem);
+                    }
+                }
+            LoadRecentSearches();
+        }
+
+        
+        private void DeleteRecentSearchTapped(string searchQuery)
+        {
+            //----------------------------------
+        }
     }
 }

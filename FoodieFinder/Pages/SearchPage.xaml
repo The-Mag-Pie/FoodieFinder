@@ -131,7 +131,7 @@
                         Text="Suprise Me"
                         Command="{Binding SurpriseMeSearchCommand}"/>
             </Grid>
-            <!--<Border StrokeThickness="0"
+            <Border StrokeThickness="0"
                 StrokeShape="RoundRectangle 15,15,15,15"
                 BackgroundColor="#273033"
                 Margin="0,10,10,0">
@@ -221,7 +221,7 @@
                         </CollectionView>
                     </Grid>
                 </HorizontalStackLayout>
-            </Border>-->
+            </Border>
             <CollectionView ItemsSource="{Binding FoundRecipes}"
                                     EmptyView="No recipes found"
                                     Grid.Column="0"
