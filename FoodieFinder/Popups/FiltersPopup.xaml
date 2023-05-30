@@ -32,95 +32,35 @@
                     VerticalOptions="Center" 
                        Grid.Row="0" 
                        Grid.Column="1"/>
-                <CheckBox IsChecked="{Binding NoMeat}"/>
+                <CheckBox IsChecked="{Binding NoMeat}"
+                          x:Name="NoMea"/>
                 <Label Text="No meat"
                        HorizontalOptions="Start"
                     VerticalOptions="Center" 
                        Grid.Row="0" 
                        Grid.Column="1"/>
-                <CheckBox IsChecked="{Binding NoMeat}"/>
                 <Label Text="Max Ingredients"
                        HorizontalOptions="Start"
                     VerticalOptions="Center" 
                        Grid.Row="1" 
                        Grid.Column="1"/>
-                
-                <Picker x:Name="MaxIngredientsPick"
-                        TextColor="#FFF"
-                        Title="..."
-                        FontSize="20"
-                        Grid.Row="1" 
-                       Grid.Column="0"
-                        SelectedItem="{Binding MaxIngredients}"
-                        HorizontalOptions="Center">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:Int16}">
-                            <x:Int16>3</x:Int16>
-                            <x:Int16>4</x:Int16>
-                            <x:Int16>5</x:Int16>
-                            <x:Int16>6</x:Int16>
-                            <x:Int16>7</x:Int16>
-                            <x:Int16>8</x:Int16>
-                            <x:Int16>9</x:Int16>
-                            <x:Int16>10</x:Int16>
-                            <x:Int16>11</x:Int16>
-                            <x:Int16>12</x:Int16>
-                            <x:Int16>13</x:Int16>
-                            <x:Int16>14</x:Int16>
-                            <x:Int16>15</x:Int16>
-                            <x:Int16>16</x:Int16>
-                            <x:Int16>17</x:Int16>
-                            <x:Int16>18</x:Int16>
-                            <x:Int16>19</x:Int16>
-                            <x:Int16>20</x:Int16>
-                            <x:Int16>21</x:Int16>
-                            <x:Int16>22</x:Int16>
-                            <x:Int16>23</x:Int16>
-                            <x:Int16>24</x:Int16>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
+
+                <Entry Keyboard="Numeric"
+                       x:Name="MaxIng"
+                       Text="{Binding MaxIngredients}"
+                       Grid.Row="1"
+                       Grid.Column="0"/>
                 <Label Text="Max Preparation Time (Min)"
+                       x:Name="MaxPrep"
                        LineBreakMode="WordWrap"
                        HorizontalOptions="Start"
                        Grid.Row="2" 
                        Grid.Column="1"/>
-                <Picker x:Name="MaxPreparationTimePick"
-                        TextColor="#FFF"
-
-                        Title="..."
-                        FontSize="20"
-                        Grid.Row="2" 
-                       Grid.Column="0"
-                        SelectedItem="{Binding MaxPreparationTime}"
-                        HorizontalOptions="Center">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:Int16}">
-                            <x:Int16>3</x:Int16>
-                            <x:Int16>4</x:Int16>
-                            <x:Int16>5</x:Int16>
-                            <x:Int16>6</x:Int16>
-                            <x:Int16>7</x:Int16>
-                            <x:Int16>8</x:Int16>
-                            <x:Int16>9</x:Int16>
-                            <x:Int16>10</x:Int16>
-                            <x:Int16>11</x:Int16>
-                            <x:Int16>12</x:Int16>
-                            <x:Int16>13</x:Int16>
-                            <x:Int16>14</x:Int16>
-                            <x:Int16>15</x:Int16>
-                            <x:Int16>16</x:Int16>
-                            <x:Int16>17</x:Int16>
-                            <x:Int16>18</x:Int16>
-                            <x:Int16>19</x:Int16>
-                            <x:Int16>20</x:Int16>
-                            <x:Int16>21</x:Int16>
-                            <x:Int16>22</x:Int16>
-                            <x:Int16>23</x:Int16>
-                            <x:Int16>24</x:Int16>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
+                <Entry Keyboard="Numeric"
+                       
+                       Text="{Binding MaxPreparationTime}"
+                       Grid.Row="2"
+                       Grid.Column="0"/>
             </Grid>
             <Button Text="ApplyFilters"
                     Clicked="ApplyFilters_Clicked" 

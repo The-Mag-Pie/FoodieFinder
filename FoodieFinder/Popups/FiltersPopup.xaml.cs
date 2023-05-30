@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Views;
 using FoodieFinder.Models;
+using FoodieFinder.UserAccount;
 
 
 namespace FoodieFinder.Popups;
@@ -7,19 +8,13 @@ namespace FoodieFinder.Popups;
 public partial class FiltersPopup : Popup
 {
 	private readonly Filters addmodel;
-
-    public FiltersPopup()
+    public FiltersPopup(Filters Filtr)
 	{
 		InitializeComponent();
-        
-		addmodel = new Filters();
-
+        addmodel = new Filters();
+        addmodel = Filtr;
         BindingContext = addmodel;
-
-
-
     }
-
 
     private void ApplyFilters_Clicked(object sender, EventArgs e) 
 	{
