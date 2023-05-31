@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.ObjectModel;
 using FoodieFinder.UserAccount;
 using FoodieFinder.SuggesticAPI.Models;
+using FoodieFinder.LocalJsonDatabase;
 
 namespace FoodieFinder.ViewModels
 {
@@ -135,6 +136,33 @@ namespace FoodieFinder.ViewModels
             }
 
             return true;
+        }
+
+        [RelayCommand]
+        private void GenerateBucketList()
+        {
+            List<BucketListItem> BucketList = BucketListDb.GetItems();
+
+            foreach (var ingredient in Ingredients)
+            {
+                if (ingredient.IsChecked)
+                {
+                    continue;
+                }
+
+                if (!BucketList.Where(x => IsStringSimilar(ingredient.IngredientName, x.ProductName)).Any())
+                {
+                    BucketListItem item = new BucketListItem();
+                    item.ProductName = ingredient.IngredientName;
+                    item.IsChecked = false;
+                    BucketList.Add(item);
+                    BucketListDb.SaveItems(BucketList);
+                    Application.Current.MainPage.DisplayAlert("Success", "Missing ingredients have been added to the bucket list", "Ok");
+                }
+
+            }
+
+
         }
     }
 }
