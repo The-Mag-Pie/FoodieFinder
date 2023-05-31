@@ -77,12 +77,12 @@
                              Command="{Binding ShareButtonClickedCommand}"/>
             </Grid>
 
-            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20" Margin="20">
+            <!--<HorizontalStackLayout HorizontalOptions="Center" Spacing="20" Margin="20">
                 <Image Source="clock_icon.svg"></Image>
                 <Label Text="15 min" Style="{StaticResource InfoLabel}"></Label>
                 <Image Source="star_icon.svg>"></Image>
                 <Label Text="5.0" Style="{StaticResource InfoLabel}"></Label>
-            </HorizontalStackLayout>
+            </HorizontalStackLayout>-->
             <Label Style="{StaticResource MainLabel}"
                    Text="Description:"
                    Margin="20, 5">
