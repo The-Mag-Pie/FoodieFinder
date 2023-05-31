@@ -80,8 +80,8 @@
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="20" Margin="20">
                 <Image Source="clock_icon.svg"></Image>
                 <Label Text="{Binding RecipePreparationTime}" Style="{StaticResource InfoLabel}"></Label>
-                <Image Source="star_icon.svg>"></Image>
-                <Label Text="5.0" Style="{StaticResource InfoLabel}"></Label>
+                <!--<Image Source="star_icon.svg>"></Image>
+                <Label Text="5.0" Style="{StaticResource InfoLabel}"></Label>-->
             </HorizontalStackLayout>
             <!--<Label Style="{StaticResource MainLabel}"
                    Text="Description:"
