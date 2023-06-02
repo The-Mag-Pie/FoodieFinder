@@ -78,7 +78,7 @@ namespace FoodieFinder.ViewModels
             try
             {
                 FiltersSetup = result;
-                CheckFilters();
+                await SearchWithFilters();
             }catch(Exception ex) { }
         }
 
@@ -101,8 +101,29 @@ namespace FoodieFinder.ViewModels
                 {
                     FoundRecipes.Add(recipe);
                 }
-                CheckFilters();
+                
             });
+            CheckFilters();
+        }
+        private async Task SearchWithFilters()
+        {
+            if (SearchQuery is null || SearchQuery.Length == 0)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Recipe name is empty", "OK");
+                return;
+            }
+            await InvokeAsyncWithLoader(async () =>
+            {
+                var foundRecipes = await _apiClient.SearchRecipesByNameAsync(SearchQuery);
+
+                FoundRecipes.Clear();
+                foreach (var recipe in foundRecipes)
+                {
+                    FoundRecipes.Add(recipe);
+                }
+
+            });
+            CheckFilters();
         }
 
         [RelayCommand]
@@ -250,16 +271,12 @@ namespace FoodieFinder.ViewModels
         }
         private bool checkifmeat2(Recipe item)
         {
-            string x = "";
             for (int i = 0; i <= item.Ingredients.Count(); i++)
             {
-                foreach (string MeatListItem in meats)
+                if (meats.Any(meats => item.Ingredients[i].IngredientName.ToLower().Contains(meats, StringComparison.OrdinalIgnoreCase)))
                 {
-                    if (item.Ingredients[i].IngredientName.ToLower() == MeatListItem.ToLower())
-                    {
-                        return true;
-                    }
-                }        
+                    return true;
+                }     
             }
             return false;
         }
@@ -269,7 +286,8 @@ namespace FoodieFinder.ViewModels
             {
                 int i = item.Ingredients.Count();
 
-                if (IntIngredients < i) { FoundRecipes.Remove(item); }
+                if (IntIngredients < i) { 
+                    FoundRecipes.Remove(item); }
             }
         }
         private void CheckMaxPrepTime(int PrepTime)
@@ -278,174 +296,74 @@ namespace FoodieFinder.ViewModels
             {
                 int? i = item.PreparationTime;
 
-                if (i >= PrepTime) { FoundRecipes.Remove(item); }
+                if (i >= PrepTime*60) { 
+                    FoundRecipes.Remove(item); }
             }
         }
 
         private static List<string> meats = new List<string>()
         {
-            "Beef",
-            "Pork",
-            "Chicken",
-            "Lamb",
-            "Turkey",
-            "Veal",
-            "Venison",
-            "Bison",
-            "Duck",
-            "Goose",
-            "Quail",
-            "Rabbit",
-            "Kangaroo",
-            "Ostrich",
-            "Alligator",
-            "Pheasant",
-            "Boar",
-            "Salmon",
-            "Tuna",
-            "Cod",
-            "Haddock",
-            "Trout",
-            "Mackerel",
-            "Sardine",
-            "Halibut",
-            "Swordfish",
-            "Bass",
-            "Snapper",
-            "Anchovy",
-            "Catfish",
-            "Crab",
-            "Lobster",
-            "Shrimp",
-            "Crayfish",
-            "Mussels",
-            "Clams",
-            "Oysters",
-            "Scallops",
-            "Octopus",
-            "Squid",
-            "Escargot",
-            "Frog legs",
-            "Sweetbreads",
-            "Tripe",
-            "Kidneys",
-            "Liver",
-            "Heart",
-            "Tongue",
-            "Brains",
-            "Cheeks",
-            "Feet",
-            "Tail",
-            "Chorizo",
-            "Pepperoni",
-            "Bacon",
-            "Ham",
-            "Sausage",
-            "Hot dog",
-            "Salami",
-            "Pastrami",
-            "Prosciutto",
-            "Corned beef",
-            "Pate",
-            "Ground beef",
-            "Ground pork",
-            "Ground chicken",
-            "Ground lamb",
-            "Ground turkey",
-            "Ground veal",
-            "Beef jerky",
-            "Pork rinds",
-            "Lamb chops",
-            "Pork chops",
-            "Chicken breast",
-            "Chicken wings",
-            "Chicken thighs",
-            "Chicken drumsticks",
-            "Chicken nuggets",
-            "Chicken tenders",
-            "Turkey breast",
-            "Turkey legs",
-            "Turkey bacon",
-            "Duck breast",
-            "Goose liver",
-            "Quail eggs",
-            "Rabbit stew",
-            "Lobster bisque",
-            "Crab cakes",
-            "Shrimp cocktail",
-            "Clam chowder",
-            "Oyster stew",
-            "Mussels marinara",
-            "Calamari rings",
-            "Frog legs provencal",
-            "Escargot bourguignon",
-            "Beef Wellington",
-            "Lamb kebabs",
-            "Chicken curry",
-            "Turkey meatballs",
-            "Duck confit",
-            "Pork belly",
-            "Bacon-wrapped scallops",
-            "Ham and cheese sandwich",
-            "Salami and provolone panini",
-            "Pepperoni pizza",
-            "Sausage and peppers",
-            "Hot dog with sauerkraut",
-            "Pastrami on rye",
-            "Prosciutto-wrapped melon",
-            "Corned beef hash",
-            "Liver and onions",
-            "Beef tongue tacos",
-            "Grilled lamb chops",
-            "Pork spare ribs",
-            "Chicken kabobs",
-            "Buffalo wings",
-            "Turkey chili",
-            "Duck a l'orange",
-            "Gooseberry pie",
-            "Rabbit pie",
-            "Shrimp scampi",
-            "Crab bisque",
-            "Lobster roll",
-            "Clam bake",
-            "Oysters Rockefeller",
-            "Scallops wrapped in bacon",
-            "Octopus salad",
-            "Squid ink pasta",
-            "Frog legs sautéed",
-            "Sweetbreads with mushrooms",
-            "Tripe stew",
-            "Kidney pie",
-            "Liver pâté",
-            "Heart skewers",
-            "Tongue sandwich",
-            "Brains and eggs",
-            "Cheek tacos",
-            "Chicken feet soup",
-            "Oxtail stew",
-            "Chorizo burrito",
-            "Pepperoni calzone",
-            "Bacon-wrapped filet mignon",
-            "Ham and pineapple pizza",
-            "Sausage gravy and biscuits",
-            "Hot dog with chili and cheese",
-            "Salami sandwich with mustard",
-            "Pastrami Reuben",
-            "Prosciutto-wrapped asparagus",
-            "Corned beef and cabbage",
-            "Beef stir-fry",
-            "Pork fried rice",
-            "Chicken noodle soup",
-            "Turkey club sandwich",
-            "Duck à l'orange",
-            "Goose roast",
-            "Quail stuffed with mushrooms",
-            "Rabbit ragu",
-            "Kangaroo steak",
-            "Ostrich burger",
-            "Alligator tail",
-            "Bison burger",
-            "Pheasant casserole"
+            "beef",
+            "pork",
+            "chicken",
+            "lamb",
+            "turkey",
+            "veal",
+            "venison",
+            "bison",
+            "duck",
+            "goose",
+            "quail",
+            "rabbit",
+            "kangaroo",
+            "ostrich",
+            "alligator",
+            "pheasant",
+            "boar",
+            "salmon",
+            "tuna",
+            "cod",
+            "haddock",
+            "trout",
+            "mackerel",
+            "sardine",
+            "halibut",
+            "swordfish",
+            "bass",
+            "snapper",
+            "anchovy",
+            "catfish",
+            "crab",
+            "lobster",
+            "shrimp",
+            "crayfish",
+            "mussels",
+            "clams",
+            "oysters",
+            "scallops",
+            "octopus",
+            "squid",
+            "escargot",
+            "frog",
+            "sweetbreads",
+            "tripe",
+            "kidneys",
+            "liver",
+            "heart",
+            "tongue",
+            "brains",
+            "cheeks",
+            "feet",
+            "tail",
+            "chorizo",
+            "pepperoni",
+            "bacon",
+            "ham",
+            "sausage",
+            "salami",
+            "pastrami",
+            "prosciutto",
+            "pate",
         };
     }
 }
