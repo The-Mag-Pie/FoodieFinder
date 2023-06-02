@@ -2,9 +2,9 @@
 {
     public class Filters
     {
-        public bool NoMeat { get; set; }
-        public int MaxIngredients { get; set; }
-        public int MaxPreparationTime { get; set; }
+        public bool NoMeat { get; set; } = false;
+        public int MaxIngredients { get; set; } = 0;
+        public int MaxPreparationTime { get; set; } = 0;
 
     }
 }

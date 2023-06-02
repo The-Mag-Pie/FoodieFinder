@@ -49,7 +49,7 @@ namespace FoodieFinder.ViewModels
         }
 
         public ObservableCollection<string> RecentSearches { get; } = new();
-        public ObservableCollection<Recipe> FoundRecipes { get; } = new();
+        public ObservableCollection<Recipe> FoundRecipesFiltered { get; } = new();
 
         [ObservableProperty]
         private string _searchQuery;
@@ -58,7 +58,9 @@ namespace FoodieFinder.ViewModels
         private readonly SuggesticApiClient _apiClient;
         private readonly AppDbContext _dbContext;
         private readonly UserData _userData;
+
         private Filters FiltersSetup = new();
+        private List<Recipe> FoundRecipes = new();
 
         public SearchPageViewModel(IServiceProvider serviceProvider)
         {
@@ -69,6 +71,33 @@ namespace FoodieFinder.ViewModels
             LoadRecentSearches();
         }
 
+        private void FilterFoundRecipesAndShow()
+        {
+            var foundRecipes = FoundRecipes as IEnumerable<Recipe>;
+
+            var noMeat = FiltersSetup.NoMeat;
+            var maxIngredients = FiltersSetup.MaxIngredients;
+            var maxPreparationTime = FiltersSetup.MaxPreparationTime;
+
+            if (noMeat)
+            {
+                foundRecipes = foundRecipes.Where(r => r.Ingredients.All(i => Meats.Any(m => i.IngredientName.ToLower().Contains(m)) == false));
+            }
+            if (maxIngredients > 0)
+            {
+                foundRecipes = foundRecipes.Where(r => r.Ingredients.Count <= maxIngredients);
+            }
+            if (maxPreparationTime > 0)
+            {
+                foundRecipes = foundRecipes.Where(r => (r.PreparationTime / 60) <= maxPreparationTime);
+            }
+
+            FoundRecipesFiltered.Clear();
+            foreach (var recipe in  foundRecipes)
+            {
+                FoundRecipesFiltered.Add(recipe);
+            }
+        }
 
         [RelayCommand]
         private async Task FiltersTapped()
@@ -78,7 +107,8 @@ namespace FoodieFinder.ViewModels
             try
             {
                 FiltersSetup = result;
-                await SearchWithFilters();
+                //await SearchWithFilters();
+                FilterFoundRecipesAndShow();
             }catch(Exception ex) { }
         }
 
@@ -94,37 +124,30 @@ namespace FoodieFinder.ViewModels
             AddStringToRecent(SearchQuery);
             await InvokeAsyncWithLoader(async () =>
             {
-                var foundRecipes = await _apiClient.SearchRecipesByNameAsync(SearchQuery);
-
-                FoundRecipes.Clear();
-                foreach (var recipe in foundRecipes)
-                {
-                    FoundRecipes.Add(recipe);
-                }
-                
+                FoundRecipes = await _apiClient.SearchRecipesByNameAsync(SearchQuery);
             });
-            CheckFilters();
+            FilterFoundRecipesAndShow();
         }
-        private async Task SearchWithFilters()
-        {
-            if (SearchQuery is null || SearchQuery.Length == 0)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "Recipe name is empty", "OK");
-                return;
-            }
-            await InvokeAsyncWithLoader(async () =>
-            {
-                var foundRecipes = await _apiClient.SearchRecipesByNameAsync(SearchQuery);
+        //private async Task SearchWithFilters()
+        //{
+        //    if (SearchQuery is null || SearchQuery.Length == 0)
+        //    {
+        //        await Application.Current.MainPage.DisplayAlert("Error", "Recipe name is empty", "OK");
+        //        return;
+        //    }
+        //    await InvokeAsyncWithLoader(async () =>
+        //    {
+        //        var foundRecipes = await _apiClient.SearchRecipesByNameAsync(SearchQuery);
 
-                FoundRecipes.Clear();
-                foreach (var recipe in foundRecipes)
-                {
-                    FoundRecipes.Add(recipe);
-                }
+        //        FoundRecipes.Clear();
+        //        foreach (var recipe in foundRecipes)
+        //        {
+        //            FoundRecipes.Add(recipe);
+        //        }
 
-            });
-            CheckFilters();
-        }
+        //    });
+        //    FilterFoundRecipesAndShow();
+        //}
 
         [RelayCommand]
         private async Task SearchByIngredients()
@@ -138,15 +161,9 @@ namespace FoodieFinder.ViewModels
 
             await InvokeAsyncWithLoader(async () =>
             {
-                var foundRecipes = await _apiClient.SearchRecipesByIngredientsAsync(selectedIngredients);
-
-                FoundRecipes.Clear();
-                foreach (var recipe in foundRecipes)
-                {
-                    FoundRecipes.Add(recipe);
-                }
+                FoundRecipes = await _apiClient.SearchRecipesByIngredientsAsync(selectedIngredients);
             });
-            CheckFilters();
+            FilterFoundRecipesAndShow();
         }
         [RelayCommand]
         private async Task SurpriseMeSearch()
@@ -154,7 +171,10 @@ namespace FoodieFinder.ViewModels
             List <string> item1 = new List<string>();
             foreach (var item in _dbContext.StoreRoom.Where(u => u.User_UserId == _userData.UserId))
             {
-                item1.Add(item.ProductName);
+                if (FiltersSetup.NoMeat && Meats.Any(m => item.ProductName.ToLower().Contains(m)))
+                    continue;
+                else
+                    item1.Add(item.ProductName);
             }
             for (int i = item1.Count; i>2; i--)
             {
@@ -169,15 +189,9 @@ namespace FoodieFinder.ViewModels
 
             await InvokeAsyncWithLoader(async () =>
             {
-                var foundRecipes = await _apiClient.SearchRecipesByIngredientsAsync(selectedIngredients);
-
-                FoundRecipes.Clear();
-                foreach (var recipe in foundRecipes)
-                {
-                    FoundRecipes.Add(recipe);
-                }
+                FoundRecipes = await _apiClient.SearchRecipesByIngredientsAsync(selectedIngredients);
             });
-            CheckFilters();
+            FilterFoundRecipesAndShow();
         }
 
         [RelayCommand]
@@ -243,65 +257,65 @@ namespace FoodieFinder.ViewModels
             RecentSearchesDb.RemoveItem(recent);
             LoadRecentSearches();
         }
-        private void CheckFilters()
-        {
+        //private void CheckFilters()
+        //{
 
-            if (FiltersSetup.NoMeat)
-            {
-                CheckIfMeat();
-            }
-            if (FiltersSetup.MaxIngredients > 0)
-            {
-                CheckMaxIngredients(FiltersSetup.MaxIngredients);
-            }
-            if (FiltersSetup.MaxPreparationTime > 0)
-            {
-                CheckMaxPrepTime(FiltersSetup.MaxPreparationTime);
-            }
-        }
-        private void CheckIfMeat()
-        {
-            foreach (Recipe item in FoundRecipes.ToList())
-            {
-                if (checkifmeat2(item))
-                {
-                    FoundRecipes.Remove(item);
-                }
-            }  
-        }
-        private bool checkifmeat2(Recipe item)
-        {
-            for (int i = 0; i <= item.Ingredients.Count(); i++)
-            {
-                if (meats.Any(meats => item.Ingredients[i].IngredientName.ToLower().Contains(meats, StringComparison.OrdinalIgnoreCase)))
-                {
-                    return true;
-                }     
-            }
-            return false;
-        }
-        private void CheckMaxIngredients(int IntIngredients)
-        {
-            foreach (Recipe item in FoundRecipes.ToList())
-            {
-                int i = item.Ingredients.Count();
+        //    if (FiltersSetup.NoMeat)
+        //    {
+        //        CheckIfMeat();
+        //    }
+        //    if (FiltersSetup.MaxIngredients > 0)
+        //    {
+        //        CheckMaxIngredients(FiltersSetup.MaxIngredients);
+        //    }
+        //    if (FiltersSetup.MaxPreparationTime > 0)
+        //    {
+        //        CheckMaxPrepTime(FiltersSetup.MaxPreparationTime);
+        //    }
+        //}
+        //private void CheckIfMeat()
+        //{
+        //    foreach (Recipe item in FoundRecipes.ToList())
+        //    {
+        //        if (checkifmeat2(item))
+        //        {
+        //            FoundRecipes.Remove(item);
+        //        }
+        //    }  
+        //}
+        //private bool checkifmeat2(Recipe item)
+        //{
+        //    for (int i = 0; i <= item.Ingredients.Count(); i++)
+        //    {
+        //        if (meats.Any(meats => item.Ingredients[i].IngredientName.ToLower().Contains(meats, StringComparison.OrdinalIgnoreCase)))
+        //        {
+        //            return true;
+        //        }     
+        //    }
+        //    return false;
+        //}
+        //private void CheckMaxIngredients(int IntIngredients)
+        //{
+        //    foreach (Recipe item in FoundRecipes.ToList())
+        //    {
+        //        int i = item.Ingredients.Count();
 
-                if (IntIngredients < i) { 
-                    FoundRecipes.Remove(item); }
-            }
-        }
-        private void CheckMaxPrepTime(int PrepTime)
-        {
-            foreach (Recipe item in FoundRecipes.ToList())
-            {
-                int? i = item.PreparationTime;
+        //        if (IntIngredients < i) { 
+        //            FoundRecipes.Remove(item); }
+        //    }
+        //}
+        //private void CheckMaxPrepTime(int PrepTime)
+        //{
+        //    foreach (Recipe item in FoundRecipes.ToList())
+        //    {
+        //        int? i = item.PreparationTime;
 
-                if (i >= PrepTime*60) { 
-                    FoundRecipes.Remove(item); }
-            }
-        }
+        //        if (i >= PrepTime*60) { 
+        //            FoundRecipes.Remove(item); }
+        //    }
+        //}
 
-        private static List<string> meats = new List<string>()
+        private static List<string> Meats = new List<string>()
         {
             "beef",
             "pork",

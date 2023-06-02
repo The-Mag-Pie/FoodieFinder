@@ -1,34 +1,31 @@
 ﻿using CommunityToolkit.Maui.Views;
 using FoodieFinder.Models;
-using FoodieFinder.UserAccount;
-
 
 namespace FoodieFinder.Popups;
 
 public partial class FiltersPopup : Popup
 {
-	private readonly Filters addmodel;
+	private readonly Filters FilterModel;
+
     public FiltersPopup(Filters Filtr)
 	{
 		InitializeComponent();
-        addmodel = new Filters();
-        addmodel = Filtr;
-        BindingContext = addmodel;
+        FilterModel = new Filters();
+        FilterModel = Filtr;
+        BindingContext = FilterModel;
     }
 
     private void ApplyFilters_Clicked(object sender, EventArgs e) 
 	{
-
-        if (true)
-        {
-            Close(addmodel);
-        }
-        else
-        {
-            Application.Current.MainPage.DisplayAlert("Error", "You have not provided required data", "OK");
-        }
-		
+        Close(FilterModel);
     }
 
-    
+    private void ResetFilters_Clicked(object sender, EventArgs e)
+    {
+        FilterModel.NoMeat = false;
+        FilterModel.MaxIngredients = 0;
+        FilterModel.MaxPreparationTime = 0;
+
+        Close(FilterModel);
+    }
 }

@@ -227,7 +227,7 @@
                     </Grid>
                 </HorizontalStackLayout>
             </Border>
-            <CollectionView ItemsSource="{Binding FoundRecipes}"
+            <CollectionView ItemsSource="{Binding FoundRecipesFiltered}"
                                     EmptyView="No recipes found"
                                     Grid.Column="0"
                                         Grid.ColumnSpan="3"

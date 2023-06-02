@@ -62,14 +62,24 @@
                        Grid.Row="2"
                        Grid.Column="0"/>
             </Grid>
-            <Button Text="ApplyFilters"
-                    Clicked="ApplyFilters_Clicked" 
+
+			<HorizontalStackLayout Spacing="5">
+				<Button Text="Reset"
+                    Clicked="ResetFilters_Clicked"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
                     CornerRadius="20"
                     WidthRequest="70"
-                    Grid.Row="0" Grid.Column="0"
                     TextColor="White"/>
+				
+				<Button Text="ApplyFilters"
+                    Clicked="ApplyFilters_Clicked"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    CornerRadius="20"
+                    WidthRequest="70"
+                    TextColor="White"/>
+			</HorizontalStackLayout>
             </VerticalStackLayout>
 
     </Border>
