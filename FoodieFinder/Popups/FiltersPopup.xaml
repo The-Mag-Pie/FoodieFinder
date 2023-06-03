@@ -49,6 +49,7 @@
                        x:Name="MaxIng"
                        Text="{Binding MaxIngredients}"
                        Grid.Row="1"
+                       TextColor="White"
                        Grid.Column="0"/>
                 <Label Text="Max Preparation Time (Min)"
                        x:Name="MaxPrep"
@@ -57,7 +58,7 @@
                        Grid.Row="2" 
                        Grid.Column="1"/>
                 <Entry Keyboard="Numeric"
-                       
+                       TextColor="White"
                        Text="{Binding MaxPreparationTime}"
                        Grid.Row="2"
                        Grid.Column="0"/>
