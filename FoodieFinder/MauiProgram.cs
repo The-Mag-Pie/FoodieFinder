@@ -62,7 +62,15 @@ public static class MauiProgram
 
 		// Add DbContext service
 		var connectionString = config.GetConnectionString("MariaDbConnectionString");
-		builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+		builder.Services.AddDbContext<AppDbContext>(
+			options => options.UseMySql(
+				connectionString,
+				ServerVersion.Create(
+					new Version(10,5,19),
+					Pomelo.EntityFrameworkCore.MySql.Infrastructure.ServerType.MariaDb
+				)
+			)
+		);
 
 		// Add Auth0 client
 		var auth0config = config.GetRequiredSection("Auth0Config").Get<Auth0Config>();
