@@ -5,7 +5,6 @@ using FoodieFinder.Models;
 using Microsoft.Extensions.Configuration;
 using System.Collections.ObjectModel;
 using FoodieFinder.UserAccount;
-using System.Diagnostics;
 using FoodieFinder.LocalJsonDatabase;
 
 namespace FoodieFinder.ViewModels

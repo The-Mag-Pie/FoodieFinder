@@ -8,9 +8,7 @@ using FoodieFinder.LocalJsonDatabase;
 using FoodieFinder.Popups;
 using FoodieFinder.SuggesticAPI;
 using FoodieFinder.UserAccount;
-using Newtonsoft.Json;
 using System.Collections.ObjectModel;
-using System.Runtime.ExceptionServices;
 using Recipe = FoodieFinder.SuggesticAPI.Models.Recipe;
 
 namespace FoodieFinder.ViewModels

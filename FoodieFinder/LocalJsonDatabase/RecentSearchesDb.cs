@@ -1,5 +1,4 @@
-﻿using FoodieFinder.Models;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace FoodieFinder.LocalJsonDatabase
 {
