@@ -241,12 +241,12 @@ namespace FoodieFinder.ViewModels
         {
             RecentSearches.Clear();
 
-            var items = RecentSearchesDb.GetItems();
+            var items = RecentSearchesDb.GetItems(_userData.UserId);
 
             if (items.Count > 3)
             {
                 items.Remove(items.First());
-                RecentSearchesDb.SaveItems(items);
+                RecentSearchesDb.SaveItems(items, _userData.UserId);
             }
 
             items.Reverse();
@@ -257,14 +257,14 @@ namespace FoodieFinder.ViewModels
         }
         private void AddStringToRecent(string searchRecent)
         {
-            RecentSearchesDb.AddItem(searchRecent);
+            RecentSearchesDb.AddItem(searchRecent, _userData.UserId);
             LoadRecentSearches();
         }
 
         [RelayCommand]
         private void DeleteRecentSearch(string recent)
         {
-            RecentSearchesDb.RemoveItem(recent);
+            RecentSearchesDb.RemoveItem(recent, _userData.UserId);
             LoadRecentSearches();
         }
         //private void CheckFilters()
