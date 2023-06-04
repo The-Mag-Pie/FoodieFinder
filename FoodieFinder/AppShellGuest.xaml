@@ -28,14 +28,13 @@
 
         <Tab Title="Search"
              Icon="search.png">
-            <ShellContent ContentTemplate="{DataTemplate pages:HomePage}"
-                          Route="HomePage2"/>
+            <ShellContent ContentTemplate="{DataTemplate pages:SearchPage}"
+                          Route="SearchPage"/>
         </Tab>
 
-        <Tab Title="TODO2"
+        <Tab Title="Saved recipes"
              Icon="bookbookmark.png">
-            <ShellContent ContentTemplate="{DataTemplate pages:HomePage}"
-                          Route="HomePage3"/>
+            <ShellContent ContentTemplate="{DataTemplate pages:SavedRecipePage}"/>
         </Tab>
     </TabBar>
 

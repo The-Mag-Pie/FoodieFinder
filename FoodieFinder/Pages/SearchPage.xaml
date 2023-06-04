@@ -128,7 +128,7 @@
                 <Button Grid.Row="2"
                         Grid.Column="0"
                         Grid.ColumnSpan="3"
-                        Text="Suprise Me"
+                        Text="Surprise Me"
                         Command="{Binding SurpriseMeSearchCommand}"/>
             </Grid>
             <Border StrokeThickness="0"
