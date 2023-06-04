@@ -200,7 +200,17 @@ namespace FoodieFinder.ViewModels
             var message = _buildAlertMessage(recipe);
             var result = await Application.Current.MainPage.DisplayAlert(recipe.Name, message, "Save recipe", "Cancel");
 
-            if (result) SaveRecipe(recipe);
+            if (result)
+            {
+                if (_userData.IsGuest)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Recipe error", "You have to be logged in to save the recipe.", "OK");
+                }
+                else
+                {
+                    SaveRecipe(recipe);
+                }
+            }
         }
 
         private void SaveRecipe(Recipe recipe)
