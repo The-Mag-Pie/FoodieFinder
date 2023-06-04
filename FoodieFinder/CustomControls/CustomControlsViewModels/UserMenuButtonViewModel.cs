@@ -28,6 +28,18 @@ namespace FoodieFinder.CustomControls.CustomControlsViewModels
         [RelayCommand]
         private async Task ButtonTapped()
         {
+            var userData = _serviceProvider.GetRequiredService<UserData>();
+
+            if (userData.IsGuest)
+            {
+                var guestResult = await Application.Current.MainPage.DisplayAlert("Login", "Do you want to log in?", "Yes", "No");
+                if (guestResult)
+                {
+                    Logout();
+                }
+                return;
+            }
+
             var popup = new UserOptionsPopup();
             var result = (string)await Application.Current.MainPage.ShowPopupAsync(popup);
 
