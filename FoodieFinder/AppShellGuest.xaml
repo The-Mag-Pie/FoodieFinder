@@ -20,27 +20,11 @@
                           Route="HomePage"/>
         </Tab>
 
-        <!--<Tab Title="Pantry"
-             Icon="materials.png">
-            <ShellContent ContentTemplate="{DataTemplate pages:StoragePage}"
-                          Route="HomePage1"/>
-        </Tab>-->
-
         <Tab Title="Search"
              Icon="search.png">
             <ShellContent ContentTemplate="{DataTemplate pages:SearchPage}"
                           Route="SearchPage"/>
         </Tab>
-
-        <Tab Title="Saved recipes"
-             Icon="bookbookmark.png">
-            <ShellContent ContentTemplate="{DataTemplate pages:SavedRecipePage}"/>
-        </Tab>
     </TabBar>
-
-    <!--<ShellContent
-        Title="HomePage"
-        ContentTemplate="{DataTemplate pages:HomePage}"
-        Route="HomePage" />-->
 
 </Shell>
