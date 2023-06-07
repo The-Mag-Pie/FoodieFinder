@@ -133,6 +133,7 @@ namespace FoodieFinder.ViewModels
         [RelayCommand]
         private void GenerateBucketList()
         {
+            bool added = false;
             List<BucketListItem> BucketList = BucketListDb.GetItems();
 
             foreach (var ingredient in Ingredients)
@@ -149,11 +150,14 @@ namespace FoodieFinder.ViewModels
                     item.IsChecked = false;
                     BucketList.Add(item);
                     BucketListDb.SaveItems(BucketList);
-                    Application.Current.MainPage.DisplayAlert("Success", "Missing ingredients have been added to the bucket list", "Ok");
+                    added = true;
                 }
 
             }
-
+            if (added)
+            {
+                Application.Current.MainPage.DisplayAlert("Success", "Missing ingredients have been added to the bucket list", "Ok");
+            }
 
         }
     }
