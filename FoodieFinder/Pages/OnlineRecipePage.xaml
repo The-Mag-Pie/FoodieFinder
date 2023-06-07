@@ -111,7 +111,6 @@
                                        FontSize="20"
                                        FontFamily="Poppins-Regular"
                                        Grid.Row="0"
-                                       Grid.ColumnSpan="2"
                                        FontAttributes="Bold"
                                        HorizontalOptions="Center">
                                                     <Label.GestureRecognizers>
