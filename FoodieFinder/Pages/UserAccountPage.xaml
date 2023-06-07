@@ -33,7 +33,7 @@
         </Style>
         <Style x:Key="EntryText" TargetType="Entry">
             <Setter Property="BackgroundColor" Value="#273133"/>
-            <Setter Property="TextColor" Value="#6A6363"/>
+            <Setter Property="TextColor" Value="#DDDDDD"/>
             <Setter Property="HorizontalOptions" Value="Center"/>
         </Style>
         <Style x:Key="ChangeButton" TargetType="Button">
@@ -51,7 +51,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <VerticalStackLayout Grid.Row="0">
+        <VerticalStackLayout Grid.Row="0" x:Name="userPicture">
             <Border Style="{StaticResource UserPhotoBorderStyle}">
                 <Label Text="{Binding UserFirstLetter}"
                            FontSize="23"
@@ -66,7 +66,7 @@
             FontSize="30"
             TextTransform="Uppercase"/>
         </VerticalStackLayout>
-        <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Always">
+        <ScrollView x:Name="inputs" Grid.Row="1" VerticalScrollBarVisibility="Always">
             <VerticalStackLayout>
                 <Label
                 Text="CHANGE PASSWORD"
@@ -77,7 +77,7 @@
                         <Shadow Radius="5"
                                 Opacity="0.8"/>
                     </Border.Shadow>
-                    <Entry Style="{StaticResource EntryText}"
+                    <Entry x:Name="oldPassword" Style="{StaticResource EntryText}"
                            Placeholder="Old password" 
                            Text="{Binding OldPassword}"/>
                 </Border>
@@ -86,7 +86,7 @@
                         <Shadow Radius="5"
                                 Opacity="0.8"/>
                     </Border.Shadow>
-                    <Entry Style="{StaticResource EntryText}"
+                    <Entry x:Name="newPassword" Style="{StaticResource EntryText}"
                            Placeholder="New password" 
                            Text="{Binding NewPassword}"/>
                 </Border>
@@ -95,7 +95,7 @@
                         <Shadow Radius="5"
                                 Opacity="0.8"/>
                     </Border.Shadow>
-                    <Entry Style="{StaticResource EntryText}"
+                    <Entry x:Name="confirmedPassword" Style="{StaticResource EntryText}"
                            Placeholder="Confirm password" 
                            Text="{Binding ConfirmedPassword}"/>
                 </Border>
@@ -111,7 +111,7 @@
                         <Shadow Radius="5"
                                 Opacity="0.8"/>
                     </Border.Shadow>
-                    <Entry Style="{StaticResource EntryText}"
+                    <Entry x:Name="newEmail" Style="{StaticResource EntryText}"
                            Placeholder="New email" 
                            Text="{Binding NewEmail}"/>
                 </Border>
@@ -120,7 +120,7 @@
                         <Shadow Radius="5"
                                 Opacity="0.8"/>
                     </Border.Shadow>
-                    <Entry Style="{StaticResource EntryText}"
+                    <Entry x:Name="confirmedEmail" Style="{StaticResource EntryText}"
                            Placeholder="Confirm email" 
                            Text="{Binding ConfirmedEmail}"/>
                 </Border>
