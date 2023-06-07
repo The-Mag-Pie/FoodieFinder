@@ -91,7 +91,12 @@ namespace FoodieFinder.ViewModels
         {
             if (AddIngredientName.Length == 0)
             {
-                Application.Current.MainPage.DisplayAlert("Error", "Ingredient name is empty!", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", "Ingredient name is empty!", "OK");
+                return;
+            }
+            else if (AddIngredientName.Length > 50)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Product name is too long. Maximum name length is 50 characters.", "OK");
                 return;
             }
 
