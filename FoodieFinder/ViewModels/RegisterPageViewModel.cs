@@ -38,7 +38,7 @@ namespace FoodieFinder.ViewModels
 
             //TODO Rejestracja
             var reg = new Register(_serviceProvider);
-            if(ConfirmedPassword != null && Email != null && Password != null) {
+            if(ConfirmedPassword != null && reg.IsEmail(email) && Password != null) {
                 if (reg.CheckIfInDatabase(Email)) {
                     //email istnieje już w bazie
                     Application.Current.MainPage.DisplayAlert("Error", "Email already in use", "Ok");
@@ -63,7 +63,7 @@ namespace FoodieFinder.ViewModels
             }
             else
             {
-                Application.Current.MainPage.DisplayAlert("Error", "All boxes must be filled", "Ok");
+                Application.Current.MainPage.DisplayAlert("Error", "All boxes must be filled with valid values", "Ok");
             }
     }
 
