@@ -87,12 +87,29 @@ namespace FoodieFinder.ViewModels
         }
 
         [RelayCommand]
-        private void AddBucketListItem()
+        private async Task AddBucketListItem()
         {
             if (AddIngredientName.Length == 0)
             {
                 Application.Current.MainPage.DisplayAlert("Error", "Ingredient name is empty!", "OK");
                 return;
+            }
+
+            // Check if item is already in the list
+            var matchedItems = BucketListDb.GetItems().Where(i => i.ProductName.Contains(AddIngredientName) || AddIngredientName.Contains(i.ProductName));
+            if (matchedItems.Count() > 0)
+            {
+                var message = "There are already similar products on the list:\n\n";
+
+                foreach (var item in matchedItems)
+                {
+                    message += $"{item.ProductName}\n";
+                }
+
+                message += "\nDo you want to add the product anyway?";
+
+                var response = await Application.Current.MainPage.DisplayAlert("Duplicated product", message, "Yes", "No");
+                if (response == false) return;
             }
 
             BucketList.Add(new()
