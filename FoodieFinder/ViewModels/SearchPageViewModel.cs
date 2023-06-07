@@ -213,7 +213,9 @@ namespace FoodieFinder.ViewModels
 
         private void SaveRecipe(Recipe recipe)
         {
-            var isRecipeAlreadySaved = _dbContext.OnlineRecipe.Any(r => r.RecipeApiId == recipe.ID);
+            var isRecipeAlreadySaved = _dbContext.OnlineRecipe
+                .Where(r => r.UserId == _userData.UserId)
+                .Any(r => r.RecipeApiId == recipe.ID);
             if (isRecipeAlreadySaved)
             {
                 Application.Current.MainPage.DisplayAlert("Duplicated recipe", "This recipe is already saved.", "OK");
