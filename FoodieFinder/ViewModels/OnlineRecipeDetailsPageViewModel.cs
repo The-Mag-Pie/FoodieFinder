@@ -141,8 +141,10 @@ namespace FoodieFinder.ViewModels
         [RelayCommand]
         private void GenerateBucketList()
         {
+            var userData = _serviceProvider.GetService<UserData>();
+
             bool added = false;
-            List<BucketListItem> BucketList = BucketListDb.GetItems();
+            List<BucketListItem> BucketList = BucketListDb.GetItems(userData.UserId);
 
             foreach (var ingredient in Ingredients)
             {
@@ -157,7 +159,7 @@ namespace FoodieFinder.ViewModels
                     item.ProductName = ingredient.IngredientName;
                     item.IsChecked = false;
                     BucketList.Add(item);
-                    BucketListDb.SaveItems(BucketList);
+                    BucketListDb.SaveItems(BucketList, userData.UserId);
                     added = true;
                 }
             }

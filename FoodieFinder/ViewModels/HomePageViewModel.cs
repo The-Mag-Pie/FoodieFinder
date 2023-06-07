@@ -57,7 +57,7 @@ namespace FoodieFinder.ViewModels
         private void LoadBucketList()
         {
             BucketList.Clear();
-            foreach (var bucketItem in BucketListDb.GetItems())
+            foreach (var bucketItem in BucketListDb.GetItems(_userData.UserId))
             {
                 BucketList.Add(bucketItem);
             }
@@ -76,7 +76,7 @@ namespace FoodieFinder.ViewModels
         [RelayCommand]
         public void SaveBucketList()
         {
-            Task.Run(() => BucketListDb.SaveItems(BucketList.ToList()));
+            Task.Run(() => BucketListDb.SaveItems(BucketList.ToList(), _userData.UserId));
         }
 
         [RelayCommand]
@@ -101,7 +101,7 @@ namespace FoodieFinder.ViewModels
             }
 
             // Check if item is already in the list
-            var matchedItems = BucketListDb.GetItems().Where(i => i.ProductName.Contains(AddIngredientName) || AddIngredientName.Contains(i.ProductName));
+            var matchedItems = BucketListDb.GetItems(_userData.UserId).Where(i => i.ProductName.Contains(AddIngredientName) || AddIngredientName.Contains(i.ProductName));
             if (matchedItems.Count() > 0)
             {
                 var message = "There are already similar products on the list:\n\n";
