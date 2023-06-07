@@ -26,7 +26,7 @@
                    FontAttributes="Bold"/>
 
             <CollectionView ItemsSource="{Binding Ingredients}"
-                            EmptyView="You don't have any items in your pantry"
+                            EmptyView="You don't have any items in your pantry."
                             SelectionMode="Multiple"
                             SelectionChanged="CollectionView_SelectionChanged"
                             Margin="20,15">
@@ -49,7 +49,8 @@
                         Clicked="ButtonSearchClicked"
                         WidthRequest="100"
                         HorizontalOptions="Center"
-                        Margin="0,10">
+                        Margin="0,10"
+						IsEnabled="{Binding IsSearchButtonEnabled}">
                     <Button.Shadow>
                         <Shadow Brush="Black"
                             Radius="20"

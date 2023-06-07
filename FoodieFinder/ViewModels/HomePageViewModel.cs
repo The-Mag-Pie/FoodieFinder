@@ -57,7 +57,7 @@ namespace FoodieFinder.ViewModels
         private void LoadBucketList()
         {
             BucketList.Clear();
-            foreach (var bucketItem in BucketListDb.GetItems())
+            foreach (var bucketItem in BucketListDb.GetItems(_userData.UserId))
             {
                 BucketList.Add(bucketItem);
             }
@@ -76,7 +76,7 @@ namespace FoodieFinder.ViewModels
         [RelayCommand]
         public void SaveBucketList()
         {
-            Task.Run(() => BucketListDb.SaveItems(BucketList.ToList()));
+            Task.Run(() => BucketListDb.SaveItems(BucketList.ToList(), _userData.UserId));
         }
 
         [RelayCommand]
@@ -87,12 +87,34 @@ namespace FoodieFinder.ViewModels
         }
 
         [RelayCommand]
-        private void AddBucketListItem()
+        private async Task AddBucketListItem()
         {
             if (AddIngredientName.Length == 0)
             {
-                Application.Current.MainPage.DisplayAlert("Error", "Ingredient name is empty!", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", "Ingredient name is empty!", "OK");
                 return;
+            }
+            else if (AddIngredientName.Length > 50)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Product name is too long. Maximum name length is 50 characters.", "OK");
+                return;
+            }
+
+            // Check if item is already in the list
+            var matchedItems = BucketListDb.GetItems(_userData.UserId).Where(i => i.ProductName.Contains(AddIngredientName) || AddIngredientName.Contains(i.ProductName));
+            if (matchedItems.Count() > 0)
+            {
+                var message = "There are already similar products on the list:\n\n";
+
+                foreach (var item in matchedItems)
+                {
+                    message += $"{item.ProductName}\n";
+                }
+
+                message += "\nDo you want to add the product anyway?";
+
+                var response = await Application.Current.MainPage.DisplayAlert("Duplicated product", message, "Yes", "No");
+                if (response == false) return;
             }
 
             BucketList.Add(new()
