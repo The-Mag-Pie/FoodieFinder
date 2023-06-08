@@ -30,6 +30,7 @@
                            BackgroundColor="#273133"  
                            Text="{Binding ProductName}"
                            TextColor="#6A6363"
+                           HorizontalTextAlignment="Center"
                            HorizontalOptions="Center"></Entry>
                 </Border>
                 <Border StrokeThickness="0"
@@ -59,6 +60,7 @@
                        Keyboard="Numeric"
                        Text="{Binding Quantity}"
                        TextColor="#6A6363"
+                       HorizontalTextAlignment="Center"
                        HorizontalOptions="Center"></Entry>
                 </Border>
                 <Border StrokeThickness="0"
@@ -72,6 +74,7 @@
                     <Picker x:Name="picker"
                         TextColor="#6A6363"
                         Title="Select Unit"
+                        HorizontalTextAlignment="Center"
                         SelectedItem="{Binding Unit}"
                         HorizontalOptions="Center">
                         <Picker.ItemsSource>

@@ -137,8 +137,8 @@
 
                                             <ColumnDefinition Width="30"/>
                                             <ColumnDefinition Width="140"/>
-                                            <ColumnDefinition Width="55" />
-                                            <ColumnDefinition Width="55" />
+                                            <ColumnDefinition Width="25" />
+                                            <ColumnDefinition Width="85" />
                                             <ColumnDefinition Width="45" />
                                         </Grid.ColumnDefinitions>
                                         <Border Style="{StaticResource StorageBorder}"
@@ -150,8 +150,13 @@
                                                    Margin="5,5,5,5" 
                                                    CornerRadius="45"
                                                    WidthRequest="10"
-                                                   HeightRequest="10"
-                                                   ></Frame>
+                                                   HeightRequest="10">
+                                                <Frame.GestureRecognizers>
+                                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:StoragePageViewModel}}, Path=StorageProductTappedCommand}" />
+                                                </Frame.GestureRecognizers>
+                                            </Frame>
+                                            
                                         </Border>
 
                                         <Label Text="{Binding ProductName}"
@@ -171,10 +176,11 @@
                                         FontSize="15"
                                         FontFamily="Poppins-Regular"
                                         Grid.Column="2"
+                                               Margin="0, 0 ,5 ,0"
                                         HorizontalOptions="End"></Label>
                                         <Label Text="{Binding Unit}"
                                         VerticalOptions="Center"
-                                        FontSize="10"
+                                        FontSize="14"
                                         FontFamily="Poppins-Regular"
                                         Grid.Column="3"
                                         HorizontalOptions="Start"></Label>

@@ -183,7 +183,10 @@ namespace FoodieFinder.ViewModels
 
             SearchQuery = string.Empty;
 
-            if (selectedIngredients == null) return;
+            if (selectedIngredients == null || selectedIngredients.Count < 2) {
+                await Application.Current.MainPage.DisplayAlert("Recipe error", "You need to add more items to your pantry", "OK");
+                return;
+                    };
 
             await InvokeAsyncWithLoader(async () =>
             {

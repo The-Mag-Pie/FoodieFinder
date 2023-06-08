@@ -21,6 +21,14 @@
                        TextColor="White"
                        HorizontalOptions="Center"
                        VerticalOptions="Center"></Label>
+            <Label Text="Set the time in which the" 
+                   TextColor="White"
+                   HorizontalTextAlignment="Center"
+                   FontSize="10"/>
+            <Label Text="notification should come from now" 
+                   TextColor="White"
+                   HorizontalTextAlignment="Center"
+                   FontSize="10"/>
             <Border StrokeThickness="0"
                 StrokeShape="RoundRectangle 15,15,15,15"
                 BackgroundColor="#273133"
@@ -30,8 +38,10 @@
                             Opacity="0.8"/>
                 </Border.Shadow>
                 <Picker x:Name="HourPicker"
-                        TextColor="#6A6363"
+                        TextColor="White"
                         Title="Select Hour"
+                        TitleColor="Wheat"
+                        HorizontalTextAlignment="Center"
                         SelectedItem="{Binding Hour}"
                         HorizontalOptions="Center">
                     <Picker.ItemsSource>
@@ -74,8 +84,10 @@
                             Opacity="0.8"/>
                 </Border.Shadow>
                 <Picker x:Name="MinutePicker"
-                        TextColor="#6A6363"
+                        TextColor="White"
                         Title="Select Minutes"
+                        TitleColor="Wheat"
+                        HorizontalTextAlignment="Center"
                         SelectedItem="{Binding Minutes}"
                         HorizontalOptions="Center">
                     <Picker.ItemsSource>
@@ -153,8 +165,10 @@
                             Opacity="0.8"/>
                 </Border.Shadow>
                 <Picker x:Name="SecondPicker"
-                        TextColor="#6A6363"
+                        TextColor="White"
                         Title="Select Seconds"
+                        TitleColor="Wheat"
+                        HorizontalTextAlignment="Center"
                         SelectedItem="{Binding Seconds}"
                         HorizontalOptions="Center">
                     <Picker.ItemsSource>
@@ -223,7 +237,7 @@
                     </Picker.ItemsSource>
                 </Picker>
             </Border>
-
+            
             <Button Text="SET"
                     Clicked="Set_Clicked" 
                     HorizontalOptions="Center"
@@ -231,7 +245,7 @@
                     CornerRadius="20"
                     TextColor="White"
                     WidthRequest="100"
-                        Margin="0,80,0,0"/>
+                        Margin="0,30,0,0"/>
             </VerticalStackLayout>
 
     </Border>

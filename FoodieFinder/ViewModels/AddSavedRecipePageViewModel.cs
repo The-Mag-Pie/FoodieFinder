@@ -82,6 +82,7 @@ namespace FoodieFinder.ViewModels
         [RelayCommand]
         private void AddSavedItem()
         {
+            
             if (Name != String.Empty && Description != String.Empty && 
                 Preparation != String.Empty && IngredientList.Count > 0)
             {
@@ -115,13 +116,17 @@ namespace FoodieFinder.ViewModels
         [RelayCommand]
         private async Task AddIgredientItem()
         {
-            var popup = new AddSavedRecipePopup();
-            var result = await Application.Current.MainPage.ShowPopupAsync(popup) as Ingredient;
-            if (result.Name != String.Empty && result.Quantity > 0 && result.Unit != String.Empty)
+            try
             {
-                IngredientList.Add(result);
-                LoadIngredientItems();
+                var popup = new AddSavedRecipePopup();
+                var result = await Application.Current.MainPage.ShowPopupAsync(popup) as Ingredient;
+                if (result.Name != String.Empty && result.Quantity > 0 && result.Unit != String.Empty)
+                {
+                    IngredientList.Add(result);
+                    LoadIngredientItems();
+                }
             }
+            catch { }
         }
         [RelayCommand]
         private void DeleteIgredientItem(Ingredient IngredientIt)

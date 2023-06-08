@@ -87,21 +87,23 @@ namespace FoodieFinder.ViewModels
             Shell.Current.GoToAsync($"RecipePage", navigationParameter);
         }
         [RelayCommand]
-        private void DeleteSavedRecipe(Recipe RecipeIt)
+        private async Task DeleteSavedRecipe(Recipe RecipeIt)
         {
-            //Application.Current.MainPage.DisplayAlert("Error", RecipeIt.Id.ToString()+" "+RecipeIt.Name, "OK");
-            
-            foreach (var item in _dbContext.Ingredient.Where(u => u.RecipeId == RecipeIt.Id))
+            bool answer = await Application.Current.MainPage.DisplayAlert("Delete Item", "Are you sure you want to delete the " + RecipeIt.Name.ToString() + " recipe?", "Yes", "No");
+            if (answer)
             {
-                _dbContext.Ingredient.Remove(item);
+                foreach (var item in _dbContext.Ingredient.Where(u => u.RecipeId == RecipeIt.Id))
+                {
+                    _dbContext.Ingredient.Remove(item);
+                }
+
+                _dbContext.ChangeTracker.Clear();
+                _dbContext.Recipe.Remove(RecipeIt);
+
+                _dbContext.SaveChanges();
+
+                LoadSavedItems();
             }
-
-            _dbContext.ChangeTracker.Clear();
-            _dbContext.Recipe.Remove(RecipeIt);
-
-            _dbContext.SaveChanges();
-
-            LoadSavedItems();
         }
         [RelayCommand]
         private void ModifySavedRecipe(Recipe RecipeIt)

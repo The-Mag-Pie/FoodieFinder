@@ -165,10 +165,10 @@
                                     <Grid Margin="0,0,0,0" >
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="30" />
-                                            <ColumnDefinition Width="120"/>
-                                            <ColumnDefinition Width="55" />
-                                            <ColumnDefinition Width="60" />
-                                            <ColumnDefinition Width="45" />
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="35" />
+                                            <ColumnDefinition Width="75" />
+                                            <ColumnDefinition Width="40" />
                                         </Grid.ColumnDefinitions>
 
                                         <Label Text=" " Grid.Column="0" HorizontalOptions="Center"></Label>
@@ -187,10 +187,12 @@
                                         FontSize="15"
                                         FontFamily="Poppins-Regular"
                                         Grid.Column="2"
+                                               Margin="0,0,5,0"
                                         HorizontalOptions="End"></Label>
                                         <Label Text="{Binding Unit}"
                                         VerticalOptions="Center"
-                                        FontSize="10"
+                                        FontSize="13"
+                                               
                                         FontFamily="Poppins-Regular"
                                         Grid.Column="3"
                                         HorizontalOptions="Start"></Label>
@@ -201,6 +203,7 @@
                                           X2="19" Y2="12.5"
                                           Stroke="#33363F"
                                           StrokeThickness="3"
+                                                  
                                           VerticalOptions="Center"
                                           HorizontalOptions="Start"/>
 
