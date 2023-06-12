@@ -1,5 +1,4 @@
 using FoodieFinder.ViewModels;
-using Microsoft.Maui.Controls;
 
 namespace FoodieFinder.Pages;
 
