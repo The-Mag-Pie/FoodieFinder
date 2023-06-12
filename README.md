@@ -1,6 +1,7 @@
 # FoodieFinder
 ## Description
-This is a .NET MAUI project of application for searching and managing recipes, support shopping, managing pantry etc.
+FoodieFinder is a culinary mobile application created with .NET MAUI that will help users prepare meal and organize shopping. Moreover the application will allow you to plan meals quickly and effectively.
+
 Application uses [Suggestic API](https://suggestic.com/api.html) to search recipes.
 
 ## Contributors
