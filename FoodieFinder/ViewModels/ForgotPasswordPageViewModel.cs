@@ -5,7 +5,7 @@ namespace FoodieFinder.ViewModels
 {
     partial class ForgotPasswordPageViewModel : UserAccountViewModel
     {
-        private const string API_URL_TEMPLATE = "https://foodiefinder.ydns.eu/api/SendRecoveryEmail/{}";
+        private const string API_URL_TEMPLATE = "https://foodiefinder.giize.com/api/SendRecoveryEmail/{}";
 
         public ForgotPasswordPageViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
         {
